@@ -2,6 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- Rethink Sans 폰트 설치 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
 <title>Daily Graph</title>
 </head>
 <body>
@@ -104,22 +108,24 @@
 						displayColors: false,	// label의 색상 상자 표시 여부
 						titleFont: {
 							size: 20,
+							family: 'Rethink Sans',
 							style: 'bold'
 						},
 						bodyFont: {
-							size: 15
+							size: 15,
+							family: 'Rethink Sans'
 						},
 						cornerRadius: 10,	// tooltip 둥근 모서리(기본값 : 6)
 						caretSize: 8,		// tooltip이 차트 요소를 가리키는 작은 삼각형
 						callbacks: {
 							title: function(tooltipTitle){
-								return '세부정보';
+								return 'Details';
 							},
 							label: function(tooltipLabel){
 								if(tooltipLabel.dataset.label === 'Traffic'){
-									return '• Traffic : '+tooltipLabel.raw;
+									return '• Traffic  :  '+tooltipLabel.raw;
 								}else{
-									return '• Treshold : '+tooltipLabel.raw;
+									return '• Treshold  :  '+tooltipLabel.raw;
 								}
 							},
 							afterLabel: function(tooltipLabel){
@@ -127,14 +133,14 @@
 								
 								if(tooltipLabel.dataset.label === 'Traffic'){
 									const treshold = thrData[tooltipLabel.dataIndex];
-									info.push('• Treshold : '+treshold);
-									info.push('• Date : '+tooltipLabel.label);
-									info.push('• Source IP : 120.128.72.250');
-									info.push('• Response Time : 50ms')
+									info.push('• Treshold  :  '+treshold);
+									info.push('• Date  :  '+tooltipLabel.label);
+									info.push('• Source IP  :  120.128.72.250');
+									info.push('• Response Time  :  50ms')
 								}else{
 									const traffic = traData[tooltipLabel.dataIndex];
-									info.push('• Traffic : '+traffic);
-									info.push('• Date : '+tooltipLabel.label);
+									info.push('• Traffic  :  '+traffic);
+									info.push('• Date  :  '+tooltipLabel.label);
 								}
 								return info;
 							},

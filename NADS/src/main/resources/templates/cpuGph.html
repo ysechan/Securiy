@@ -17,6 +17,10 @@
 	  <canvas id="lineChart" height="100"></canvas>
 	</div>
 	
+	<div align="right">
+		<button id="next" align="right">다음</button>
+	</div>
+	
 	<script>
 		$(document).ready(function(){
 			$.ajax({
@@ -36,19 +40,23 @@
 						cpus.push(document.cpu);
 					});
 					
+					// 차트에서 한 번에 보여줄 데이터 수
+					const visibleCount = 50;
+					let startIndex = 0;
+					
 					// 차트 생성
 					const ctx = document.getElementById('lineChart').getContext('2d');
 					
 					// new Chart(ctx, {}) 와 const config = {} 의 차이
 					// 1. new Chart..는 한 번에 차트에 대한 모든 정보를 담을 때
 					// 2. const config..는 차트의 설정을 미리 config(객체)로 정의한 후 이 객체를 사용하여 차트 생성
-					new Chart(ctx, {
+					const lineChart = new Chart(ctx, {
 						type: 'line',
 						data: {
-							labels: date,
+							labels: date.slice(startIndex, visibleCount),
 							datasets: [{
 								label: 'CPU',
-								data: cpus,
+								data: cpus.slice(startIndex, visibleCount),
 								tension: 0.4,
 								borderColor: 'rgb(93, 93, 93)',
 								borderWidth: 2,
@@ -69,8 +77,34 @@
 									min: 15,
 									max: 45
 								}
+							},
+							plugins: {
+								tooltip: {
+									intersect: false
+								}
 							}
 						}
+					});
+					
+					function updateChart(){
+						startIndex += 1;
+						
+						// 데이터의 끝에 도달하면 처음으로 돌아가도록 설정
+						if(startIndex + visibleCount > date.length){
+							startIndex = 0;
+						}
+						
+						// 새로운 범위의 데이터로 차트 업데이트
+						lineChart.data.labels = date.slice(startIndex, startIndex+visibleCount);
+						lineChart.data.datasets[0].data = cpus.slice(startIndex, startIndex+visibleCount);
+						
+						// 차트 갱신
+						lineChart.update();
+					}
+					
+					// 버튼 클릭 시 차트 업데이트
+					document.getElementById('next').addEventListener('click', function(){
+						updateChart();
 					});
 					
 				},
