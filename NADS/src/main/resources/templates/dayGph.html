@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Daily Graph</title>
+</head>
+<body>
+	<h1 align="center">실시간 트래픽 그래프</h1>
+	
+	<!-- Chart.js 설치 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	
+	<div align="center">
+	  <canvas id="lineChart" height="100"></canvas>
+	</div>
+	
+	<script>
+		// x축 설정을 위한 구축작업 : 날짜와 시간
+		const startDate = new Date('2024-10-16T00:00:00');
+		const dataArr = [];
+		
+		// x축 Data 생성 : 60분
+		for(let i = 0; i < 60; i++){
+			const newDate = new Date(startDate);
+			newDate.setMinutes(startDate.getMinutes()+i);
+			dataArr.push(newDate.toLocaleTimeString());			// 날짜 형식의 데이터를 문자열로 변환
+		}
+		
+		// y축 데이터 생성(Traffic)
+		const traData = [];
+		let traRandom = Math.floor(Math.random() * 3001) + 3000;			// 3000~6000의 랜덤 수 생성
+		function genData(preValue){
+			const min = Math.max(3000, preValue - 150);
+			const max = Math.min(5000, preValue + 150);
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+		for(let i = 0; i < 60; i++){
+			traRandom = genData(traRandom);
+			traData.push(traRandom);
+		}
+		
+		// y축 데이터 생성(Treshold)
+		const threData = [];
+		const thrData = [];
+		let thrRandom = Math.floor(Math.random() * 1001) + 5000;			// 5000~6000의 랜덤 수 생성
+		function genData2(preValue){
+			const min = Math.max(4000, preValue - 50);
+			const max = Math.min(4800, preValue + 50);
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+		for(let i = 0; i < 60; i++){
+			thrRandom = genData2(thrRandom);
+			thrData.push(thrRandom);
+		}
+		
+		// 차트 생성
+		const ctx = document.getElementById('lineChart').getContext('2d');
+		
+		// new Chart(ctx, {}) 와 const config = {} 의 차이
+		// 1. new Chart..는 한 번에 차트에 대한 모든 정보를 담을 때
+		// 2. const config..는 차트의 설정을 미리 config(객체)로 정의한 후 이 객체를 사용하여 차트 생성
+		new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: dataArr,
+				datasets: [
+					{
+						label: 'Traffic',
+						data: traData,
+						tension: 0.5,					// 꺽기 정도(?)
+						borderColor: 'rgb(93, 93, 93)', // 선 색상
+						borderWidth: 2,					// 선 두께
+						pointRadius: 0,					// 포인트 크기(0이면 포인트 삭제)
+						fill: {
+							target: 1,
+							above: 'rgba(204, 61, 61, 0.4)',
+							below: 'rgba(255, 255, 255, 0)'
+						}
+					},
+					{
+						label: 'Treshold',
+						data: thrData,
+						tension: 0.5,
+						borderColor: 'rgb(204, 61, 61)',
+						borderWidth: 2,
+						pointRadius: 0,
+						fill: false
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				scales: {
+					y: {
+						beginAtZero: false,				// 축이 0부터 시작할지 여부
+						min: 2000,
+						max: 6000
+					}
+				},
+				plugins: {
+					tooltip: {	// chart 위에 마우스를 올리면 데이터 포인트와 관련된 정보를 표시
+						intersect: false,	// 마우스가 정확히 데이터 포인트 위에 있을 때만 표시될지 여부
+											// 기본값 : true, false면 포인트 가까이만 있어도 tooltip 표시
+						displayColors: false,	// label의 색상 상자 표시 여부
+						titleFont: {
+							size: 20,
+							style: 'bold'
+						},
+						bodyFont: {
+							size: 15
+						},
+						cornerRadius: 10,	// tooltip 둥근 모서리(기본값 : 6)
+						caretSize: 8,		// tooltip이 차트 요소를 가리키는 작은 삼각형
+						callbacks: {
+							title: function(tooltipTitle){
+								return '세부정보';
+							},
+							label: function(tooltipLabel){
+								if(tooltipLabel.dataset.label === 'Traffic'){
+									return '• Traffic : '+tooltipLabel.raw;
+								}else{
+									return '• Treshold : '+tooltipLabel.raw;
+								}
+							},
+							afterLabel: function(tooltipLabel){
+								const info = [];
+								
+								if(tooltipLabel.dataset.label === 'Traffic'){
+									const treshold = thrData[tooltipLabel.dataIndex];
+									info.push('• Treshold : '+treshold);
+									info.push('• Date : '+tooltipLabel.label);
+									info.push('• Source IP : 120.128.72.250');
+									info.push('• Response Time : 50ms')
+								}else{
+									const traffic = traData[tooltipLabel.dataIndex];
+									info.push('• Traffic : '+traffic);
+									info.push('• Date : '+tooltipLabel.label);
+								}
+								return info;
+							},
+						}
+					}
+				}
+			}
+		});
+	</script>
+	
+	<form action="/" method="post" align="center">
+		<button type="submit">메인으로 돌아가기</button>
+	</form>
+</body>
+</html>

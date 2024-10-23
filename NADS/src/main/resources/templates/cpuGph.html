@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CPU</title>
+</head>
+<body>
+	<h1 align="center">CPU 그래프</h1>
+	
+	<!-- jQuery CDN 추가 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<!-- Chart.js 설치 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	
+	<div align="center">
+	  <canvas id="lineChart" height="100"></canvas>
+	</div>
+	
+	<script>
+		$(document).ready(function(){
+			$.ajax({
+				url: "/api/elastic/all",
+				type: "GET",
+				success: function(data){
+					
+					// 시간 필드를 기준으로 오름차순 정렬
+					data.sort(function(a, b) {
+						return new Date(a.time) - new Date(b.time);
+					});
+					
+					const date = [];
+					const cpus = [];
+					data.forEach(function(document){
+						date.push(document.time);
+						cpus.push(document.cpu);
+					});
+					
+					// 차트 생성
+					const ctx = document.getElementById('lineChart').getContext('2d');
+					
+					// new Chart(ctx, {}) 와 const config = {} 의 차이
+					// 1. new Chart..는 한 번에 차트에 대한 모든 정보를 담을 때
+					// 2. const config..는 차트의 설정을 미리 config(객체)로 정의한 후 이 객체를 사용하여 차트 생성
+					new Chart(ctx, {
+						type: 'line',
+						data: {
+							labels: date,
+							datasets: [{
+								label: 'CPU',
+								data: cpus,
+								tension: 0.4,
+								borderColor: 'rgb(93, 93, 93)',
+								borderWidth: 2,
+								pointRadius: 0
+							}]
+						},
+						options: {
+							responsive: true,	// 그래프를 다시 로딩하거나 할 때 반응형 여부
+							scales: {
+								x: {
+									ticks: {
+									}
+								},
+								y: {
+									ticks: {
+										beginAtZero: false,
+									},
+									min: 15,
+									max: 45
+								}
+							}
+						}
+					});
+					
+				},
+				error: function(){
+					console.log("데이터 불러오기 실패")
+				}
+			});
+		});
+		
+	</script>
+	
+	<form action="/" method="post" align="center">
+		<button type="submit">메인으로 돌아가기</button>
+	</form>
+	
+</body>
+</html>
