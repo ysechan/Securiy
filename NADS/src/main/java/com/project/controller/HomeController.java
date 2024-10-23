@@ -33,4 +33,9 @@ public class HomeController {
 		return "elasticTest";
 	}
 	
+	@PostMapping("/goJoin")
+	public String join() {
+		return "member-page";
+	}
+	
 }
