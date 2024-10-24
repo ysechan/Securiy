@@ -11,10 +11,9 @@ public class NadsApplication {
 		SpringApplication.run(NadsApplication.class, args);
 	}
 	
-	// 이 거지같은
 	@GetMapping("/")
 	public String Home() {
-		return "Home";
+		return "landing-page";
 	}
 
 }

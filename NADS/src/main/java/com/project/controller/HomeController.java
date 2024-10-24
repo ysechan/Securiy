@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,7 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String Home() {
-		return "Home";
+		return "landing-page";
 	}
 	
 	@PostMapping("/graphShow")
@@ -33,9 +34,14 @@ public class HomeController {
 		return "elasticTest";
 	}
 	
-	@PostMapping("/goJoin")
+	@GetMapping("/goJoin")
 	public String join() {
-		return "member-page";
+		return "Join";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "Login";
 	}
 	
 }
