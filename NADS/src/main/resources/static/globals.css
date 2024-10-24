@@ -1,0 +1,63 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url("https://fonts.googleapis.com/css?family=Libre+Caslon+Text:400|Inter:500,400,700");
+/* The following line is used to measure usage of this code. You can remove it if you want. */
+@import url("https://px.animaapp.com/66b1e4fc06fef8fadfdbfb04.66b1e4fd06fef8fadfdbfb07.ud4O8yA.hcp.png");
+
+
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.join-container > * {		/* '>'는 해당 id의 자식 요소들 모두에 영향을 미침 */
+  flex-shrink: 0;			/*공간이 부족할 때 요소들이 수축(shrink)하는 정도로 0이면 부족해도 줄어들지 않음, 1이면 부족한 경우 줄어듬*/
+  pointer-events: auto;		/*마우스나 터치 이벤트를 정상적으로 처리할 수 있음을 의미*/
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.square-checkbox-solid {
+  height: 20px;
+  width: 20px;
+}
+
+.remember-me {
+  height: 19px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.register-account {
+  color: var(--white);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  height: 19px;
+  letter-spacing: 0;
+  line-height: normal;
+  min-width: 132px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.span1 {
+  color: var(--blue);
+}
