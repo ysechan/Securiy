@@ -58,6 +58,20 @@
   white-space: nowrap;
 }
 
+button {
+    /* 기본 스타일 제거 */
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit; /* 폰트 스타일 상속 */
+    color: inherit; /* 부모 요소의 색상 상속 */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .span1 {
   color: var(--blue);
 }

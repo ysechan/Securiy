@@ -36,59 +36,53 @@
   </head>
   
   <body style="margin: 0; background: #ffffff">
-  
-    <input type="hidden" id="join" name="page" value="join" />
-    <div class="member-container">
-      <div class="login screen">	<!-- class명에 띄어쓰기가 있으면 2개의 클래스를 참조하는 것 -->
-      								<!-- Login과 screen 클래스 참조 -->
-      
-        <div class="overlap-group1">
-          <img class="white-logo" src="img/white-logo.svg" alt="white logo" />
-          <div class="detectify-x valign-text-middle">Detectify X</div>
-        </div>
-        
-        <div class="overlap-group2">
-        
-          <h1 class="title valign-text-middle">Sign Up</h1>
-          
-<!--      <p class="if-you-are-already-a valign-text-middle">
-            Become a member and enjoy exclusive promotions.
-          </p> -->
-          
-          <!-- id -->
-          <div class="id valign-text-middle inter-medium-nevada-16px">ID</div>
-          <input type="text" class="rectangle-2" id="id" name="id" placeholder="Enter your Id" style="width: 100%; padding: 10px;" />
-
-		  <!-- password -->
-          <div class="password valign-text-middle inter-medium-nevada-16px">Password</div>
-          <input type="text" class="rectangle-2" id="password" name="password" placeholder="Enter your Password" style="width: 100%; padding: 10px;" />
-		  
-		  <!-- name -->
-          <div class="id valign-text-middle inter-medium-nevada-16px">Name</div>
-          <input type="text" class="rectangle-2" id="name" name="name" placeholder="Enter your Name" style="width: 100%; padding: 10px;" />
-		  
-		  <!-- e-mail -->
-          <div class="id valign-text-middle inter-medium-nevada-16px">E-mail</div>
-          <input type="text" class="rectangle-2" id="email" name="email" placeholder="Enter your E-mail" style="width: 100%; padding: 10px;" />
-          
-          <!-- phone -->
-          <div class="id valign-text-middle inter-medium-nevada-16px">Phone</div>
-          <input type="text" class="rectangle-2" id="phone" name="phone" placeholder="Enter your Phone number" style="width: 100%; padding: 10px;" />
-          
-         
-          <!-- Continue 버튼 -->
-          <div class="overlap-group" style="cursor: pointer;">
-            <div class="register-account valign-text-middle">Continue</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      // Continue 버튼 클릭 이벤트 처리
-      document.querySelector(".overlap-group").addEventListener("click", function() {
-        window.location.href = "/completeJoin";  // desktop-1.html로 이동
-      });
-    </script>
+  	<form action="/completeJoin" method="post">
+	    <input type="hidden" id="join" name="page" value="join" />
+	    <div class="member-container">
+	      <div class="login screen">	<!-- class명에 띄어쓰기가 있으면 2개의 클래스를 참조하는 것 -->
+	      								<!-- Login과 screen 클래스 참조 -->
+	      
+	        <div class="overlap-group1">
+	          <img class="white-logo" src="img/white-logo.svg" alt="white logo" />
+	          <div class="detectify-x valign-text-middle">Detectify X</div>
+	        </div>
+	        
+	        <div class="overlap-group2">
+	        
+	          <h1 class="title valign-text-middle">Sign Up</h1>
+	          
+	<!--      <p class="if-you-are-already-a valign-text-middle">
+	            Become a member and enjoy exclusive promotions.
+	          </p> -->
+	          
+	          <!-- id -->
+	          <div class="id valign-text-middle inter-medium-nevada-16px">ID</div>
+	          <input type="text" class="rectangle-2" id="id" name="id" placeholder="Enter your Id" style="width: 100%; padding: 10px;" />
+	
+			  <!-- password -->
+	          <div class="password valign-text-middle inter-medium-nevada-16px">Password</div>
+	          <input type="text" class="rectangle-2" id="password" name="password" placeholder="Enter your Password" style="width: 100%; padding: 10px;" />
+			  
+			  <!-- name -->
+	          <div class="id valign-text-middle inter-medium-nevada-16px">Name</div>
+	          <input type="text" class="rectangle-2" id="name" name="name" placeholder="Enter your Name" style="width: 100%; padding: 10px;" />
+			  
+			  <!-- e-mail -->
+	          <div class="id valign-text-middle inter-medium-nevada-16px">E-mail</div>
+	          <input type="text" class="rectangle-2" id="email" name="email" placeholder="Enter your E-mail" style="width: 100%; padding: 10px;" />
+	          
+	          <!-- phone -->
+	          <div class="id valign-text-middle inter-medium-nevada-16px">Phone</div>
+	          <input type="text" class="rectangle-2" id="phone" name="phone" placeholder="Enter your Phone number" style="width: 100%; padding: 10px;" />
+	          
+	         
+	          <!-- Continue 버튼 -->
+	          <div class="overlap-group" style="cursor: pointer;">
+	           	<button type="submit" class="register-account valign-text-middle">Continue</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+   	</form>
   </body>
 </html>

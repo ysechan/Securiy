@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.Entity.UserEntity;
@@ -18,7 +19,7 @@ public class UserController {
 	private UserRepo userRepo;
 	
 	// 회원가입
-	@RequestMapping("/completeJoin")
+	@PostMapping("/completeJoin")
 	public String join(@RequestParam("id") String id,
 					   @RequestParam("pw") String pw,
 					   @RequestParam("name") String name,
