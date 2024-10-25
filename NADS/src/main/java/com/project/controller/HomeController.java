@@ -34,13 +34,18 @@ public class HomeController {
 		return "elasticTest";
 	}
 	
+	@PostMapping("/map")
+	public String goMap() {
+		return "map";
+	}
+	
 	@GetMapping("/goJoin")
 	public String join() {
 		return "Join";
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String goLogin() {
 		return "Login";
 	}
 	

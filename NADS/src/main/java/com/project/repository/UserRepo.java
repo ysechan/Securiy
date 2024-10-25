@@ -8,4 +8,7 @@ import com.project.Entity.UserEntity;
 @Repository
 public interface UserRepo extends JpaRepository<UserEntity, String>{
 
+	// 로그인에 필요한 기능 : db에서 id, pw 찾기
+	public UserEntity findByIdAndPw(String id, String pw);
+	
 }

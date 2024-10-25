@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.Entity.UserEntity;
 import com.project.repository.UserRepo;
+
 
 @Controller
 public class UserController {
@@ -64,6 +66,38 @@ public class UserController {
 			return "duplicate";		// 중복된 아이디
 		}else {
 			return "available";
+		}
+	}
+	
+	// 로그인
+	@PostMapping("/goMain")
+	public String login(UserEntity userInfo,
+						@RequestParam("id") String id,
+						@RequestParam("password") String pw) {
+		
+		// Repository에 만들어 놓은 메소드 가져와서 사용
+		userInfo = userRepo.findByIdAndPw(id, pw);
+		
+		if(userInfo != null) {
+			return "Home";
+		}else {
+			return "Login";
+		}
+	}
+	
+	// 로그인 유효성 검사
+	@GetMapping("/loginConfirm")
+	@ResponseBody
+	public String loginConfirm(UserEntity userInfo,
+							   @RequestParam("id") String id,
+							   @RequestParam("password") String pw) {
+		
+		userInfo = userRepo.findByIdAndPw(id, pw);
+		
+		if(userInfo != null) {
+			return "success";
+		}else {
+			return "fail";
 		}
 	}
 	

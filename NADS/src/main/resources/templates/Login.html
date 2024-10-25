@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="/styleguide.css" />
     <link rel="stylesheet" type="text/css" href="/globals.css" />
     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <title>로그인</title>
     
     <style>
@@ -73,6 +75,9 @@
   </head>
   <body style="margin: 0; background: #ffffff">
     <input type="hidden" id="anPageName" name="page" value="login" />
+    
+    <!-- form 태그 시작 -->
+    <form action="/goMain" method="POST">
     <div class="member-container">
       <div class="login screen">
         <div class="overlap-group1">
@@ -98,8 +103,9 @@
 
           <!-- Login 버튼 -->
           <div class="overlap-group" style="cursor: pointer;">
-            <div class="register-account valign-text-middle">Login</div>
+            <button type="submit" class="register-account valign-text-middle" onclick="loginConfirm()">Login</button>
           </div>
+          </form>
 
           <p class="dont-have-an-account-sign-up-here valign-text-middle" style="margin-top: 20px;">
             <span><span class="inter-medium-nevada-16px">Don’t have an account?</span>
@@ -107,16 +113,36 @@
               <a href="/goJoin" class="signup-link">Sign up here</a>
             </span>
           </p>
+          
         </div>
       </div>
     </div>
-
+    
     <script>
-      // Register Account 클릭 이벤트
-      document.querySelector(".overlap-group").addEventListener("click", function() {
-        alert("Register Account button clicked");
-        // 여기에 Register Account 버튼 클릭 시 처리할 로직을 추가할 수 있습니다.
-      });
-    </script>
+   		function loginConfirm(){
+			var userId = document.getElementById("id").value;
+			var password = document.getElementById("password").value;
+			
+			$.ajax({
+				url : 'loginConfirm',
+				type : 'GET',
+				data : {
+					id : userId,
+					password : password
+				},
+				success : function(response){
+					if(response === 'success'){
+						return;
+					}else{
+						alert('아이디 또는 비밀번호를 확인하시기 바랍니다.')
+					}
+				},
+				error : function(){
+					alert('오류 발생!')
+				}
+			});
+   		}
+    	</script>
+    
   </body>
 </html>
