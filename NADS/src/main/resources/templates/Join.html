@@ -19,6 +19,8 @@
     <link rel="stylesheet" type="text/css" href="/styleguide.css" />
     <link rel="stylesheet" type="text/css" href="/globals.css" />
     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <title>회원가입</title>
     <style>
       /* 링크 스타일 */
@@ -78,11 +80,42 @@
 	         
 	          <!-- Continue 버튼 -->
 	          <div class="overlap-group" style="cursor: pointer;">
-	           	<button type="submit" class="register-account valign-text-middle">Continue</button>
+	           	<button type="submit" class="register-account valign-text-middle" onclick="joinCondition()">Continue</button>
 	          </div>
 	        </div>
 	      </div>
 	    </div>
    	</form>
+   	
+   	<!-- 팝업창 띄우기 -->
+   	<script>
+   		function joinCondition(){
+			var userId = document.getElementById("id").value;
+			var password = document.getElementById("password").value;
+			
+			if(!password){	// null, undefined, 빈 문자열인 경우 모두 포함
+				alert('비밀번호를 확인하시기 바랍니다.')
+				return;	// 이후 코드를 실행하지 않도록 함수 종료
+			}
+			
+			$.ajax({
+				url : 'checkId',
+				type : 'GET',
+				data : {
+					id : userId
+				},
+				success : function(response){
+					if(response === 'duplicate'){
+						alert('이미 사용 중인 아이디입니다.')
+					}else{
+					}
+				},
+				error : function(){
+					alert('오류 발생!')
+				}
+			});
+   		}
+   	</script>
+   	
   </body>
 </html>
