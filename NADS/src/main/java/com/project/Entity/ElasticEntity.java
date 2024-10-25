@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName="sysinfo-20240731")
+@Document(indexName="detectify_x")
 public class ElasticEntity {
 
 	@Id

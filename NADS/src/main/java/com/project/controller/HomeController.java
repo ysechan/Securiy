@@ -22,7 +22,7 @@ public class HomeController {
 			return "weekGph";
 		}else if(gph.equals("monthly")) {
 			return "monthGph";
-		}else if(gph.equals("monthly")) {
+		}else if(gph.equals("country")) {
 			return "countryGph"; 
 		}else {
 			return "cpuGph";

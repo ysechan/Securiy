@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.Entity.UserEntity;
 import com.project.repository.UserRepo;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class UserController {
@@ -73,7 +75,7 @@ public class UserController {
 	@PostMapping("/goMain")
 	public String login(UserEntity userInfo,
 						@RequestParam("id") String id,
-						@RequestParam("password") String pw) {
+						@RequestParam("password") String pw) {	
 		
 		// Repository에 만들어 놓은 메소드 가져와서 사용
 		userInfo = userRepo.findByIdAndPw(id, pw);
