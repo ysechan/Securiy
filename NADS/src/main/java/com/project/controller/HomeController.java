@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class HomeController {
 
@@ -47,6 +49,16 @@ public class HomeController {
 	@GetMapping("/login")
 	public String goLogin() {
 		return "Login";
+	}
+	
+	@RequestMapping("/main")
+	public String goMain(HttpSession session) {
+		if(session.getAttribute("loginInfo") != null) {
+			return "Home";
+		}
+		else {
+			return "Login";
+		}
 	}
 	
 }

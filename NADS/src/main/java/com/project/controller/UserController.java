@@ -75,13 +75,15 @@ public class UserController {
 	@PostMapping("/goMain")
 	public String login(UserEntity userInfo,
 						@RequestParam("id") String id,
-						@RequestParam("password") String pw) {	
+						@RequestParam("password") String pw,
+						HttpSession loginInfo) {	
 		
 		// Repository에 만들어 놓은 메소드 가져와서 사용
 		userInfo = userRepo.findByIdAndPw(id, pw);
 		
 		if(userInfo != null) {
-			return "Home";
+			loginInfo.setAttribute("loginInfo", userInfo);
+			return "redirect:/main";
 		}else {
 			return "Login";
 		}
