@@ -14,19 +14,22 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName="detectify_x")
+@Document(indexName="last_lsog-20241028")
 public class ElasticEntity {
 
 	@Id
 	private String id;
 	
-	@Field(type = FieldType.Integer)
-	private Integer mem;
+	@Field(name = "src_ip", type = FieldType.Text)
+	private String srcIp;
+	
+	@Field(name = "session_count", type = FieldType.Integer)
+	private Integer sessionCount;
 	
 	@Field(type = FieldType.Text)
 	private String time;
 	
-	@Field(type = FieldType.Integer)
-	private Integer cpu;
+	@Field(name = "tx_rate", type = FieldType.Integer)
+	private Integer traffic;
 	
 }
