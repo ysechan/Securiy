@@ -14,6 +14,7 @@
 	<!-- Chart.js 설치 -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	
+	<!-- main 그래프 -->
 	<div align="center">
 	  <canvas id="lineChart" height="100"></canvas>
 	</div>
@@ -103,13 +104,13 @@
 				},
 				plugins: {
 					tooltip: {	// chart 위에 마우스를 올리면 데이터 포인트와 관련된 정보를 표시
-						intersect: false,	// 마우스가 정확히 데이터 포인트 위에 있을 때만 표시될지 여부
+ 						intersect: false,	// 마우스가 정확히 데이터 포인트 위에 있을 때만 표시될지 여부
 											// 기본값 : true, false면 포인트 가까이만 있어도 tooltip 표시
 						displayColors: false,	// label의 색상 상자 표시 여부
 						titleFont: {
 							size: 20,
 							family: 'Rethink Sans',
-							style: 'bold'
+							weight: 'bold'
 						},
 						bodyFont: {
 							size: 15,
@@ -135,17 +136,21 @@
 									const treshold = thrData[tooltipLabel.dataIndex];
 									info.push('• Treshold  :  '+treshold);
 									info.push('• Date  :  '+tooltipLabel.label);
-									info.push('• Source IP  :  120.128.72.250');
-									info.push('• Response Time  :  50ms')
+									info.push('• Response Time  :  50ms');
 								}else{
 									const traffic = traData[tooltipLabel.dataIndex];
 									info.push('• Traffic  :  '+traffic);
 									info.push('• Date  :  '+tooltipLabel.label);
 								}
 								return info;
-							},
+							}
 						}
 					}
+				},
+				// hover 속성을 활용하여 접속 위치 통계 그래프 출력하기 >>> 실패 .. ㅠ
+ 				hover: {
+					mode: 'index',	// 마우스를 올렸을 때 반응하는 차트 요소의 범위
+					intersect: false,	// 마우스가 요소와 교차할 때만 호버 효과가 발생할지 여부 설정
 				}
 			}
 		});
