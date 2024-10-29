@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Kibana Map</title>
+    <title>Kibana Map</title>
 </head>
 <body>
-	<h1>Kibana 지도 보기</h1>
-	<div style="width: 100%; height: 80vh;">
-    <iframe
-        src="http://223.130.139.47:5601/app/dashboards#/view/a4567890-94d5-11ef-906e-4d0889b1a025?embed=true&_g=(refreshInterval:(pause:!f,value:10000),time:(from:now-15m,to:now))&_a=(viewMode:view)&hide-filter-bar=true"
-        style="width: 100%; height: 100%; border: none;">
-    </iframe>
-</div>
-	
-	<div style="width: 100%; height: 80vh;">
-		<iframe
-			src="http://223.130.139.47:5601/app/dashboards#/create?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-15M,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,syncColors:!f,useMargins:!t),panels:!((embeddableConfig:(attributes:(description:'',references:!((id:'62120450-958d-11ef-a7f8-a9f809a5587f',name:indexpattern-datasource-current-indexpattern,type:index-pattern),(id:'62120450-958d-11ef-a7f8-a9f809a5587f',name:indexpattern-datasource-layer-cc7cdd6c-7096-4027-86d6-da85e100b50d,type:index-pattern)),state:(datasourceStates:(indexpattern:(layers:(cc7cdd6c-7096-4027-86d6-da85e100b50d:(columnOrder:!('3010e2a1-e69d-4b39-9271-8d2c9076390a','8b5c4ce7-38a4-4671-b2d9-0cc3f0531766'),columns:('3010e2a1-e69d-4b39-9271-8d2c9076390a':(dataType:string,isBucketed:!t,label:'Top%20values%20of%20src_ip.keyword',operationType:terms,params:(missingBucket:!f,orderBy:(columnId:'8b5c4ce7-38a4-4671-b2d9-0cc3f0531766',type:column),orderDirection:desc,otherBucket:!t,size:5),scale:ordinal,sourceField:src_ip.keyword),'8b5c4ce7-38a4-4671-b2d9-0cc3f0531766':(dataType:number,isBucketed:!f,label:'Count%20of%20records',operationType:count,scale:ratio,sourceField:Records)),incompleteColumns:())))),filters:!(),query:(language:kuery,query:''),visualization:(layers:!((categoryDisplay:default,groups:!('3010e2a1-e69d-4b39-9271-8d2c9076390a'),layerId:cc7cdd6c-7096-4027-86d6-da85e100b50d,layerType:data,legendDisplay:default,metric:'8b5c4ce7-38a4-4671-b2d9-0cc3f0531766',nestedLegend:!f,numberDisplay:percent)),shape:donut)),title:test-test,type:lens,visualizationType:lnsPie)),gridData:(h:15,i:'82def19d-95fb-4aba-b0bd-435f6f3ef8b2',w:24,x:0,y:0),panelIndex:'82def19d-95fb-4aba-b0bd-435f6f3ef8b2',type:lens,version:'7.17.24')),query:(language:kuery,query:''),tags:!(),timeRestore:!f,title:'',viewMode:edit)&hide-filter-bar=true"
-			style="width: 100%; height: 100%; border: none;"></iframe>
-	</div>
+    <h1>Kibana 지도 보기</h1>
+
+    <!-- 첫 번째 iframe - 지도 보기 -->
+    <div style="width: 100%; height: 80vh;">
+        <iframe
+            src="http://223.130.139.47:5601/goto/67654da0-9596-11ef-a7f8-a9f809a5587f?_g=(refreshInterval:(pause:!f,value:10000))"
+            style="width: 100%; height: 100%; border: none;">
+        </iframe>
+    </div>
+
+    <!-- 두 번째 iframe - 원형 그래프 -->
+    <div style="width: 100%; height: 80vh;">
+        <iframe
+            src="http://223.130.139.47:5601/app/dashboards#/create?embed=true&_g=(filters:!(),refreshInterval:(pause:!f,value:10000),time:(from:now-15M,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,syncColors:!f,useMargins:!t),panels:!((embeddableConfig:(attributes:(description:'',references:!((id:'62120450-958d-11ef-a7f8-a9f809a5587f',name:indexpattern-datasource-current-indexpattern,type:index-pattern),(id:'62120450-958d-11ef-a7f8-a9f809a5587f',name:indexpattern-datasource-layer-cc7cdd6c-7096-4027-86d6-da85e100b50d,type:index-pattern)),state:(datasourceStates:(indexpattern:(layers:(cc7cdd6c-7096-4027-86d6-da85e100b50d:(columnOrder:!('3010e2a1-e69d-4b39-9271-8d2c9076390a','8b5c4ce7-38a4-4671-b2d9-0cc3f0531766'),columns:('3010e2a1-e69d-4b39-9271-8d2c9076390a':(dataType:string,isBucketed:!t,label:'Top%20values%20of%20src_ip.keyword',operationType:terms,params:(missingBucket:!f,orderBy:(columnId:'8b5c4ce7-38a4-4671-b2d9-0cc3f0531766',type:column),orderDirection:desc,otherBucket:!t,size:5),scale:ordinal,sourceField:src_ip.keyword),'8b5c4ce7-38a4-4671-b2d9-0cc3f0531766':(dataType:number,isBucketed:!f,label:'Count%20of%20records',operationType:count,scale:ratio,sourceField:Records)),incompleteColumns:())))),filters:!(),query:(language:kuery,query:''),visualization:(layers:!((categoryDisplay:default,groups:!('3010e2a1-e69d-4b39-9271-8d2c9076390a'),layerId:cc7cdd6c-7096-4027-86d6-da85e100b50d,layerType:data,legendDisplay:default,metric:'8b5c4ce7-38a4-4671-b2d9-0cc3f0531766',nestedLegend:!f,numberDisplay:percent)),shape:donut)),title:test-test,type:lens,visualizationType:lnsPie)),gridData:(h:15,i:'82def19d-95fb-4aba-b0bd-435f6f3ef8b2',w:24,x:0,y:0),panelIndex:'82def19d-95fb-4aba-b0bd-435f6f3ef8b2',type:lens,version:'7.17.24')),query:(language:kuery,query:''),tags:!(),timeRestore:!f,title:'',viewMode:edit)&hide-filter-bar=true"
+            style="width: 100%; height: 100%; border: none;">
+        </iframe>
+    </div>
 
 </body>
 </html>
