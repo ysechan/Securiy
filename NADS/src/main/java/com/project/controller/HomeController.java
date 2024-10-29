@@ -26,8 +26,10 @@ public class HomeController {
 			return "monthGph";
 		}else if(gph.equals("country")) {
 			return "countryGph"; 
-		}else {
+		}else if(gph.equals("cpu")){
 			return "cpuGph";
+		}else {
+			return "Traffic";
 		}
 	}
 	

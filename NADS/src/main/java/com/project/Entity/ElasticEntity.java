@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName="last_lsog-20241028")
+@Document(indexName="last_log-20241029")
 public class ElasticEntity {
 
 	@Id
@@ -29,7 +29,17 @@ public class ElasticEntity {
 	@Field(type = FieldType.Text)
 	private String time;
 	
+	// 보내는 데이터 속도
 	@Field(name = "tx_rate", type = FieldType.Integer)
-	private Integer traffic;
+	private Integer txRate;
 	
+	// 들어오는 데이터 속도
+	@Field(name = "rx_rate", type = FieldType.Integer)
+	private Integer rxRate;
+	
+	@Field(name = "memory_percent", type = FieldType.Double)
+	private double memory;
+	
+	@Field(name = "cpu_percent", type = FieldType.Double)
+	private double cpu;
 }
