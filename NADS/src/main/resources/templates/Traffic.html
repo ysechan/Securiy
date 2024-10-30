@@ -31,19 +31,27 @@
 					});
 					
 					// 가져온 elastic 데이터를 배열에 집어 넣기
-					const date = [];		// 날짜
+					//const originalDate = [];// 날짜
+					const date = [];		// 형식을 바꾼 날짜
 					const tfData = [];		// 트래픽
 					const memData = [];		// 메모리
 					const cpuData = [];		// cpu
 					
 					trafficData.forEach(function(item){
 						if(item.txRate != null){	// txRate가 없는 데이터는 배열에 넣지 않기
-							date.push(item.time);
+							// 날짜 형식 바꾸기
+							const originalDate = new Date(item.time);	//  originalDate를 Date 객체로 변환
+							const formattedDate = `${originalDate.getMonth()+1}월 ${originalDate.getDate()}일 ${originalDate.getHours()}시 ${originalDate.getMinutes()}분 ${originalDate.getSeconds()}초`;
+							date.push(formattedDate);
 							tfData.push(item.txRate);
-							memData.push(item.memory);
-							cpuData.push(item.cpu);
+						}else{
+							memData.push(item.memoryPercent);
+							cpuData.push(item.cpuPercent);
 						}
 					});
+					
+					console.log("memory : ",memData)
+					console.log("cpu : ",cpuData)
 					
 					// 차트에서 한 번에 보여줄 데이터 수 설정
 					const visibleCount = 50;
@@ -109,7 +117,15 @@
 										afterLabel: function(tooltipItems){
 											const afterLabelInfo = [];
 											afterLabelInfo.push('• Date  :  '+tooltipItems.label);
+											
 											// memory, cpu 정보 넣기
+											const dataIndex = tooltipItems.dataIndex + startIndex;
+											
+											console.log("dataIndex: ", dataIndex)
+											
+											afterLabelInfo.push('• CPU  :  '+cpuData[dataIndex]+"%");
+											afterLabelInfo.push('• Memory  :  '+memData[dataIndex]+"%");
+											
 											return afterLabelInfo;
 										}
 									}
@@ -136,8 +152,8 @@
 						lineChart.update();
 					}
 					
-					// 1초마다 차트 자동으로 갱신하기
-					setInterval(updateChart, 1000);
+					// 0.8초마다 차트 자동으로 갱신하기
+					setInterval(updateChart, 800);
 					
 				},
 				error: function(){

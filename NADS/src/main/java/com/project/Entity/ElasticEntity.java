@@ -14,7 +14,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName="last_log-20241029")
 public class ElasticEntity {
 
 	@Id
@@ -37,9 +36,9 @@ public class ElasticEntity {
 	@Field(name = "rx_rate", type = FieldType.Integer)
 	private Integer rxRate;
 	
-	@Field(name = "memory_percent", type = FieldType.Double)
-	private double memory;
+	@Field(name = "memory_percent", type = FieldType.Float)
+	private Float memoryPercent;
 	
-	@Field(name = "cpu_percent", type = FieldType.Double)
-	private double cpu;
+	@Field(name = "cpu_percent", type = FieldType.Long)
+	private Long cpuPercent;
 }

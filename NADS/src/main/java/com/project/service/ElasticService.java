@@ -2,12 +2,8 @@ package com.project.service;
 
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import com.project.Entity.ElasticEntity;
 import com.project.repository.ElasticRepo;
 
@@ -20,12 +16,10 @@ public class ElasticService {
 	@Autowired
 	private ElasticRepo elasticRepo;
 	
-	// Repo의 findAll() 불러오기
-	public List<ElasticEntity> getAllDoc(){
+	// 사용자 지정 메서드를 사용하여 last_log-* 패턴을 포함하는 모든 인덱스에서 조회
+	public List<ElasticEntity> getAllDocsByPattern(){
 		
-		Page<ElasticEntity> page = elasticRepo.findAll(Pageable.unpaged());
-		
-		return page.getContent();
+		return elasticRepo.findAllByIndexPattern("last_log-*");
 	}
 	
 }
