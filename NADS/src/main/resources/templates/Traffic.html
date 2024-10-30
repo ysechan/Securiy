@@ -31,7 +31,6 @@
 					});
 					
 					// 가져온 elastic 데이터를 배열에 집어 넣기
-					//const originalDate = [];// 날짜
 					const date = [];		// 형식을 바꾼 날짜
 					const tfData = [];		// 트래픽
 					const memData = [];		// 메모리
@@ -50,6 +49,11 @@
 						}
 					});
 					
+					console.log("데이터 개수 : ", trafficData.length);
+					console.log("첫 번째 데이터의 시간 : ", trafficData[0].time);
+					console.log("마지막 데이터의 시간 : ", trafficData[9999].time);
+					console.log("시간 데이터 개수 : ", date.length);
+					console.log("메모리 데이터 개수 : ", memData.length);
 					console.log("memory : ",memData)
 					console.log("cpu : ",cpuData)
 					
@@ -66,11 +70,11 @@
 					const lineChart = new Chart(ctx, {
 						type: 'line',
 						data: {
-							labels: date.slice(startIndex, visibleCount),
+							labels: date.slice(startIndex, startIndex + visibleCount),
 							datasets: [
 								{
 									label: 'Traffic',
-									data: tfData.slice(startIndex, visibleCount),
+									data: tfData.slice(startIndex, startIndex + visibleCount),
 									tension: 0.5,
 									borderColor: 'rgb(93, 93, 93)',
 									borderWidth: 2,
@@ -153,7 +157,7 @@
 					}
 					
 					// 0.8초마다 차트 자동으로 갱신하기
-					setInterval(updateChart, 800);
+					setInterval(updateChart, 100);
 					
 				},
 				error: function(){

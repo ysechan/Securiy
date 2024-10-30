@@ -8,7 +8,7 @@
 <body>
 	<h1 align="center">Elasticsearch Test Page!</h1>
 	
-	<div id="elastic-data" align="center">
+	<div id="elastic-data">
         <!-- Elasticsearch 데이터를 여기에 표시할 예정 -->
     </div>
 	
@@ -22,16 +22,28 @@
 					// 데이터 구조 확인
 					console.log(data)
 					
+					// time 필드를 기준으로 오름차순 정렬
+					data.sort(function(a, b){
+						return new Date(a.time) - new Date(b.time);
+					});
+					
                     // 데이터를 HTML에 추가
                     var htmlContent = "<ul>";
                     data.forEach(function(document) {
-                        htmlContent += "<li> source IP: " + document.srcIp + "</li>";
-                        htmlContent += "<li> session : " + document.sessionCount + "</li>";
-                        htmlContent += "<li> Time : " + document.time + "</li>";
-                        htmlContent += "<li> traffic : " + document.traffic + "</li>";
+						if(document.time != null){
+	                        htmlContent += "<li> Time: " + document.time + "</li>";
+	                        htmlContent += "<li> Source IP : " + document.srcIp + "</li>";
+	                        htmlContent += "<li> Traffic : " + document.txRate + "</li>";
+	                        htmlContent += "<li> Session : " + document.sessionCount + "</li>";
+	                        htmlContent += "<li> Memory : " + document.memoryPercent + "%</li>";
+	                        htmlContent += "<li> CPU : " + document.cpuPercent + "%</li>";
+	                        htmlContent += "<br>";
+						}
                     });
                     htmlContent += "</ul>";
                     
+                    console.log("가져 온 데이터 개수 : ", data.length)
+                   
                     // 데이터를 표시할 div에 삽입
                     $("#elastic-data").html(htmlContent);
                 },
@@ -42,7 +54,7 @@
         });
     </script>
 	
-	<form action="/" method="post" align="center">
+	<form action="/main" method="post" align="center">
 		<button type="submit">메인으로 돌아가기</button>
 	</form>
 	

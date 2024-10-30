@@ -32,4 +32,6 @@ public class ElasticRepoCustomImpl implements ElasticRepoCustom {
             IndexCoordinates.of(indexPattern)
         ).map(searchHit -> searchHit.getContent()).toList();
     }
+	
+	
 }
