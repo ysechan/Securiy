@@ -7,6 +7,16 @@
 <body>
 	<h1 align="center">트래픽 그래프</h1>
 	
+	<!-- 날짜 및 시간대 설정 -->
+	<div align="right" id="choiceDetail">
+		<form action="/api/elastic/datetime" method="Post">
+			<input type="datetime-local" id="choiceDate" name="choiceDate">
+			<button type="submit">조회</button>
+		</form>
+		<button id="tempStop">일시정지</button>
+		<button id="play">재생</button>
+	</div>
+	
 	<!-- jQuery CDN 설치 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
@@ -37,21 +47,32 @@
 					const cpuData = [];		// cpu
 					
 					trafficData.forEach(function(item){
-						if(item.txRate != null){	// txRate가 없는 데이터는 배열에 넣지 않기
+ 						if(item.txRate != null){	// txRate가 없는 데이터는 배열에 넣지 않기
 							// 날짜 형식 바꾸기
 							const originalDate = new Date(item.time);	//  originalDate를 Date 객체로 변환
 							const formattedDate = `${originalDate.getMonth()+1}월 ${originalDate.getDate()}일 ${originalDate.getHours()}시 ${originalDate.getMinutes()}분 ${originalDate.getSeconds()}초`;
 							date.push(formattedDate);
 							tfData.push(item.txRate);
-						}else{
-							memData.push(item.memoryPercent);
-							cpuData.push(item.cpuPercent);
+							
+							// CPU 데이터 집어넣기
+							if(item.cpuPercent === null){
+								cpuData.push(0);
+							}else{
+								cpuData.push(item.cpuPercent);
+							}
+							
+							// Memory 데이터 집어넣기
+							if(item.memoryPercent === null){
+								memData.push(0);
+							}else{
+								memData.push(item.memoryPercent);
+							}
 						}
 					});
 					
 					console.log("데이터 개수 : ", trafficData.length);
+					console.log("데이터 정보 : ", trafficData.time);
 					console.log("첫 번째 데이터의 시간 : ", trafficData[0].time);
-					console.log("마지막 데이터의 시간 : ", trafficData[9999].time);
 					console.log("시간 데이터 개수 : ", date.length);
 					console.log("메모리 데이터 개수 : ", memData.length);
 					console.log("memory : ",memData)
@@ -92,7 +113,7 @@
 							scales: {
 								y: {
 									beginAtZero: true,	// 축이 0부터 시작할지 여부
-									max: 10000
+									max: 50000
 								}
 							},
 							plugins: {
@@ -148,6 +169,11 @@
 					function updateChart(){
 						startIndex += 1;
 						
+						// 데이터의 끝에 도달하면 처음으로 돌아가도록 설정
+					    if (startIndex + visibleCount > date.length) {
+					        startIndex = 0;
+					    }
+						
 						// 새로운 범위의 데이터로 차트 업데이트
 						lineChart.data.labels = date.slice(startIndex, startIndex+visibleCount);
 						lineChart.data.datasets[0].data = tfData.slice(startIndex, startIndex+visibleCount);
@@ -157,8 +183,24 @@
 					}
 					
 					// 0.8초마다 차트 자동으로 갱신하기
-					setInterval(updateChart, 100);
+					// setInterval(updateChart, 800);
 					
+					// 업데이트 주기 설정
+					let updateInterval = setInterval(updateChart, 800);
+					
+					// 일시정지 버튼 클릭 시 차트 업데이트
+					document.getElementById('tempStop').addEventListener('click', function(){
+						clearInterval(updateInterval);
+						updateInterval = null;
+					});
+					
+					// 재생 버튼 클릭 시 차트 업데이트
+					document.getElementById('play').addEventListener('click', function() {
+	                    // 기존 인터벌이 이미 멈춰있다면 재시작
+	                    if (!updateInterval) {
+	                        updateInterval = setInterval(updateChart, 800);
+	                    }
+	                });
 				},
 				error: function(){
 					console.log("데이터 불러오기 실패")

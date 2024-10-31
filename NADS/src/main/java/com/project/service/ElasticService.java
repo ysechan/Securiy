@@ -22,4 +22,5 @@ public class ElasticService {
 		return elasticRepo.findAllByIndexPattern("last_log-*");
 	}
 	
+	
 }

@@ -22,7 +22,8 @@ public class ElasticRepoCustomImpl implements ElasticRepoCustom {
 	
 	@Override
     public List<ElasticEntity> findAllByIndexPattern(String indexPattern) {
-        String queryJson = "{ \"match_all\": {} }"; // 모든 도큐먼트를 조회하는 match_all 쿼리
+		String queryJson = "{ \"range\" : { \"time\" : { \"gte\" : \"now+9h-30m\", \"format\" : \"yyyy-MM-dd'T'HH:mm:ss.SSS\"}}}}";
+        
 		Query query = new StringQuery(queryJson);
 		query.setPageable(PageRequest.of(0, 10000)); // size를 설정하여 최대 10000개 조회
 
@@ -32,6 +33,4 @@ public class ElasticRepoCustomImpl implements ElasticRepoCustom {
             IndexCoordinates.of(indexPattern)
         ).map(searchHit -> searchHit.getContent()).toList();
     }
-	
-	
 }

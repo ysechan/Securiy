@@ -5,5 +5,8 @@ import java.util.List;
 import com.project.Entity.ElasticEntity;
 
 public interface ElasticRepoCustom {
+	
 	List<ElasticEntity> findAllByIndexPattern(String indexPattern);
+	
+	
 }

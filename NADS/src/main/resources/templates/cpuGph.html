@@ -102,10 +102,10 @@
 						lineChart.update();
 					}
 					
-					// 버튼 클릭 시 차트 업데이트
-					document.getElementById('next').addEventListener('click', function(){
-						updateChart();
-					});
+					// 업데이트 주기 설정
+					let updateInterval = setInterval(updateChart, 800);
+					
+					
 					
 				},
 				error: function(){
