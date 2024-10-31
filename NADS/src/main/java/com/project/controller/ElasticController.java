@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.project.Entity.ElasticEntity;
 import com.project.service.ElasticService;
@@ -20,10 +21,25 @@ public class ElasticController {
 	
 	// 모든 데이터를 반환하는 API
 	@GetMapping("/all")
-	public ResponseEntity<List<ElasticEntity>> getAllDocsByPattern(){
-		List<ElasticEntity> doc = elasticService.getAllDocsByPattern();
-		System.out.println("가져 온 데이터 : "+doc);
+	public ResponseEntity<List<ElasticEntity>> getAllDocsByPattern(@RequestParam(value = "choiceDate", required = false) String choiceDate){
+		List<ElasticEntity> doc;
+		
+		if(choiceDate != null && !choiceDate.isEmpty()) {
+			doc = elasticService.getDatetime(choiceDate);
+			 System.out.println("입력 받은 날짜로 조회한 데이터 : " + doc);
+		}else {
+			doc = elasticService.getAllDocsByPattern();
+			System.out.println("모든 데이터 조회 : " + doc);
+		}
 		return ResponseEntity.ok(doc);
 	}
 	
+	/*
+	 * @PostMapping("/datetime") public ResponseEntity<List<ElasticEntity>>
+	 * getDatetime(@RequestParam("choiceDate") String choiceDate, String
+	 * indexPattern){ List<ElasticEntity> datetime =
+	 * elasticService.getDatetime(choiceDate);
+	 * System.err.println("입력 받은 날짜 : "+datetime); return
+	 * ResponseEntity.ok(datetime); }
+	 */
 }

@@ -6,28 +6,28 @@
 </head>
 <body>
 	<h1 align="center">트래픽 그래프</h1>
-	
+
+	<!-- jQuery CDN 설치 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Chart.js 설치 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 	<!-- 날짜 및 시간대 설정 -->
 	<div align="right" id="choiceDetail">
-		<form action="/api/elastic/datetime" method="Post">
+		<form action="/api/elastic/all" id="choiceDateForm">
 			<input type="datetime-local" id="choiceDate" name="choiceDate">
 			<button type="submit">조회</button>
 		</form>
 		<button id="tempStop">일시정지</button>
 		<button id="play">재생</button>
 	</div>
-	
-	<!-- jQuery CDN 설치 -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	
-	<!-- Chart.js 설치 -->
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	
+
 	<!-- main 그래프 -->
 	<div align="center">
 		<canvas id="lineChart" height="100"></canvas>
 	</div>
-	
+
 	<script>
 		// Entity 데이터 불러오기
 		$(document).ready(function(){
@@ -166,7 +166,7 @@
 						}
 					});
 					
-					function updateChart(){
+					function Chart(){
 						startIndex += 1;
 						
 						// 데이터의 끝에 도달하면 처음으로 돌아가도록 설정
@@ -201,17 +201,17 @@
 	                        updateInterval = setInterval(updateChart, 800);
 	                    }
 	                });
-				},
+				},	
 				error: function(){
 					console.log("데이터 불러오기 실패")
 				}
 			});
 		});
 	</script>
-	
+
 	<form action="/main" method="post" align="center">
 		<button type="submit">메인으로 돌아가기</button>
 	</form>
-	
+
 </body>
 </html>

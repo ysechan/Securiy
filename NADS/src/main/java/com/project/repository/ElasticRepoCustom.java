@@ -8,5 +8,6 @@ public interface ElasticRepoCustom {
 	
 	List<ElasticEntity> findAllByIndexPattern(String indexPattern);
 	
+	List<ElasticEntity> findAllByDatetime(String choiceDate);
 	
 }
