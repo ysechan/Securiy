@@ -1,5 +1,7 @@
+@charset "UTF-8";
+
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
-@import url("https://fonts.googleapis.com/css?family=Nunito+Sans:700,600|Inter:500,400,700");
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans:700,600,400|Lato:500,400,600");
 /* The following line is used to measure usage of this code. You can remove it if you want. */
 @import url("https://px.animaapp.com/66b1e4fc06fef8fadfdbfb04.66b1e4fd06fef8fadfdbfb07.ud4O8yA.hcp.png");
 
@@ -51,6 +53,21 @@
 
 .products-6 {
   min-width: 48px;
+}
+
+.search {
+  height: 16px;
+  margin-top: 0.55px;
+  width: 16px;
+}
+
+.search-1 {
+  letter-spacing: 0;
+  line-height: normal;
+  min-height: 19px;
+  min-width: 43px;
+  opacity: 0.5;
+  text-align: center;
 }
 
 .icon-1 {
@@ -133,6 +150,150 @@
   width: 18px;
 }
 
+.alert-notification-toast-container {
+  align-items: flex-end;
+  background-color: var(--white);
+  border-radius: 14px;
+  box-shadow: 6px 6px 54px #0000000d;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  left: 10px;
+  min-height: 833px;
+  padding: 22px 288px;
+  position: absolute;
+  top: 50px;
+  width: 1138px;
+}
+
+.alert-notification-toast {
+  align-items: flex-start;
+  background-color: var(--wheat);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  position: relative;
+  width: 481px;
+}
+
+.frame-7 {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 57px;
+  justify-content: space-around;
+  position: relative;
+  width: 100%;
+}
+
+.frame-1 {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 1px;
+  position: relative;
+}
+
+.frame {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  position: relative;
+}
+
+.frame-8 {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  position: relative;
+}
+
+.warning {
+  height: 16px;
+  position: relative;
+  width: 16px;
+}
+
+.frame-9 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  width: 250px;
+}
+
+.frame-12 {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.insert-your-alert-title-here {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.insert-the-alert-des {
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+  width: fit-content;
+}
+
+.upgrade {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.close {
+  height: 16px;
+  position: relative;
+  width: 16px;
+}
+
+.close-3 {
+  height: 16px;
+  position: relative;
+  width: 16px;
+}
+
+.insert-your-alert-title-here-3 {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.upgrade-3 {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.warning-3 {
+  height: 16px;
+  position: relative;
+  width: 16px;
+}
+
 .square-checkbox-solid {
   height: 20px;
   width: 20px;
@@ -175,25 +336,6 @@
   line-height: normal;
   margin-top: -1.00px;
   position: relative;
-  text-align: center;
-}
-
-.search {
-  height: 16px;
-  margin-top: 0.55px;
-  width: 16px;
-}
-
-.search-1 {
-  color: var(--shark);
-  font-family: var(--font-family-nunito_sans-regular);
-  font-size: var(--font-size-xs);
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: normal;
-  min-height: 19px;
-  min-width: 43px;
-  opacity: 0.5;
   text-align: center;
 }
 
@@ -509,10 +651,6 @@
 }
 
 .register-account {
-  color: var(--white);
-  font-family: var(--font-family-inter);
-  font-size: var(--font-size-m);
-  font-weight: 500;
   height: 19px;
   letter-spacing: 0;
   line-height: normal;
@@ -521,11 +659,9 @@
   white-space: nowrap;
 }
 
-
-
 .span1 {
   color: var(--blue);
-  font-family: var(--font-family-inter);
+  font-family: var(--font-family-inter-medium);
   font-size: var(--font-size-m);
   font-weight: 500;
 }

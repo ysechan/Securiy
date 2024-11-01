@@ -1,0 +1,66 @@
+@charset "UTF-8";
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f6f9;
+}
+
+.chart-container {
+  width: 350px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.donut-chart {
+  position: relative;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.total-users {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  text-align: center;
+}
+
+.bar-chart {
+  margin-top: 30px;
+}
+
+.country {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.flag {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.bar {
+  height: 10px;
+  background-color: #4e73df;
+  margin: 0 10px;
+  flex-grow: 1;
+}
+
+.percentage {
+  font-size: 14px;
+}

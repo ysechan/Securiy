@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root { 
   --black: #000000;
   --black-2: #000000b2;
@@ -8,9 +9,11 @@
   --fuscous-gray: #565656;
   --gravel: #494949;
   --gray-nurse: #e8e8e8;
+  --hairy-heath: #673617;
   --navy-blue: #1565d8;
   --nevada: #696f79;
   --outrageous-orange: #ff7248;
+  --quill-gray: #d4d4d4;
   --red: #ff0000;
   --regent-gray: #8591a5;
   --shark: #202224;
@@ -20,6 +23,7 @@
   --true-v: #8979ff;
   --tulip: #ff928a;
   --turquoise-pearl: #3bc3de;
+  --wheat: #f7dfb6;
   --whisper: #f5f6fa;
   --white: #ffffff;
  
@@ -28,22 +32,24 @@
   --font-size-s: 15px;
   --font-size-xl: 22px;
   --font-size-xs: 14px;
-  --font-size-xxs: 12px;
-  --font-size-xxxs: 8px;
+  --font-size-xxs: 13px;
+  --font-size-xxxs: 12px;
  
   --font-family-helvetica-black-blackitalic: "Helvetica-Black-BlackItalic", Helvetica;
   --font-family-helvetica-regular: "Helvetica-Regular", Helvetica;
-  --font-family-inter: "Inter", Helvetica;
+  --font-family-inter-bold: "Inter-Bold", Helvetica;
+  --font-family-inter-medium: "Inter-Medium", Helvetica;
+  --font-family-inter-regular: "Inter-Regular", Helvetica;
   --font-family-inter-semibold: "Inter-SemiBold", Helvetica;
+  --font-family-lato: "Lato", Helvetica;
   --font-family-libre_caslon_text-regular: "Libre Caslon Text-Regular", Helvetica;
   --font-family-lineawesome-medium: "LineAwesome-Medium", Helvetica;
   --font-family-nunito_sans: "Nunito Sans", Helvetica;
-  --font-family-nunito_sans-regular: "Nunito Sans-Regular", Helvetica;
 }
-.inter-normal-black-12px {
+.inter-regular-normal-black-12px {
   color: var(--black-2);
-  font-family: var(--font-family-inter);
-  font-size: var(--font-size-xxs);
+  font-family: var(--font-family-inter-regular);
+  font-size: var(--font-size-xxxs);
   font-style: normal;
   font-weight: 400;
 }
@@ -74,10 +80,18 @@
 
 .inter-medium-nevada-16px {
   color: var(--nevada);
-  font-family: var(--font-family-inter);
+  font-family: var(--font-family-inter-medium);
   font-size: var(--font-size-m);
   font-style: normal;
   font-weight: 500;
+}
+
+.helvetica-black-blackitalic-black-shark-22px {
+  color: var(--shark);
+  font-family: var(--font-family-helvetica-black-blackitalic);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 900;
 }
 
 .lineawesome-medium-shark-22px {
@@ -104,14 +118,6 @@
   font-weight: 700;
 }
 
-.helvetica-black-blackitalic-black-shark-22px {
-  color: var(--shark);
-  font-family: var(--font-family-helvetica-black-blackitalic);
-  font-size: var(--font-size-xl);
-  font-style: normal;
-  font-weight: 900;
-}
-
 .nunitosans-bold-shark-32px {
   color: var(--shark);
   font-family: var(--font-family-nunito_sans);
@@ -120,20 +126,44 @@
   font-weight: 700;
 }
 
-.nunitosans-regular-normal-shark-10px {
+.nunitosans-normal-shark-10px {
   color: var(--shark);
-  font-family: var(--font-family-nunito_sans-regular);
+  font-family: var(--font-family-nunito_sans);
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
 }
 
-.nunitosans-regular-normal-shark-8px {
+.nunitosans-normal-shark-8px {
   color: var(--shark);
-  font-family: var(--font-family-nunito_sans-regular);
-  font-size: var(--font-size-xxxs);
+  font-family: var(--font-family-nunito_sans);
+  font-size: 8px;
   font-style: normal;
   font-weight: 400;
+}
+
+.lato-semi-bold-hairy-heath-14px {
+  color: var(--hairy-heath);
+  font-family: var(--font-family-lato);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.lato-normal-hairy-heath-13px {
+  color: var(--hairy-heath);
+  font-family: var(--font-family-lato);
+  font-size: var(--font-size-xxs);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.lato-medium-hairy-heath-14px {
+  color: var(--hairy-heath);
+  font-family: var(--font-family-lato);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 500;
 }
 
 .nunitosans-bold-shark-18px {
@@ -144,50 +174,10 @@
   font-weight: 700;
 }
 
-.inter-medium-white-16px {
-  color: var(--white);
-  font-family: var(--font-family-inter);
-  font-size: var(--font-size-m);
-  font-style: normal;
-  font-weight: 500;
-}
-
-.librecaslontext-regular-normal-white-20px {
-  color: var(--white);
-  font-family: var(--font-family-libre_caslon_text-regular);
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-}
-
-.inter-normal-regent-gray-15px {
-  color: var(--regent-gray);
-  font-family: var(--font-family-inter);
-  font-size: var(--font-size-s);
-  font-style: normal;
-  font-weight: 400;
-}
-
-.inter-bold-blue-16px {
-  color: var(--blue);
-  font-family: var(--font-family-inter);
-  font-size: var(--font-size-m);
-  font-style: normal;
-  font-weight: 700;
-}
-
-.inter-medium-gravel-16px {
-  color: var(--gravel);
-  font-family: var(--font-family-inter);
-  font-size: var(--font-size-m);
-  font-style: normal;
-  font-weight: 500;
-}
-
 .nunitosans-bold-shark-12px {
   color: var(--shark);
   font-family: var(--font-family-nunito_sans);
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-xxxs);
   font-style: normal;
   font-weight: 700;
 }
@@ -195,7 +185,7 @@
 .nunitosans-bold-white-12px {
   color: var(--white);
   font-family: var(--font-family-nunito_sans);
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-xxxs);
   font-style: normal;
   font-weight: 700;
 }
@@ -219,56 +209,70 @@
 .nunitosans-semi-bold-fuscous-gray-12px {
   color: var(--fuscous-gray);
   font-family: var(--font-family-nunito_sans);
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-xxxs);
   font-style: normal;
   font-weight: 600;
 }
 
+.inter-medium-white-16px {
+  color: var(--white);
+  font-family: var(--font-family-inter-medium);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.librecaslontext-regular-normal-white-20px {
+  color: var(--white);
+  font-family: var(--font-family-libre_caslon_text-regular);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.nunitosans-normal-shark-14px {
+  color: var(--shark);
+  font-family: var(--font-family-nunito_sans);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.inter-regular-normal-regent-gray-15px {
+  color: var(--regent-gray);
+  font-family: var(--font-family-inter-regular);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.inter-bold-blue-16px {
+  color: var(--blue);
+  font-family: var(--font-family-inter-bold);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.inter-medium-gravel-16px {
+  color: var(--gravel);
+  font-family: var(--font-family-inter-medium);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+}
+
 .inter-bold-black-25px {
   color: var(--black);
-  font-family: var(--font-family-inter);
+  font-family: var(--font-family-inter-bold);
   font-size: 25px;
   font-style: normal;
   font-weight: 700;
 }
 
 .inter-medium-white-16px-2 {
-  font-family: var(--font-family-inter);
+  font-family: var(--font-family-inter-medium);
   font-size: var(--font-size-m);
   font-style: normal;
   font-weight: 500;
-}
-
-
-.nunitosans-bold-eerie-black-12px {
-  color: var(--eerie-black);
-  font-family: var(--font-family-nunito_sans);
-  font-size: var(--font-size-xxs);
-  font-style: normal;
-  font-weight: 700;
-}
-
-
-.helvetica-regular-normal-eerie-black-12px {
-  color: var(--eerie-black);
-  font-family: var(--font-family-helvetica-regular);
-  font-size: var(--font-size-xxs);
-  font-style: normal;
-  font-weight: 400;
-}
-
-.helvetica-regular-normal-nobel-10px {
-  color: var(--nobel);
-  font-family: var(--font-family-helvetica-regular);
-  font-size: var(--font-size-xxxs);
-  font-style: normal;
-  font-weight: 400;
-}
-
-.inter-normal-regent-gray-15px {
-  color: var(--regent-gray);
-  font-family: var(--font-family-inter);
-  font-size: var(--font-size-s);
-  font-style: normal;
-  font-weight: 400;
 }
