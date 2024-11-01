@@ -14,6 +14,7 @@ public class Monthly {
     	System.out.println("김기백화이팅");
         return "monthGph";  // monthGph.html을 반환
     }
+    
 
     @GetMapping("/weekGph")
     public String showWeek() {

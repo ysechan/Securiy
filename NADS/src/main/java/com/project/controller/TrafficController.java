@@ -11,3 +11,4 @@ public class TrafficController {
         return "Traffic";  // Traffic.html을 반환
     }
 }
+

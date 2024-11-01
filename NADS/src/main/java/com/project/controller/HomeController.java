@@ -31,6 +31,7 @@ public class HomeController {
 			return "cpuGph";
 		}else {
 			
+			
 			return "Traffic";
 		}
 	}
