@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kibana Map</title>
+<title>Kibana Map</title>
+<style>
+/* 반응형 스타일 적용 */
+iframe {
+	width: 100%;
+	height: 80vh;
+	border: none;
+}
+/* 중앙 정렬 */
+body {
+	text-align: center;
+	font-family: Arial, sans-serif;
+}
+
+h1 {
+	margin-top: 20px;
+}
+</style>
 </head>
 <body>
-    <h1>Kibana 지도 보기</h1>
+	<h1>Kibana 지도 보기</h1>
 
-    <!-- 첫 번째 iframe - 지도 보기 -->
-    <div style="width: 100%; height: 80vh;">
-        <iframe
-            src="http://223.130.139.47:5601/app/dashboards#/view/a4567890-94d5-11ef-906e-4d0889b1a025?embed=true&_g=(filters:!(),query:(language:kuery,query:''),refreshInterval:(pause:!f,value:10000),time:(from:'2024-10-29T01:00:00.000Z',to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,syncColors:!f,useMargins:!t),panels:!((embeddableConfig:(attributes:(description:'',layerListJSON:'%5B%7B%22sourceDescriptor%22:%7B%22type%22:%22EMS_TMS%22,%22isAutoSelect%22:true%7D,%22id%22:%2214cd15aa-abf4-4cee-a379-48fc2ee6fff9%22,%22label%22:null,%22minZoom%22:0,%22maxZoom%22:24,%22alpha%22:1,%22visible%22:true,%22style%22:%7B%22type%22:%22TILE%22%7D,%22includeInFitToBounds%22:true,%22type%22:%22VECTOR_TILE%22%7D,%7B%22sourceDescriptor%22:%7B%22indexPatternId%22:%2288804b80-94dc-11ef-906e-4d0889b1a025%22,%22geoField%22:%22coordinates%22,%22filterByMapBounds%22:false,%22scalingType%22:%22CLUSTERS%22,%22id%22:%2261e4cc89-5188-4573-8eef-577eb031e36c%22,%22type%22:%22ES_SEARCH%22,%22applyGlobalQuery%22:true,%22applyGlobalTime%22:true,%22applyForceRefresh%22:true,%22tooltipProperties%22:%5B%22ip%22%5D,%22sortField%22:%22%22,%22sortOrder%22:%22desc%22,%22topHitsSplitField%22:%22%22,%22topHitsSize%22:1%7D,%22id%22:%2228cd902a-85be-4b72-a16c-d4d66b100dc7%22,%22label%22:%22kor-map-test%22,%22minZoom%22:0,%22maxZoom%22:24,%22alpha%22:0.75,%22visible%22:true,%22style%22:%7B%22type%22:%22VECTOR%22,%22properties%22:%7B%22icon%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22value%22:%22marker%22%7D%7D,%22fillColor%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22color%22:%22%2354B399%22%7D%7D,%22lineColor%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22color%22:%22%2341937c%22%7D%7D,%22lineWidth%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22size%22:1%7D%7D,%22iconSize%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22size%22:6%7D%7D,%22iconOrientation%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22orientation%22:0%7D%7D,%22labelText%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22value%22:%22%22%7D%7D,%22labelColor%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22color%22:%22%23000000%22%7D%7D,%22labelSize%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22size%22:14%7D%7D,%22labelBorderColor%22:%7B%22type%22:%22STATIC%22,%22options%22:%7B%22color%22:%22%23FFFFFF%22%7D%7D,%22symbolizeAs%22:%7B%22options%22:%7B%22value%22:%22circle%22%7D%7D,%22labelBorderSize%22:%7B%22options%22:%7B%22size%22:%22SMALL%22%7D%7D%7D,%22isTimeAware%22:true%7D,%22includeInFitToBounds%22:true,%22type%22:%22BLENDED_VECTOR%22,%22joins%22:%5B%5D%7D%5D',mapStateJSON:'%7B%22zoom%22:7.09,%22center%22:%7B%22lon%22:126.9153,%22lat%22:36.37641%7D,%22timeFilters%22:%7B%22from%22:%22now-15m%22,%22to%22:%22now%22%7D,%22refreshConfig%22:%7B%22isPaused%22:true,%22interval%22:0%7D,%22query%22:%7B%22query%22:%22%22,%22language%22:%22kuery%22%7D,%22filters%22:%5B%5D,%22settings%22:%7B%22autoFitToDataBounds%22:false,%22backgroundColor%22:%22%23ffffff%22,%22disableInteractive%22:false,%22disableTooltipControl%22:false,%22hideToolbarOverlay%22:false,%22hideLayerControl%22:false,%22hideViewControl%22:false,%22initialLocation%22:%22LAST_SAVED_LOCATION%22,%22fixedLocation%22:%7B%22lat%22:0,%22lon%22:0,%22zoom%22:2%7D,%22browserLocation%22:%7B%22zoom%22:2%7D,%22maxZoom%22:24,%22minZoom%22:0,%22showScaleControl%22:false,%22showSpatialFilters%22:true,%22showTimesliderToggleButton%22:true,%22spatialFiltersAlpa%22:0.3,%22spatialFiltersFillColor%22:%22%23DA8B45%22,%22spatialFiltersLineColor%22:%22%23DA8B45%22%7D%7D',title:maptest-kr,uiStateJSON:'%7B%22isLayerTOCOpen%22:true,%22openTOCDetails%22:%5B%5D%7D'),enhancements:(),hiddenLayers:!(),isLayerTOCOpen:!f,mapBuffer:(maxLat:38.82259,maxLon:132.1875,minLat:34.30714,minLon:120.9375),mapCenter:(lat:36.37641,lon:126.9153,zoom:6.12),openTOCDetails:!()),gridData:(h:14,i:'39572724-396b-4c83-a9b2-80ae57b08cda',w:20,x:0,y:0),panelIndex:'39572724-396b-4c83-a9b2-80ae57b08cda',type:map,version:'7.17.24'),(embeddableConfig:(attributes:(description:'',references:!((id:'62120450-958d-11ef-a7f8-a9f809a5587f',name:indexpattern-datasource-current-indexpattern,type:index-pattern),(id:'62120450-958d-11ef-a7f8-a9f809a5587f',name:indexpattern-datasource-layer-1d9e89e2-7b37-4833-b04f-9f2b0d84d4e6,type:index-pattern)),state:(datasourceStates:(indexpattern:(layers:('1d9e89e2-7b37-4833-b04f-9f2b0d84d4e6':(columnOrder:!(df7da1d2-1679-4058-939a-503dfa0256f7,'24800ecc-f92a-42e3-8cb6-9d92821ca295','06dc3044-49dd-466d-a8ed-6102bad6c5ab','5eba547f-6526-4c41-b7d7-2f75403cfd50',f712bdf4-99b6-4ca8-81cd-f672b6a54b25),columns:('06dc3044-49dd-466d-a8ed-6102bad6c5ab':(dataType:number,isBucketed:!f,label:'Median%20of%20cpu_percent',operationType:median,scale:ratio,sourceField:cpu_percent),'24800ecc-f92a-42e3-8cb6-9d92821ca295':(dataType:number,isBucketed:!f,label:'Median%20of%20tx_rate',operationType:median,scale:ratio,sourceField:tx_rate),'5eba547f-6526-4c41-b7d7-2f75403cfd50':(dataType:number,isBucketed:!f,label:'Median%20of%20rx_rate',operationType:median,scale:ratio,sourceField:rx_rate),df7da1d2-1679-4058-939a-503dfa0256f7:(dataType:date,isBucketed:!t,label:'@timestamp',operationType:date_histogram,params:(interval:auto),scale:interval,sourceField:'@timestamp'),f712bdf4-99b6-4ca8-81cd-f672b6a54b25:(dataType:number,isBucketed:!f,label:'Median%20of%20memory_percent',operationType:median,scale:ratio,sourceField:memory_percent)),incompleteColumns:())))),filters:!(),query:(language:kuery,query:''),visualization:(axisTitlesVisibilitySettings:(x:!t,yLeft:!t,yRight:!t),fittingFunction:None,gridlinesVisibilitySettings:(x:!t,yLeft:!t,yRight:!t),labelsOrientation:(x:0,yLeft:0,yRight:0),layers:!((accessors:!('24800ecc-f92a-42e3-8cb6-9d92821ca295','06dc3044-49dd-466d-a8ed-6102bad6c5ab','5eba547f-6526-4c41-b7d7-2f75403cfd50',f712bdf4-99b6-4ca8-81cd-f672b6a54b25),layerId:'1d9e89e2-7b37-4833-b04f-9f2b0d84d4e6',layerType:data,position:top,seriesType:line,showGridlines:!f,xAccessor:df7da1d2-1679-4058-939a-503dfa0256f7)),legend:(isVisible:!t,position:right),preferredSeriesType:bar_stacked,tickLabelsVisibilitySettings:(x:!t,yLeft:!t,yRight:!t),valueLabels:hide,yLeftExtent:(mode:full),yRightExtent:(mode:full))),title:testtesttest,type:lens,visualizationType:lnsXY),enhancements:()),gridData:(h:15,i:'98aa0575-97d7-42dd-92d6-b3451b659d7d',w:16,x:20,y:0),panelIndex:'98aa0575-97d7-42dd-92d6-b3451b659d7d',type:lens,version:'7.17.24')),query:(language:kuery,query:''),tags:!(),timeRestore:!f,title:'10.28map_test',viewMode:edit)&hide-filter-bar=true"
-            style="width: 100%; height: 100%; border: none;">
-        </iframe>
-    </div>
+	<!-- 첫 번째 iframe - 지도 보기 -->
+	<iframe
+		src="http://223.130.139.47:5601/app/dashboards#/view/a4567890-94d5-11ef-906e-4d0889b1a025?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-60m%2Fm%2Cto%3Anow))&hide-filter-bar=true"
+		height="600" width="800"></iframe>
 
-    <!-- 두 번째 iframe - 원형 그래프 -->
-    <div style="width: 100%; height: 80vh;">
-        <iframe
-            src="http://223.130.139.47:5601/app/dashboards#/create?embed=true&_g=(filters:!(),refreshInterval:(pause:!f,value:10000),time:(from:now-15M,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,syncColors:!f,useMargins:!t),panels:!((embeddableConfig:(attributes:(description:'',references:!((id:'62120450-958d-11ef-a7f8-a9f809a5587f',name:indexpattern-datasource-current-indexpattern,type:index-pattern),(id:'62120450-958d-11ef-a7f8-a9f809a5587f',name:indexpattern-datasource-layer-cc7cdd6c-7096-4027-86d6-da85e100b50d,type:index-pattern)),state:(datasourceStates:(indexpattern:(layers:(cc7cdd6c-7096-4027-86d6-da85e100b50d:(columnOrder:!('3010e2a1-e69d-4b39-9271-8d2c9076390a','8b5c4ce7-38a4-4671-b2d9-0cc3f0531766'),columns:('3010e2a1-e69d-4b39-9271-8d2c9076390a':(dataType:string,isBucketed:!t,label:'Top%20values%20of%20src_ip.keyword',operationType:terms,params:(missingBucket:!f,orderBy:(columnId:'8b5c4ce7-38a4-4671-b2d9-0cc3f0531766',type:column),orderDirection:desc,otherBucket:!t,size:5),scale:ordinal,sourceField:src_ip.keyword),'8b5c4ce7-38a4-4671-b2d9-0cc3f0531766':(dataType:number,isBucketed:!f,label:'Count%20of%20records',operationType:count,scale:ratio,sourceField:Records)),incompleteColumns:())))),filters:!(),query:(language:kuery,query:''),visualization:(layers:!((categoryDisplay:default,groups:!('3010e2a1-e69d-4b39-9271-8d2c9076390a'),layerId:cc7cdd6c-7096-4027-86d6-da85e100b50d,layerType:data,legendDisplay:default,metric:'8b5c4ce7-38a4-4671-b2d9-0cc3f0531766',nestedLegend:!f,numberDisplay:percent)),shape:donut)),title:test-test,type:lens,visualizationType:lnsPie)),gridData:(h:15,i:'82def19d-95fb-4aba-b0bd-435f6f3ef8b2',w:24,x:0,y:0),panelIndex:'82def19d-95fb-4aba-b0bd-435f6f3ef8b2',type:lens,version:'7.17.24')),query:(language:kuery,query:''),tags:!(),timeRestore:!f,title:'',viewMode:edit)&hide-filter-bar=true"
-            style="width: 100%; height: 100%; border: none;">
-        </iframe>
-    </div>
+
 
 </body>
 </html>
