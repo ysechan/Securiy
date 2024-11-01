@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="shortcut icon" type="image/png"
-		href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
-	<meta name="og:type" content="website" />
-	<meta name="twitter:card" content="photo" />
-	<link rel="stylesheet" type="text/css" href="css/styleguide.css" />
-	<link rel="stylesheet" type="text/css" href="css/desktop-1.css" />
-	<link rel="stylesheet" type="text/css" href="css/globals.css" />
+<meta charset="utf-8" />
+<!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+<!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+<meta name="viewport" content="width=1440, maximum-scale=1.0" />
+<link rel="shortcut icon" type="image/png"
+	href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+<meta name="og:type" content="website" />
+<meta name="twitter:card" content="photo" />
+<link rel="stylesheet" type="text/css" href="css/desktop-1.css" />
+<link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+<link rel="stylesheet" type="text/css" href="css/globals.css" />
 </head>
-<body>
-<input type="hidden" id="anPageName" name="page" value="desktop-1" />
+<body style="margin: 0; background: #f5f6fa">
+	<input type="hidden" id="anPageName" name="page" value="desktop-1" />
 	<div class="container-center-horizontal">
 		<div class="desktop-1 screen">
 			<div class="overlap-group16">
@@ -34,29 +36,36 @@
 										class="products-1 products-8 nunitosans-semi-bold-shark-14px">Home</div>
 								</div>
 
-
+									<!-- 11.01일단 지도가 나오게 함 페이지 오류가 나서-->
+								<a href="/traffic">
 								<div class="navigation-sidebar-item-light3">
-
 									<div
 										class="products-2 products-8 nunitosans-semi-bold-shark-14px">Traffic</div>
-
-
 								</div>
+								</a>
+								
+								<a href="/monthGph">
 								<div class="navigation-sidebar-item-light4">
-
 									<div
-										class="products-3 products-8 nunitosans-semi-bold-shark-14px">Session</div>
+										class="products-3 products-8 nunitosans-semi-bold-shark-14px">Session/월별</div>
 								</div>
+								</a>
+								
+								
+								<a href="/weekGph">
 								<div class="navigation-sidebar-item-light5">
-
 									<div
-										class="products-4 products-8 nunitosans-semi-bold-shark-14px">Cpu</div>
+										class="products-4 products-8 nunitosans-semi-bold-shark-14px">Cpu/주간</div>
 								</div>
+								</a>
+								
+								
+								<a href="/countryGph">
 								<div class="navigation-sidebar-item-light6">
-
 									<div
-										class="products-5 products-8 nunitosans-semi-bold-shark-14px">Memories</div>
+										class="products-5 products-8 nunitosans-semi-bold-shark-14px">Memories/국가</div>
 								</div>
+								</a>
 
 								<img class="divider" src="img/divider.svg" alt="Divider" />
 								<div class="pages">PAGES</div>
@@ -94,10 +103,9 @@
 
 									<img class="path-1" src="img/base-1@2x.png" alt="Path" />
 								</div>
-								<div class="search-container">
-									<img class="search" src="img/search@2x.png" alt="search" />
-									<div class="search-1">Search</div>
-								</div>
+
+
+
 								<div class="overlap-group3">
 									<div class="overlap-group-3">
 
@@ -113,12 +121,45 @@
 									</div>
 									<img class="oval-1" src="img/oval.svg" alt="Oval" />
 								</div>
-								<div class="english">
-									<img class="flag" src="img/flag@2x.png" alt="Flag" />
-									<div class="language">English</div>
-									<img class="drop-down" src="img/drop-down@2x.png"
-										alt="Drop Down" />
+
+
+
+
+								<!-- 여기부터 드롭박스 -->
+								<div class="english" onclick="toggleDropdown()">
+									<div class="flag-container">
+										<img class="flag" id="languageFlag" src="img/English.png"
+											alt="Flag">
+										<!-- 기본 이미지 경로 변경 -->
+										<div class="language">English</div>
+										<img class="drop-down" src="img/drop-down@2x.png"
+											alt="Drop Down">
+									</div>
 								</div>
+								<div class="dropdown-menu" id="dropdownMenu">
+									<div class="menu-item" onclick="selectLanguage('Korea')"
+										id="koreaMenuItem">
+										<img class="flag" src="img/korea.png" alt="Korea">
+										<div class="language">Korea</div>
+									</div>
+									<div class="menu-item" onclick="selectLanguage('English')"
+										id="englishMenuItem" style="display: none;">
+										<img class="flag" src="img/English.png" alt="English">
+										<!-- English 이미지 경로 -->
+										<div class="language">English</div>
+									</div>
+								</div>
+
+
+
+								<!-- 드롭박스 끝 -->
+
+
+
+
+
+
+
 								<div class="profile">
 									<img class="man-438081_960_720"
 										src="img/man-438081-960-720@2x.png" alt="man-438081_960_720" />
@@ -156,8 +197,8 @@
 									alt="Divider" />
 								<div class="title-12 nunitosans-bold-blueberry-16px">+ 55%</div>
 								<div class="hide-bg-1 hide-bg-4"></div>
-								<div class="title-13 nunitosans-bold-shark-32px">500</div>
-								<div class="search-4 nunitosans-regular-normal-shark-10px">Traffic</div>
+								<div class="title-13 nunitosans-bold-shark-32px">300</div>
+								<div class="search-4 nunitosans-regular-normal-shark-10px">Session</div>
 								<div class="search-5 nunitosans-regular-normal-shark-8px">than
 									last week</div>
 								<div class="element-icon-ui-element-1 element-icon-ui-element-4">
@@ -174,7 +215,7 @@
 								<div class="title-14 nunitosans-bold-blueberry-16px">+ 55%</div>
 								<div class="hide-bg-2 hide-bg-4"></div>
 								<div class="title-15 nunitosans-bold-shark-32px">500</div>
-								<div class="search-6 nunitosans-regular-normal-shark-10px">Traffic</div>
+								<div class="search-6 nunitosans-regular-normal-shark-10px">Cpu</div>
 								<div class="search-7 nunitosans-regular-normal-shark-8px">than
 									last week</div>
 								<div class="element-icon-ui-element-2 element-icon-ui-element-4">
@@ -191,7 +232,8 @@
 								<div class="title-16 nunitosans-bold-blueberry-16px">+ 55%</div>
 								<div class="hide-bg-3 hide-bg-4"></div>
 								<div class="title-17 nunitosans-bold-shark-32px">500</div>
-								<div class="search-8 nunitosans-regular-normal-shark-10px">Traffic</div>
+								<div class="search-8 nunitosans-regular-normal-shark-10px">Memories</div>
+
 								<div class="search-9 nunitosans-regular-normal-shark-8px">than
 									last week</div>
 								<div class="element-icon-ui-element-3 element-icon-ui-element-4">
@@ -221,96 +263,40 @@
 
 								<!-- 수정한 부분 임 -->
 								<div class="overlap-group5">
-									<div class="box-4 box-5"></div>
+									<div class="box-4 box-5">
+
+										<div>
+											<iframe
+												src="http://223.130.139.47:5601/app/dashboards#/view/a4567890-94d5-11ef-906e-4d0889b1a025?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-60m%2Fm%2Cto%3Anow))&hide-filter-bar=true"
+												height="800" width="1138"></iframe>
+
+										</div>
+
+
+
+									</div>
 
 									<!-- Insert the canvas for the bar chart above the image -->
-									<div>
-										<canvas id="barChart"
-											style="position: relative; top: 120px; left: 0; z-index: 10;"
-											width="280" height="80"></canvas>
-									</div>
+
 
 
 								</div>
 
 
 							</div>
-							<div class="flex-row99">
-								<div class="flex-col-2 flex-col-3">
-									<div class="title-21 nunitosans-bold-shark-18px">October
-										2024</div>
-									<div class="flex-row-1">
-										<div
-											class="title-container nunitosans-bold-outrageous-orange-16px">
-											<div class="title">S</div>
-											<div class="title-22">6</div>
-											<div class="title-23">13</div>
-											<div class="title-1">20</div>
-											<div class="title-1">27</div>
-										</div>
-										<div class="title-container-1 title-container-7">
-											<div class="title-24 nunitosans-bold-trout-16px-2">M</div>
-											<div class="title-25 nunitosans-bold-trout-16px">7</div>
-											<div class="title-26 nunitosans-bold-trout-16px">14</div>
-											<div class="title-2 nunitosans-bold-trout-16px">21</div>
-											<div class="title-2 nunitosans-bold-trout-16px">28</div>
-										</div>
-										<div class="title-container-2 title-container-7">
-											<div class="title-3 nunitosans-bold-trout-16px-2">T</div>
-											<div class="title-3 nunitosans-bold-trout-16px">1</div>
-											<div class="title-3 nunitosans-bold-trout-16px">8</div>
-											<div class="title-27 nunitosans-bold-trout-16px" id="oct-15">15</div>
-											<!-- id 유지 -->
-											<div class="title-4 nunitosans-bold-trout-16px">22</div>
-											<div class="title-4 nunitosans-bold-trout-16px">29</div>
-										</div>
-										<div class="title-container-3 title-container-7">
-											<div class="title-28 nunitosans-bold-trout-16px-2">W</div>
-											<div class="title-5 nunitosans-bold-trout-16px">2</div>
-											<div class="title-5 nunitosans-bold-trout-16px">9</div>
-											<div class="title-6 nunitosans-bold-trout-16px">16</div>
-											<div class="title-7 nunitosans-bold-trout-16px">23</div>
-											<div class="title-7 nunitosans-bold-trout-16px">30</div>
-										</div>
-										<div class="title-container-4 title-container-7">
-											<div class="title-8 nunitosans-bold-trout-16px-2">T</div>
-											<div class="title-8 nunitosans-bold-trout-16px">3</div>
-											<div class="title-6 nunitosans-bold-trout-16px">10</div>
-											<div class="title-6 nunitosans-bold-trout-16px">17</div>
-											<div class="title-7 nunitosans-bold-trout-16px">24</div>
-											<div class="title-7 nunitosans-bold-trout-16px">31</div>
-										</div>
-									</div>
-								</div>
-								<div class="title-container-5 title-container-7">
-									<div class="title-8 nunitosans-bold-trout-16px-2">F</div>
-									<div class="title-8 nunitosans-bold-trout-16px">4</div>
-									<div class="title-6 nunitosans-bold-trout-16px">11</div>
-									<div class="title-6 nunitosans-bold-trout-16px">18</div>
-									<div class="title-7 nunitosans-bold-trout-16px">25</div>
-								</div>
-								<div
-									class="title-container-6 title-container-7 nunitosans-bold-blueberry-16px">
-									<div class="title">S</div>
-									<div class="title-29">5</div>
-									<div class="title-9">12</div>
-									<div class="title-9">19</div>
-									<div class="title-30">26</div>
-								</div>
-							</div>
+
 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@latest"></script>
 
-	<script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@latest"></script>
+
+		<script>
       const ctx = document.getElementById('barChart').getContext('2d');
 
       // Data and threshold
@@ -374,6 +360,41 @@
     document.querySelector('.icon-1').addEventListener('click', function() {
       window.location.href = 'push.html';
     });
+
+
+
+
+    /* 드롭박스 */
+
+
+    function toggleDropdown() {
+    const dropdown = document.getElementById('dropdownMenu');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function selectLanguage(language) {
+    const flag = document.getElementById('languageFlag');
+    const languageText = document.querySelector('.english .language');
+    const dropdown = document.getElementById('dropdownMenu');
+    const koreaMenuItem = document.getElementById('koreaMenuItem');
+    const englishMenuItem = document.getElementById('englishMenuItem');
+
+    if (language === 'Korea') {
+        flag.src = 'img/korea.png'; // 플래그 이미지 변경
+        languageText.textContent = 'Korea'; // 상단의 언어 이름 변경
+        koreaMenuItem.style.display = 'none'; // 한국어 항목 숨김
+        englishMenuItem.style.display = 'block'; // 영어 항목 보임
+    } else {
+        flag.src = 'img/English.png'; // English 이미지로 변경
+        languageText.textContent = 'English'; // 상단의 언어 이름 변경
+        koreaMenuItem.style.display = 'block'; // 한국어 항목 보임
+        englishMenuItem.style.display = 'none'; // 영어 항목 숨김
+    }
+
+    dropdown.style.display = 'none'; // 드롭다운 닫기
+}
+
+
 
 
 

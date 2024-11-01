@@ -23,15 +23,23 @@ public class HomeController {
 		}else if(gph.equals("weekly")) {
 			return "weekGph";
 		}else if(gph.equals("monthly")) {
+			
 			return "monthGph";
 		}else if(gph.equals("country")) {
 			return "countryGph"; 
 		}else if(gph.equals("cpu")){
 			return "cpuGph";
 		}else {
+			
 			return "Traffic";
 		}
 	}
+	
+	@PostMapping("/traffic")
+	public String goTraffic() {
+		return "Traffic";
+	}
+	
 	
 	@PostMapping("/elasticTest")
 	public String testPage() {
