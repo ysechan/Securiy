@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Weekly Graph</title>
+<style>
+/* 반응형 스타일 적용 */
+iframe {
+	width: 100%;
+	height: 80vh;
+	border: none;
+}
+/* 중앙 정렬 */
+.container {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<h1 align="center">주간 그래프</h1>
+	<div class="container">
+		<iframe
+			src="http://223.130.139.47:5601/app/dashboards#/view/67747990-97eb-11ef-a7f8-a9f809a5587f?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1w%2Cto%3Anow))&hide-filter-bar=true">
+		</iframe>
+	</div>
+
+	<form action="/" method="post" align="center">
+		<button type="submit">메인으로 돌아가기</button>
+	</form>
+</body>
+</html>

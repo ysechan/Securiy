@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    
+    <!-- 반응형 웹 : 모바일, 태블릿, 데스크탑 등 다양한 화면 크기에 따라 페이지가 적절히 표시되도록 설정 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- 웹 사이트 아이콘 : 브라우저 탭에 해당하는 아이콘 표시 -->
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    
+    <!-- 컨텐츠 종류 : 소셜 미디어에서 웹 페이지를 공유할 때 이 페이지가 어떤 content인지 표기 -->
+    <!-- <meta name="og:type" content="website" /> -->
+    
+    <!-- Twitter Card : 트위터에서 해당 페이지가 공유될 때 어떤 content로 보일지 표기 -->
+    <!-- <meta name="twitter:card" content="photo" /> -->
+    
+    <link rel="stylesheet" type="text/css" href="/login.css" />
+    <link rel="stylesheet" type="text/css" href="/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/globals.css" />
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <title>회원가입</title>
+    <style>
+      /* 링크 스타일 */
+      .signup-link {
+        color: #2c73eb;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* hover 스타일 제거: 링크 클릭 시 스타일 변화 없음 */
+      .signup-link:hover {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  
+  <body style="margin: 0; background: #ffffff">
+  	<form action="/completeJoin" method="post">
+	    <input type="hidden" id="join" name="page" value="join" />
+	    <div class="member-container">
+	      <div class="login screen">	<!-- class명에 띄어쓰기가 있으면 2개의 클래스를 참조하는 것 -->
+	      								<!-- Login과 screen 클래스 참조 -->
+	      
+	        <div class="overlap-group1">
+	          <img class="white-logo" src="img/white-logo.svg" alt="white logo" />
+	          <div class="detectify-x valign-text-middle">Detectify X</div>
+	        </div>
+	        
+	        <div class="overlap-group2">
+	        
+	          <h1 class="title valign-text-middle">Sign Up</h1>
+	          
+	<!--      <p class="if-you-are-already-a valign-text-middle">
+	            Become a member and enjoy exclusive promotions.
+	          </p> -->
+	          
+	          <!-- id -->
+	          <div class="id valign-text-middle inter-medium-nevada-16px">ID</div>
+	          <input type="text" class="rectangle-2" id="id" name="id" placeholder="Enter your Id" style="width: 100%; padding: 10px;" />
+	
+			  <!-- password -->
+	          <div class="password valign-text-middle inter-medium-nevada-16px">Password</div>
+	          <input type="password" class="rectangle-2" id="password" name="password" placeholder="Enter your Password" style="width: 100%; padding: 10px;" />
+			  
+			  <!-- name -->
+	          <div class="id valign-text-middle inter-medium-nevada-16px">Name</div>
+	          <input type="text" class="rectangle-2" id="name" name="name" placeholder="Enter your Name" style="width: 100%; padding: 10px;" />
+			  
+			  <!-- e-mail -->
+	          <div class="id valign-text-middle inter-medium-nevada-16px">E-mail</div>
+	          <input type="text" class="rectangle-2" id="email" name="email" placeholder="Enter your E-mail" style="width: 100%; padding: 10px;" />
+	          
+	          <!-- phone -->
+	          <div class="id valign-text-middle inter-medium-nevada-16px">Phone</div>
+	          <input type="text" class="rectangle-2" id="phone" name="phone" placeholder="Enter your Phone number" style="width: 100%; padding: 10px;" />
+	         
+	          <!-- Continue 버튼 -->
+	          <div class="overlap-group" style="cursor: pointer;">
+	           	<button type="submit" class="register-account valign-text-middle" onclick="joinCondition()">Continue</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+   	</form>
+   	
+   	<!-- 팝업창 띄우기 -->
+   	<script>
+   		function joinCondition(){
+			var userId = document.getElementById("id").value;
+			var password = document.getElementById("password").value;
+			
+			if(!password){	// null, undefined, 빈 문자열인 경우 모두 포함
+				alert('비밀번호를 확인하시기 바랍니다.')
+				return;	// 이후 코드를 실행하지 않도록 함수 종료
+			}
+			
+			$.ajax({
+				url : 'checkId',
+				type : 'GET',
+				data : {
+					id : userId
+				},
+				success : function(response){
+					if(response === 'duplicate'){
+						alert('이미 사용 중인 아이디입니다.')
+					}else{
+					}
+				},
+				error : function(){
+					alert('오류 발생!')
+				}
+			});
+   		}
+   	</script>
+   	
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    
+    <link rel="stylesheet" type="text/css" href="/login.css" />
+    <link rel="stylesheet" type="text/css" href="/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/globals.css" />
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <title>로그인</title>
+    
+    <style>
+      /* 커스텀 체크박스 스타일 */
+      .checkbox-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .checkbox-container input[type="checkbox"] {
+        display: none; /* 기본 체크박스 숨기기 */
+      }
+
+      .checkbox-custom {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ccc;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 4px;
+        position: relative;
+      }
+
+      .checkbox-custom::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 6px;
+        width: 6px;
+        height: 12px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+
+      .checkbox-container input[type="checkbox"]:checked + .checkbox-custom {
+        background-color: #28a745;
+        border-color: #28a745;
+      }
+
+      .checkbox-container input[type="checkbox"]:checked + .checkbox-custom::after {
+        opacity: 1;
+      }
+
+      /* 링크 스타일 */
+      .signup-link {
+        color: #2c73eb;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* hover 스타일 제거: 링크 클릭 시 스타일 변화 없음 */
+      .signup-link:hover {
+        text-decoration: none;
+      }
+      
+    </style>
+  
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="login" />
+    
+    <!-- form 태그 시작 -->
+    <form action="/goMain" method="POST">
+    <div class="member-container">
+      <div class="login screen">
+        <div class="overlap-group1">
+          <img class="white-logo" src="img/white-logo.svg" alt="white logo" />
+          <div class="detectify-x valign-text-middle">Detectify X</div>
+        </div>
+        <div class="overlap-group2">
+          <h1 class="title valign-text-middle">LOGIN</h1>
+          <div class="id valign-text-middle inter-medium-nevada-16px">ID</div>
+          <!-- ID 입력 필드 -->
+          <input type="text" class="rectangle-2" id="id" name="id" placeholder="Enter your ID" style="width: 100%; padding: 10px; margin-bottom: 20px;" />
+
+          <div class="password valign-text-middle inter-medium-nevada-16px">Password</div>
+          <!-- Password 입력 필드 -->
+          <input type="password" class="rectangle-2" id="password" name="password" placeholder="Enter your password" style="width: 100%; padding: 10px;" />
+
+          <!-- Remember Me 체크박스 -->
+          <div class="checkbox-container" style="margin-top: 20px;">
+            <input type="checkbox" id="rememberMe" />
+            <div class="checkbox-custom"></div>
+            <label for="rememberMe" class="remember-me valign-text-middle inter-medium-nevada-16px" style="margin-left: 10px;">Remember me</label>
+          </div>
+
+          <!-- Login 버튼 -->
+          <div class="overlap-group" style="cursor: pointer;">
+            <button type="submit" class="register-account valign-text-middle" onclick="loginConfirm()">Login</button>
+          </div>
+          </form>
+
+          <p class="dont-have-an-account-sign-up-here valign-text-middle" style="margin-top: 20px;">
+            <span><span class="inter-medium-nevada-16px">Don’t have an account?</span>
+              <!-- Sign up here 링크: href를 member-page로 수정 -->
+              <a href="/goJoin" class="signup-link">Sign up here</a>
+            </span>
+          </p>
+          
+        </div>
+      </div>
+    </div>
+    
+    <script>
+   		function loginConfirm(){
+			var userId = document.getElementById("id").value;
+			var password = document.getElementById("password").value;
+			
+			$.ajax({
+				url : 'loginConfirm',
+				type : 'GET',
+				data : {
+					id : userId,
+					password : password
+				},
+				success : function(response){
+					if(response === 'success'){
+						return;
+					}else{
+						alert('아이디 또는 비밀번호를 확인하시기 바랍니다.')
+					}
+				},
+				error : function(){
+					alert('오류 발생!')
+				}
+			});
+   		}
+    	</script>
+    
+  </body>
+</html>

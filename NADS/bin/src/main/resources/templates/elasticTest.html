@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Elasticsearch Test</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<h1 align="center">Elasticsearch Test Page!</h1>
+	
+	<div id="elastic-data">
+        <!-- Elasticsearch 데이터를 여기에 표시할 예정 -->
+    </div>
+	
+	<script>
+        $(document).ready(function() {
+            // /api/elastic/all 경로에 GET 요청을 보냄
+            $.ajax({
+                url: "/api/elastic/all",
+                type: "GET",
+                success: function(data) {
+					// 데이터 구조 확인
+					console.log(data)
+					
+					// time 필드를 기준으로 오름차순 정렬
+					data.sort(function(a, b){
+						return new Date(a.time) - new Date(b.time);
+					});
+					
+                    // 데이터를 HTML에 추가
+                    var htmlContent = "<ul>";
+                    data.forEach(function(document) {
+						if(document.time != null){
+	                        htmlContent += "<li> Time: " + document.time + "</li>";
+	                        htmlContent += "<li> Source IP : " + document.srcIp + "</li>";
+	                        htmlContent += "<li> Traffic : " + document.txRate + "</li>";
+	                        htmlContent += "<li> Session : " + document.sessionCount + "</li>";
+	                        htmlContent += "<li> Memory : " + document.memoryPercent + "%</li>";
+	                        htmlContent += "<li> CPU : " + document.cpuPercent + "%</li>";
+	                        htmlContent += "<br>";
+						}
+                    });
+                    htmlContent += "</ul>";
+                    
+                    console.log("가져 온 데이터 개수 : ", data.length)
+                   
+                    // 데이터를 표시할 div에 삽입
+                    $("#elastic-data").html(htmlContent);
+                },
+                error: function() {
+                    $("#elastic-data").html("<p>데이터를 가져오는 데 실패했습니다.</p>");
+                }
+            });
+        });
+    </script>
+	
+	<form action="/main" method="post" align="center">
+		<button type="submit">메인으로 돌아가기</button>
+	</form>
+	
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    
+    <link rel="stylesheet" type="text/css" href="css/landing-page.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="css/globals.css" />
+    
+    <style>
+      /* 전체 화면 비디오와 콘텐츠 스타일 */
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      /* 비디오가 전체 화면을 덮도록 설정 */
+      #loadingVideo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 화면을 꽉 채우면서 비율 유지 */
+        z-index: -1; /* 비디오가 다른 콘텐츠 뒤에 위치 */
+      }
+
+      /* 로고와 텍스트를 중앙에 위치 */
+      .container-center-horizontal {
+        position: relative;
+        z-index: 1; /* 비디오 위에 표시될 수 있도록 z-index 설정 */
+        color: white; /* 텍스트 색상 */
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+
+      .overlap-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* 로고 크기 1/2로 줄임 */
+      .white-logo {
+        width: 109px;
+        margin-bottom: 10px;
+
+        
+      }
+
+      /* 텍스트 크기 1/2로 줄임 */
+      .detectify-x {
+        font-size: 20px;
+        line-height: 1.5;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      }
+
+      /* 로딩 화면 스타일 */
+      #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* 비디오 위에 살짝 어두운 오버레이 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 로딩 페이지 -->
+    <div id="loader">
+      <!-- 비디오 화면 -->
+      <video id="loadingVideo" autoplay muted playsinline>
+        <source src="/video/loading-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- 로고와 문구 -->
+      <div class="container-center-horizontal">
+        <div class="overlap-group">
+          <img class="white-logo" src="img/logo-new.png" alt="white logo" />
+          <p class="detectify-x valign-text-middle">
+            Detectify X에 오신 것을 환영합니다! <br />최고의 보안 솔루션을 경험해 보세요.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      window.onload = function() {
+        setTimeout(function() {
+          // 로딩 화면을 페이드아웃 시키고 login.html로 이동
+          document.getElementById("loader").style.transition = "opacity 1s ease";
+          document.getElementById("loader").style.opacity = "0"; // 페이드 아웃 효과
+
+          setTimeout(function() {
+            window.location.href = "/main"; // Login.html로 이동  ps.로그인 기능을 피하기 위해 main으로 변경했음.
+          }, 1000); // 1초 후 페이지 이동 (페이드 아웃 후)
+        }, 2000); // 2초 후에 페이지 이동
+      };
+    </script>
+  </body>
+</html>

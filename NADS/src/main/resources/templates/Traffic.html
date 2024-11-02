@@ -88,7 +88,7 @@
 					// new Chart(ctx, {}) 와 const config = {} 의 차이
 					// 1. new Chart..는 한 번에 차트에 대한 모든 정보를 담을 때
 					// 2. const config..는 차트의 설정을 미리 config(객체)로 정의한 후 이 객체를 사용하여 차트 생성
-					const lineChart = new Chart(ctx, {
+					let lineChart = new Chart(ctx, {
 						type: 'line',
 						data: {
 							labels: date.slice(startIndex, startIndex + visibleCount),
@@ -113,7 +113,7 @@
 							scales: {
 								y: {
 									beginAtZero: true,	// 축이 0부터 시작할지 여부
-									max: 50000
+									max: 15000
 								}
 							},
 							plugins: {
@@ -166,7 +166,7 @@
 						}
 					});
 					
-					function Chart(){
+					function updateChart(){
 						startIndex += 1;
 						
 						// 데이터의 끝에 도달하면 처음으로 돌아가도록 설정

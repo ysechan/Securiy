@@ -1,0 +1,37 @@
+/* screen - landing-page */
+
+.landing-page {
+  align-items: flex-start;
+  background-color: var(--whisper);
+  display: flex;
+  height: 1080px;
+  min-width: 1920px;
+}
+
+.landing-page .overlap-group {
+  align-items: flex-end;
+  background-image: url(../img/image-5.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  gap: 43px;
+  min-height: 1080px;
+  padding: 367px 789px;
+  width: 1920px;
+}
+
+.landing-page .white-logo {
+  align-self: center;
+  height: 73px;
+  margin-left: 7.0px;
+  width: 109px;
+}
+
+.landing-page .detectify-x {
+  height: 26px;
+  letter-spacing: 0;
+  line-height: normal;
+  text-align: center;
+  width: 341px;
+}

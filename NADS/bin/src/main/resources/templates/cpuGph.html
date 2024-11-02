@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CPU</title>
+</head>
+<body>
+	<h1 align="center">CPU 그래프</h1>
+	
+	<!-- jQuery CDN 추가 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<!-- Chart.js 설치 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	
+	<div align="center">
+	  <canvas id="lineChart" height="100"></canvas>
+	</div>
+	
+	<div align="right">
+		<button id="next" align="right">다음</button>
+	</div>
+	
+	<script>
+		$(document).ready(function(){
+			$.ajax({
+				url: "/api/elastic/all",
+				type: "GET",
+				success: function(data){
+					
+					// 시간 필드를 기준으로 오름차순 정렬
+					data.sort(function(a, b) {
+						return new Date(a.time) - new Date(b.time);
+					});
+					
+					const date = [];
+					const cpus = [];
+					data.forEach(function(document){
+						date.push(document.time);
+						cpus.push(document.cpu);
+					});
+					
+					// 차트에서 한 번에 보여줄 데이터 수
+					const visibleCount = 50;
+					let startIndex = 0;
+					
+					// 차트 생성
+					const ctx = document.getElementById('lineChart').getContext('2d');
+					
+					// new Chart(ctx, {}) 와 const config = {} 의 차이
+					// 1. new Chart..는 한 번에 차트에 대한 모든 정보를 담을 때
+					// 2. const config..는 차트의 설정을 미리 config(객체)로 정의한 후 이 객체를 사용하여 차트 생성
+					const lineChart = new Chart(ctx, {
+						type: 'line',
+						data: {
+							labels: date.slice(startIndex, visibleCount),
+							datasets: [{
+								label: 'CPU',
+								data: cpus.slice(startIndex, visibleCount),
+								tension: 0.4,
+								borderColor: 'rgb(93, 93, 93)',
+								borderWidth: 2,
+								pointRadius: 0
+							}]
+						},
+						options: {
+							responsive: true,	// 그래프를 다시 로딩하거나 할 때 반응형 여부
+							scales: {
+								x: {
+									ticks: {
+									}
+								},
+								y: {
+									ticks: {
+										beginAtZero: false,
+									},
+									min: 50,
+									max: 350
+								}
+							},
+							plugins: {
+								tooltip: {
+									intersect: false
+								}
+							}
+						}
+					});
+					
+					function updateChart(){
+						startIndex += 1;
+						
+						// 데이터의 끝에 도달하면 처음으로 돌아가도록 설정
+						if(startIndex + visibleCount > date.length){
+							startIndex = 0;
+						}
+						
+						// 새로운 범위의 데이터로 차트 업데이트
+						lineChart.data.labels = date.slice(startIndex, startIndex+visibleCount);
+						lineChart.data.datasets[0].data = cpus.slice(startIndex, startIndex+visibleCount);
+						
+						// 차트 갱신
+						lineChart.update();
+					}
+					
+					// 업데이트 주기 설정
+					let updateInterval = setInterval(updateChart, 800);
+					
+					
+					
+				},
+				error: function(){
+					console.log("데이터 불러오기 실패")
+				}
+			});
+		});
+		
+	</script>
+	
+	<form action="/main" method="post" align="center">
+		<button type="submit">메인으로 돌아가기</button>
+	</form>
+	
+</body>
+</html>

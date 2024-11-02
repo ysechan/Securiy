@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- Rethink Sans 폰트 설치 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<title>Daily Graph</title>
+</head>
+<body>
+	<h1 align="center">실시간 트래픽 그래프</h1>
+	
+	<!-- jQuery CDN 추가 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<!-- Chart.js 설치 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	
+	<!-- main 그래프 -->
+	<div align="center">
+	  <canvas id="lineChart" height="100"></canvas>
+	</div>
+	
+	<script>
+		// test data로 그래프 생성하기
+		$(document).ready(function(){
+			$.ajax({
+				url: "/api/elastic/all",
+				type: "GET",
+				success: function(trafficData){
+					// 시간 필드를 기준으로 오름차순 정렬
+					trafficData.sort(function(a, b){
+						return new Date(a.time) - new Date(b.time);
+					});
+					
+					const date = [];
+					const traffics = [];
+					
+					trafficData.forEach(function(item){
+						date.push(item.time);
+						traffics.push(item.traffic);
+					});
+					
+					// y축 데이터 생성(Treshold)
+					const threData = [];
+					const thrData = [];
+					let thrRandom = Math.floor(Math.random() * 99) + 50;			// 5000~6000의 랜덤 수 생성
+					function genData2(preValue){
+						const min = Math.max(100, preValue - 10);
+						const max = Math.min(140, preValue + 10);
+						return Math.floor(Math.random() * (max - min + 1)) + min;
+					}
+					for(let i = 0; i < date.length; i++){
+						thrRandom = genData2(thrRandom);
+						thrData.push(thrRandom);
+					}
+					
+					// 차트 생성
+					const ctx = document.getElementById('lineChart').getContext('2d');
+					
+					// new Chart(ctx, {}) 와 const config = {} 의 차이
+					// 1. new Chart..는 한 번에 차트에 대한 모든 정보를 담을 때
+					// 2. const config..는 차트의 설정을 미리 config(객체)로 정의한 후 이 객체를 사용하여 차트 생성
+					new Chart(ctx, {
+						type: 'line',
+						data: {
+							labels: date,
+							datasets: [
+								{
+									label: 'Traffic',
+									data: traffics,
+									tension: 0.5,					// 꺽기 정도(?)
+									borderColor: 'rgb(93, 93, 93)', // 선 색상
+									borderWidth: 2,					// 선 두께
+									pointRadius: 0,					// 포인트 크기(0이면 포인트 삭제)
+									fill: {
+										target: 1,
+										above: 'rgba(204, 61, 61, 0.4)',
+										below: 'rgba(255, 255, 255, 0)'
+									}
+								},
+								{
+									label: 'Treshold',
+									data: thrData,
+									tension: 0.5,
+									borderColor: 'rgb(204, 61, 61)',
+									borderWidth: 2,
+									pointRadius: 0,
+									fill: false
+								}
+							]
+						},
+						options: {
+							responsive: true,
+							scales: {
+								y: {
+									beginAtZero: false,				// 축이 0부터 시작할지 여부
+									min: 30,
+									max: 15000
+								}
+							},
+							plugins: {
+								tooltip: {	// chart 위에 마우스를 올리면 데이터 포인트와 관련된 정보를 표시
+			 						intersect: false,	// 마우스가 정확히 데이터 포인트 위에 있을 때만 표시될지 여부
+														// 기본값 : true, false면 포인트 가까이만 있어도 tooltip 표시
+									displayColors: false,	// label의 색상 상자 표시 여부
+									titleFont: {
+										size: 20,
+										family: 'Rethink Sans',
+										weight: 'bold'
+									},
+									bodyFont: {
+										size: 15,
+										family: 'Rethink Sans'
+									},
+									cornerRadius: 10,	// tooltip 둥근 모서리(기본값 : 6)
+									caretSize: 8,		// tooltip이 차트 요소를 가리키는 작은 삼각형
+									callbacks: {
+										title: function(tooltipTitle){
+											return 'Details';
+										},
+										label: function(tooltipLabel){
+											if(tooltipLabel.dataset.label === 'Traffic'){
+												return '• Traffic  :  '+tooltipLabel.raw;
+											}else{
+												return '• Treshold  :  '+tooltipLabel.raw;
+											}
+										},
+										afterLabel: function(tooltipLabel){
+											const info = [];
+											
+											if(tooltipLabel.dataset.label === 'Traffic'){
+												const treshold = thrData[tooltipLabel.dataIndex];
+												info.push('• Treshold  :  '+treshold);
+												info.push('• Date  :  '+tooltipLabel.label);
+												info.push('• Response Time  :  50ms');
+											}else{
+												const trafficInfo = traffics[tooltipLabel.dataIndex];
+												info.push('• Traffic  :  '+trafficInfo);
+												info.push('• Date  :  '+tooltipLabel.label);
+											}
+											return info;
+										}
+									}
+								}
+							},
+							// hover 속성을 활용하여 접속 위치 통계 그래프 출력하기 >>> 실패 .. ㅠ
+			 				hover: {
+								mode: 'index',	// 마우스를 올렸을 때 반응하는 차트 요소의 범위
+								intersect: false,	// 마우스가 요소와 교차할 때만 호버 효과가 발생할지 여부 설정
+							}
+						}
+					});
+				},
+				error: function(){
+					console.log("데이터 불러오기 실패")
+				}
+			});
+		});	
+	</script>
+	
+	<form action="/" method="post" align="center">
+		<button type="submit">메인으로 돌아가기</button>
+	</form>
+</body>
+</html>

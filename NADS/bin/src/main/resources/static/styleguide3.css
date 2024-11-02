@@ -1,0 +1,34 @@
+@charset "UTF-8";
+:root { 
+  --black: #000000;
+  --nevada: #696f79;
+  --regent-gray: #8591a5;
+  --shark: #202224;
+  --white: #ffffff;
+ 
+  --font-size-l: 16px;
+  --font-size-m: 15px;
+  --font-size-s: 14px;
+  --font-size-xl: 22px;
+  --font-size-xs: 12px;
+  --font-size-xxl: 25px;
+ 
+  --font-family-helvetica-black-blackitalic: "Helvetica-Black-BlackItalic", Helvetica;
+  --font-family-inter: "Inter", Helvetica;
+  --font-family-nunito_sans: "Nunito Sans", Helvetica;
+}
+.nunitosans-semi-bold-shark-14px {
+  color: var(--shark);
+  font-family: var(--font-family-nunito_sans);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.inter-medium-nevada-16px {
+  color: var(--nevada);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 500;
+}
