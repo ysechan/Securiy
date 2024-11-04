@@ -34,13 +34,4 @@ public class ElasticController {
 		}
 		return ResponseEntity.ok(doc);
 	}
-	
-	/*
-	 * @PostMapping("/datetime") public ResponseEntity<List<ElasticEntity>>
-	 * getDatetime(@RequestParam("choiceDate") String choiceDate, String
-	 * indexPattern){ List<ElasticEntity> datetime =
-	 * elasticService.getDatetime(choiceDate);
-	 * System.err.println("입력 받은 날짜 : "+datetime); return
-	 * ResponseEntity.ok(datetime); }
-	 */
 }
