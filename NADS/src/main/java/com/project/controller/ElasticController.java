@@ -21,11 +21,12 @@ public class ElasticController {
 	
 	// 모든 데이터를 반환하는 API
 	@GetMapping("/all")
-	public ResponseEntity<List<ElasticEntity>> getAllDocsByPattern(@RequestParam(value = "choiceDate", required = false) String choiceDate){
+	public ResponseEntity<List<ElasticEntity>> getAllDocsByPattern(@RequestParam(value = "choiceDate", required = false) String choiceDate,
+																	@RequestParam(value = "choiceDateEnd", required = false) String choiceDateEnd){
 		List<ElasticEntity> doc;
 		
 		if(choiceDate != null && !choiceDate.isEmpty()) {
-			doc = elasticService.getDatetime(choiceDate);
+			doc = elasticService.getDatetime(choiceDate, choiceDateEnd);
 			 System.out.println("입력 받은 날짜로 조회한 데이터 : " + doc);
 		}else {
 			doc = elasticService.getAllDocsByPattern();

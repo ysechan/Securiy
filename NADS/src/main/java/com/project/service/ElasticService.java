@@ -20,8 +20,8 @@ public class ElasticService {
 		return elasticRepo.findAllByIndexPattern("last_log-*");
 	}
 
-	 public List<ElasticEntity> getDatetime(String choiceDate){ 
+	 public List<ElasticEntity> getDatetime(String choiceDate, String choiceDateEnd){ 
 		 
-		 return elasticRepo.findAllByDatetime(choiceDate); 
+		 return elasticRepo.findAllByDatetime(choiceDate, choiceDateEnd); 
 	 }
 }

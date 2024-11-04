@@ -14,11 +14,14 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 	<!-- 날짜 및 시간대 설정 -->
-	<div align="right" id="choiceDetail">
+	<div align="center" id="choiceDetail">
 		<form action="/api/elastic/all" id="choiceDateForm">
 			<input type="datetime-local" id="choiceDate" name="choiceDate">
+			<input type="datetime-local" id="choiceDateEnd" name="choiceDateEnd">
 			<button type="submit">조회</button>
 		</form>
+	</div>
+	<div align="right" id="playOrstop">
 		<button id="tempStop">일시정지</button>
 		<button id="play">재생</button>
 	</div>
@@ -35,10 +38,14 @@
 			let lineChart;
 			let updateInterval;
 			
+			// 페이지 로드 시 기본 쿼리 실행 (choiceDate, choiceDateEnd 없이)
+			fetchData(null, null);
+			
 			// 기존 폼 제출 동작을 막고 AJAX 요청을 보냄
 			$('#choiceDateForm').submit(function(event){
 				event.preventDefault(); // 기본 폼 제출 방지
 				const choiceDate = $('#choiceDate').val(); // 선택한 날짜와 시간 값 가져오기
+				const choiceDateEnd = $('#choiceDateEnd').val(); // 선택한 날짜와 시간 값 가져오기
 				
 				// 이전 업데이트 주기 제거
 	            if (updateInterval) {
@@ -46,10 +53,20 @@
 	                updateInterval = null;
 	            }
 				
+				// 선택한 choiceDate로 데이터 가져오기
+				fetchData(choiceDate, choiceDateEnd);
+				
+			});
+				
+			function fetchData(choiceDate, choiceDateEnd){
+				let requestData = {};
+				if (choiceDate) requestData.choiceDate = choiceDate;
+			    if (choiceDateEnd) requestData.choiceDateEnd = choiceDateEnd;
+				
 				$.ajax({
 					url: "/api/elastic/all",
 					type: "GET",
-					data: {choiceDate: choiceDate},
+					data: requestData,
 					success: function(trafficData){
 						// 시간 필드를 기준으로 오름차순 정렬
 						trafficData.sort(function(a, b){
@@ -210,27 +227,28 @@
 						// 업데이트 주기 설정
 						updateInterval = setInterval(updateChart, 800);
 						
-						// 일시정지 버튼 클릭 시 차트 업데이트
-						document.getElementById('tempStop').addEventListener('click', function(){
-							clearInterval(updateInterval);
-							updateInterval = null;
-						});
-						
-						// 재생 버튼 클릭 시 차트 업데이트
-						document.getElementById('play').addEventListener('click', function() {
-		                    // 기존 인터벌이 이미 멈춰있다면 재시작
-		                    if (!updateInterval) {
-		                        updateInterval = setInterval(updateChart, 800);
-		                    }
-		                });
 					},	
 					error: function(){
 						console.log("데이터 불러오기 실패")
 					}
 				});
-			});
-				
-			});
+			}
+			
+		});
+		
+		// 일시정지 버튼 클릭 시 차트 업데이트
+		document.getElementById('tempStop').addEventListener('click', function(){
+			clearInterval(updateInterval);
+			updateInterval = null;
+		});
+		
+		// 재생 버튼 클릭 시 차트 업데이트
+		document.getElementById('play').addEventListener('click', function() {
+            // 기존 인터벌이 이미 멈춰있다면 재시작
+            if (!updateInterval) {
+                updateInterval = setInterval(updateChart, 800);
+            }
+        });
 	</script>
 
 	<form action="/main" method="post" align="center">

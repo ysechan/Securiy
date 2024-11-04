@@ -39,14 +39,16 @@ public class ElasticRepoCustomImpl implements ElasticRepoCustom {
 	
 	// 날짜 설정 버전
 	@Override
-	public List<ElasticEntity> findAllByDatetime(String choiceDate) {
+	public List<ElasticEntity> findAllByDatetime(String choiceDate, String choiceDateEnd) {
 		// choiceDate를 LocalDateTime으로 파싱
-        LocalDateTime parsedDate = LocalDateTime.parse(choiceDate, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        LocalDateTime startDate = LocalDateTime.parse(choiceDate, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+        LocalDateTime endDate = LocalDateTime.parse(choiceDateEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
         
         // 새로운 포맷으로 변환
-        String formattedDate = parsedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"));
+        String formattedStartDate = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"));
+        String formattedEndDate = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"));
 		
-		String queryJson = String.format("{ \"range\" : { \"time\" : { \"gte\" : \"%s\", \"format\" : \"yyyy-MM-dd'T'HH:mm:ss.SSS\"}}}}", formattedDate);
+		String queryJson = String.format("{ \"range\" : { \"time\" : { \"gte\" : \"%s\", \"lte\" : \"%s\", \"format\" : \"yyyy-MM-dd'T'HH:mm:ss.SSS\"}}}}", formattedStartDate, formattedEndDate);
 		
 		Query query = new StringQuery(queryJson);
 		query.setPageable(PageRequest.of(0, 10000)); // size를 설정하여 최대 10000개 조회
