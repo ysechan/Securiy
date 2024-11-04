@@ -64,7 +64,7 @@ public class HomeController {
 	
 	@RequestMapping("/main")
 	public String goMain(HttpSession session) {
-		if(session.getAttribute("loginInfo") == null) {
+		if(session.getAttribute("loginInfo") != null) {
 			// 로그인인포가 != null 일때 에서 == null로 변경했음
 			return "Home";
 		}
