@@ -62,6 +62,11 @@ public class HomeController {
 		return "Login";
 	}
 	
+	@GetMapping("/setting")
+	public String goSetting() {
+		return "setting";
+	}
+	
 	@RequestMapping("/main")
 	public String goMain(HttpSession session) {
 		if(session.getAttribute("loginInfo") != null) {
