@@ -85,7 +85,7 @@
 	 						if(item.txRate != null){	// txRate가 없는 데이터는 배열에 넣지 않기
 								// 날짜 형식 바꾸기
 								const originalDate = new Date(item.time);	//  originalDate를 Date 객체로 변환
-								const formattedDate = `${originalDate.getHours()}시 ${originalDate.getMinutes()}분 ${originalDate.getSeconds()}초`;
+								const formattedDate = `${originalDate.getHours()}:${originalDate.getMinutes()}:${originalDate.getSeconds()}`;
 								date.push(formattedDate);
 								tfData.push(item.txRate);
 								
