@@ -21,10 +21,13 @@
 				<div class="overlap-group15">
 					<div class="overlap-group10">
 
+
 						<div class="navigation-sidebar-1">
 							<div class="overlap-group-1">
 
+
 								<!-- 사이드바 시작 -->
+
 
 								<a href="/main">
 									<div class="navigation-sidebar-item-light2">
@@ -53,6 +56,8 @@
 									</div>
 								</a> <img class="divider" src="img/divider.svg" alt="Divider" />
 								<div class="pages">PAGES</div>
+
+
 
 								<!-- 클래스 수정 -->
 								<a href="/setting">
@@ -226,7 +231,7 @@
 								<div class="overlap-group5">
 									<div class="box-4 box-5">
 
-										<div>
+										<div class="iframe-container">
 											<iframe
 												src="http://223.130.139.47:5601/app/dashboards#/view/a4567890-94d5-11ef-906e-4d0889b1a025?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-60m%2Fm%2Cto%3Anow))&hide-filter-bar=true"
 												height="800" width="1138"></iframe>
@@ -343,13 +348,23 @@ function selectLanguage(language) {
     dropdown.style.display = 'none'; // 드롭다운 닫기
 }
 
-
-
-
-
-
-
-
     </script>
+
+		<script>
+    // 10초마다 iFrame을 재생성하여 강제 새로고침
+    setInterval(function() {
+        const iframeContainer = document.querySelector('.iframe-container');
+        const newIframe = document.createElement('iframe');
+
+        // iFrame의 src에 타임스탬프 추가하여 캐시 우회
+        newIframe.src = "http://223.130.139.47:5601/app/dashboards#/view/a4567890-94d5-11ef-906e-4d0889b1a025?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-60m%2Fm%2Cto%3Anow))&hide-filter-bar=true&timestamp=" + new Date().getTime();
+        newIframe.height = "800";
+        newIframe.width = "1138";
+
+        // 기존 iFrame 제거 후 새로 생성한 iFrame 추가
+        iframeContainer.innerHTML = ''; // 기존 iFrame 제거
+        iframeContainer.appendChild(newIframe); // 새 iFrame 추가
+    }, 30000); // 10초마다 실행
+</script>
 </body>
 </html>
