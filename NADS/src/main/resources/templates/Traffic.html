@@ -43,7 +43,8 @@
 			let tfData = [];
 			
 			// 페이지 로드 시 기본 쿼리 실행 (choiceDate, choiceDateEnd 없이)
-			fetchData(null, null);
+			fetchElasticData(null, null);
+			fetchThresholdData(null, null);
 			
 			// 기존 폼 제출 동작을 막고 AJAX 요청을 보냄
 			$('#choiceDateForm').submit(function(event){
@@ -58,11 +59,12 @@
 	            }
 				
 				// 선택한 choiceDate로 데이터 가져오기
-				fetchData(choiceDate, choiceDateEnd);
+				fetchElasticData(choiceDate, choiceDateEnd);
+				fetchThresholdData(choiceDate, choiceDateEnd);
 				
 			});
 				
-			function fetchData(choiceDate, choiceDateEnd){
+			function fetchElasticData(choiceDate, choiceDateEnd){
 				let requestData = {};
 				if (choiceDate) requestData.choiceDate = choiceDate;
 			    if (choiceDateEnd) requestData.choiceDateEnd = choiceDateEnd;
@@ -80,18 +82,43 @@
 						// 데이터 범위 설정 : 첫 번째와 마지막 시간 가져오기
 						const startDate = new Date(trafficData[0].time);
 						const endDate = new Date(trafficData[trafficData.length - 1].time);
-						console.log("startDate : ", startDate);
-						console.log("endDate : ", endDate);
 						
+						// data와 tfData 배열 초기화
+						 date = [];		
+						 tfData = [];		
 						
+						// StartDate에서 endDate까지 1초 간격으로 시간 설정 
+						let currentDate = new Date(startDate);
+						// while문 시작 ============
+						while (currentDate <= endDate){
 						
-						// 가져온 elastic 데이터를 배열에 집어 넣기
-						 date = [];		// 형식을 바꾼 날짜
-						 tfData = [];		// 트래픽
+							// 현재 시간을 "HH:MM:SS" 형식으로 저장
+							const formattedDate = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+							date.push(formattedDate);
+							
+							// 현재 초에 해당하는 모든 txRate 값 합산
+							const sumTxRate = trafficData
+								.filter(item => {
+									const itemDate = new Date(item.time);
+									return(
+										itemDate.getHours() === currentDate.getHours() &&
+			                            itemDate.getMinutes() === currentDate.getMinutes() &&
+			                            itemDate.getSeconds() === currentDate.getSeconds()
+			                        );
+								})
+								.reduce((sum, item) => sum + (item.txRate || 0), 0);
+							
+							// 합산한 txRate를 tfData에 추가
+							tfData.push(sumTxRate);
+							
+							// 1초씩 추가
+							currentDate.setSeconds(currentDate.getSeconds()+1);
+						}
+						// ========== while문 끝
 						
-			            console.log('tfData : ', tfData);
-						
- 						trafficData.forEach(function(item){
+						$('#selectedDate').text(`2024년 ${currentDate.getMonth()+1}월 ${currentDate.getDate()}일`)
+						 
+ 						/* trafficData.forEach(function(item){
 							if(item.txRate != null){
 								const originalDate = new Date(item.time);	//  originalDate를 Date 객체로 변환
 								const formattedDate = `${originalDate.getHours()}:${originalDate.getMinutes()}:${originalDate.getSeconds()}`;
@@ -99,7 +126,8 @@
 								tfData.push(item.txRate);
 								$('#selectedDate').text(`2024년 ${originalDate.getMonth()+1}월 ${originalDate.getDate()}일`)
 							}
-						});
+						}); */
+						
  						// y축 설정을 위한 tfData 최대값 구하기
  						const maxTfData = Math.ceil(Math.max(...tfData) / 1000) * 1000;
  						const maxYValue = maxTfData + 1000;
@@ -107,8 +135,6 @@
  						if(lineChart){
  							lineChart.destroy();
  						}
- 						
- 					
  					
  					// 차트에서 한 번에 보여줄 데이터 수 설정
  					const visibleCount = 50;
