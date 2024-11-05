@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="css/desktop-1.css" />
 <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
 <link rel="stylesheet" type="text/css" href="css/globals.css" />
+<link rel="stylesheet" type="text/css" href="css/Home.css" />
 <style>
   .notification-container {
     position: fixed;
@@ -271,14 +272,16 @@
                            <div class="box-4 box-5">
                               <!-- 연주가 추가한 트래픽 그래프 -->
                               <!-- 날짜 및 시간대 설정 -->
-                              <div align="center" id="choiceDetail">
+                               <div align="center" id="choiceDetail">
                                  <form action="/api/elastic/all" id="choiceDateForm">
-                                    <input type="datetime-local" id="choiceDate"
-                                       name="choiceDate"> <input type="datetime-local"
-                                       id="choiceDateEnd" name="choiceDateEnd">
+                                    <label for="choiceDate">시작 </label>
+                                    <input type="datetime-local" id="choiceDate" name="choiceDate">
+                                    <label for="choiceDateEnd">종료 </label>
+                                    <input type="datetime-local" id="choiceDateEnd" name="choiceDateEnd">
                                     <button type="submit">조회</button>
                                  </form>
                               </div>
+
                               <!-- 일시정지, 재생 버튼 -->
                               <div align="right" id="playOrstop">
                                  <button id="tempStop">일시정지</button>
