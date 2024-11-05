@@ -6,13 +6,15 @@
   display: flex;
   height: 1319px;
   min-width: 1440px;
-  overflow-x: hidden;
+  
+  
 }
 
 .desktop-1 .overlap-group16 {
   height: 1113px;
   position: relative;
   width: 1482px;
+  
 }
 
 .desktop-1 .overlap-group15 {
@@ -21,6 +23,7 @@
   position: absolute;
   top: 0;
   width: 1440px;
+  
 }
 
 .desktop-1 .overlap-group10 {
@@ -29,6 +32,7 @@
   position: absolute;
   top: 0;
   width: 241px;
+  
 }
 
 .desktop-1 .navigation-sidebar-1 {
@@ -39,6 +43,7 @@
   min-width: 240px;
   position: absolute;
   top: 0;
+  
 }
 
 .desktop-1 .overlap-group-1 {
@@ -51,6 +56,7 @@
   min-height: 1070px;
   padding: 80px 0;
   width: 240px;
+  
 }
 
 .desktop-1 .navigation-sidebar-item-light {
@@ -61,6 +67,7 @@
   margin-left: -1px;
   min-width: 240px;
   padding: 0 40.0px;
+  
 }
 
 /* 수정한거 */
