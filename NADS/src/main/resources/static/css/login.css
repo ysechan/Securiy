@@ -1,0 +1,138 @@
+/* screen - login */
+
+.login {
+  align-items: flex-start;
+  background-color: var(--white);
+  display: flex;
+  height: 1080px;
+  min-width: 1920px;
+}
+
+.login .overlap-group1 {
+  align-items: flex-start;
+  background-image: url(../img/rectangle-29.svg);
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  min-height: 1080px;
+  padding: 325px 312px;
+  width: 737px;
+}
+
+.login .white-logo {
+  align-self: center;
+  height: 73px;
+  width: 109px;
+}
+
+.login .detectify-x {
+  color: var(--white);
+  font-family: var(--font-family-libre_caslon_text);
+  font-size: 20px;
+  font-weight: 400;
+  height: 26px;
+  letter-spacing: 0;
+  line-height: normal;
+  width: 112px;
+}
+
+.login .overlap-group2 {
+  align-items: flex-start;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  min-height: 1080px;
+  padding: 150px 375px;
+  width: 1183px;
+}
+
+.login .title {
+  color: var(--black);
+  font-family: var(--font-family-inter);
+  font-size: 25px;
+  font-weight: 700;
+  height: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-left: 7px;
+  white-space: nowrap;
+}
+
+.login .if-you-are-already-a {
+  align-self: center;
+  color: var(--regent-gray);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  height: 36px;
+  letter-spacing: 0;
+  line-height: 18px;
+  margin-right: 8.0px;
+  margin-top: 15px;
+  width: 411px;
+}
+
+.login .id {
+  height: 19px;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-left: 7px;
+  margin-top: 19px;
+  white-space: nowrap;
+}
+
+.login .rectangle-2 {
+  align-self: flex-end;
+  border: 1px solid;
+  border-color: var(--regent-gray);
+  border-radius: 6px;
+  height: 64px;
+  margin-top: 4px;
+  width: 426px;
+}
+
+.login .password {
+  height: 19px;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-left: 7px;
+  margin-top: 17px;
+  white-space: nowrap;
+}
+
+.login .flex-row {
+  align-items: flex-start;
+  display: flex;
+  gap: 9px;
+  margin-left: 7px;
+  margin-top: 28px;
+  min-width: 140px;
+}
+
+.login .overlap-group {
+  align-items: flex-end;
+  align-self: flex-end;
+  background-color: var(--blue);
+  border-radius: 6px;
+  display: flex;
+  height: 64px;
+  margin-top: 28px;
+  min-width: 426px;
+  padding: 22px 147px;
+}
+
+.login .dont-have-an-account-sign-up-here {
+  align-self: center;
+  color: transparent;
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  height: 19px;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-right: 3.0px;
+  margin-top: 46px;
+  min-width: 280px;
+  white-space: nowrap;
+}

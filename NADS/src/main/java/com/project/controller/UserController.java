@@ -30,6 +30,7 @@ public class UserController {
 					   @RequestParam("name") String name,
 					   @RequestParam("email") String email,
 					   @RequestParam("phone") String phone,
+					   @RequestParam("ipSearch") String ipSearch,
 					   UserEntity userInfo) {
 		
 		boolean idDuplicated = userRepo.existsById(id);
@@ -43,6 +44,7 @@ public class UserController {
 			userInfo.setName(name);
 			userInfo.setMail(email);
 			userInfo.setPhone(phone);
+			userInfo.setIp(ipSearch);
 			
 			// 가입일은 현재로 설정
 			LocalDateTime now = LocalDateTime.now();

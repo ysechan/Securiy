@@ -15,9 +15,9 @@
     <!-- Twitter Card : 트위터에서 해당 페이지가 공유될 때 어떤 content로 보일지 표기 -->
     <!-- <meta name="twitter:card" content="photo" /> -->
     
-    <link rel="stylesheet" type="text/css" href="/login.css" />
-    <link rel="stylesheet" type="text/css" href="/styleguide.css" />
-    <link rel="stylesheet" type="text/css" href="/globals.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="css/globals.css" />
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
@@ -59,23 +59,27 @@
 	          
 	          <!-- id -->
 	          <div class="id valign-text-middle inter-medium-nevada-16px">ID</div>
-	          <input type="text" class="rectangle-2" id="id" name="id" placeholder="Enter your Id" style="width: 100%; padding: 10px;" />
+	          <input type="text" class="rectangle-2" id="id" name="id" placeholder="아이디" style="width: 100%; padding: 10px;" />
 	
 			  <!-- password -->
 	          <div class="password valign-text-middle inter-medium-nevada-16px">Password</div>
-	          <input type="password" class="rectangle-2" id="password" name="password" placeholder="Enter your Password" style="width: 100%; padding: 10px;" />
+	          <input type="password" class="rectangle-2" id="password" name="password" placeholder="비밀번호" style="width: 100%; padding: 10px;" />
 			  
 			  <!-- name -->
 	          <div class="id valign-text-middle inter-medium-nevada-16px">Name</div>
-	          <input type="text" class="rectangle-2" id="name" name="name" placeholder="Enter your Name" style="width: 100%; padding: 10px;" />
+	          <input type="text" class="rectangle-2" id="name" name="name" placeholder="성명" style="width: 100%; padding: 10px;" />
 			  
 			  <!-- e-mail -->
 	          <div class="id valign-text-middle inter-medium-nevada-16px">E-mail</div>
-	          <input type="text" class="rectangle-2" id="email" name="email" placeholder="Enter your E-mail" style="width: 100%; padding: 10px;" />
+	          <input type="text" class="rectangle-2" id="email" name="email" placeholder="E-mail" style="width: 100%; padding: 10px;" />
 	          
 	          <!-- phone -->
 	          <div class="id valign-text-middle inter-medium-nevada-16px">Phone</div>
-	          <input type="text" class="rectangle-2" id="phone" name="phone" placeholder="Enter your Phone number" style="width: 100%; padding: 10px;" />
+	          <input type="text" class="rectangle-2" id="phone" name="phone" placeholder="연락처" style="width: 100%; padding: 10px;" />
+	          
+	          <!-- IP -->
+	          <div class="id valign-text-middle inter-medium-nevada-16px">IP</div>
+	          <input type="text" class="rectangle-2" id="ipSearch" name="ipSearch" placeholder="IP는 자동으로 조회됩니다" required readonly style="width: 100%; padding: 10px;" />
 	         
 	          <!-- Continue 버튼 -->
 	          <div class="overlap-group" style="cursor: pointer;">
@@ -114,6 +118,31 @@
 				}
 			});
    		}
+   	</script>
+   	
+   	<!-- 준서가 만들어준 IP 조회 하기 -->
+   	<script>
+   	async function getPublicIp() {
+   	    try {
+   	        const response = await fetch('https://icanhazip.com');
+   	        if (response.ok) {
+   	            const ip = await response.text();
+   	            console.log("Public IP:", ip.trim());
+   	      		// IP 입력 필드에 값 설정
+                document.getElementById("ipSearch").value = ip.trim();
+   	        } else {
+   	            console.error("Failed to get public IP");
+   	        }
+   	    } catch (error) {
+   	        console.error("Error getting public IP:", error);
+   	    }
+   	}
+
+ 	// 페이지 로딩 시 getPublicIp 함수 실행
+    window.onload = function() {
+        getPublicIp();
+    };
+
    	</script>
    	
   </body>
