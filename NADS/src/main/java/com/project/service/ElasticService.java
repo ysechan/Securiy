@@ -14,11 +14,11 @@ public class ElasticService {
 	@Autowired
 	private ElasticRepo elasticRepo;
 
-	// 사용자 지정 메서드를 사용하여 last_log-* 패턴을 포함하는 모든 인덱스에서 조회
-	public List<ElasticEntity> getAllDocsByPattern() {
-
-		return elasticRepo.findAllByIndexPattern("last_log-*");
-	}
+	 public List<ElasticEntity> getAllDocsByPattern() {
+	 
+		 return elasticRepo.findAllByIndexPattern("last_log-*"); 
+	 }
+	 
 
 	 public List<ElasticEntity> getDatetime(String choiceDate, String choiceDateEnd){ 
 		 
