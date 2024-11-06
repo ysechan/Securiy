@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Document(indexName = "last_log-*")
 public class ElasticEntity {
 
 	@Id

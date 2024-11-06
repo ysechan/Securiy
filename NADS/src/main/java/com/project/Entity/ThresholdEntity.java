@@ -14,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@Document(indexName = "thrashold")
 public class ThresholdEntity {
 
 	@Id
