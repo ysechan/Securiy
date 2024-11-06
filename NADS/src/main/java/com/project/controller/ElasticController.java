@@ -32,6 +32,7 @@ public class ElasticController {
 			doc = elasticService.getAllDocsByPattern();
 			System.out.println("모든 데이터 조회 : " + doc);
 		}
+	    
 		return ResponseEntity.ok(doc);
 	}
 }
