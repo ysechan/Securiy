@@ -1,14 +1,19 @@
 package com.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.Entity.ElasticEntity;
 import com.project.Entity.ThresholdEntity;
+import com.project.Entity.UserEntity;
 import com.project.repository.ElasticRepo;
 import com.project.repository.ThresholdRepo;
+import com.project.repository.UserRepo;
+import com.project.service.EmailService;
 
 @RestController
 @RequestMapping("/api/alerts")
@@ -20,16 +25,45 @@ public class AlertController {
     @Autowired
     private ThresholdRepo thresholdRepository;
 
-    @GetMapping("/check-traffic")
-    public boolean checkTraffic() {
-        // 최신 데이터를 가져온다고 가정하고, 필요한 조회 로직을 추가합니다.
+    @Autowired
+    private UserRepo userRepository;
+
+    @Autowired
+    private EmailService emailService;
+
+    @GetMapping("/check-alerts")
+    public String checkAlerts() {
         ElasticEntity latestElastic = elasticRepository.findTopByOrderByTimeDesc();
         ThresholdEntity latestThreshold = thresholdRepository.findTopByOrderByTimeDesc();
 
         if (latestElastic != null && latestThreshold != null) {
-            // txRate가 traffic을 초과할 경우 true 반환
-            return latestElastic.getTxRate() > latestThreshold.getTraffic();
+            boolean trafficExceeded = latestElastic.getTxRate() > latestThreshold.getTraffic();
+            boolean sessionExceeded = latestElastic.getSessionCount() > latestThreshold.getSession();
+
+            if (trafficExceeded || sessionExceeded) {
+                // 알림 메시지 생성
+                StringBuilder alertMessage = new StringBuilder("Warning: ");
+                if (trafficExceeded) {
+                    alertMessage.append("TxRate exceeded the threshold. ");
+                }
+                if (sessionExceeded) {
+                    alertMessage.append("Session count exceeded the threshold.");
+                }
+
+                // 현재 로그인한 사용자 가져오기
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                String currentUsername = authentication.getName();
+                UserEntity currentUser = userRepository.findById(currentUsername).orElse(null);
+
+                if (currentUser != null && currentUser.getMail() != null) {
+                    // 현재 로그인한 사용자에게 이메일 발송
+                    emailService.sendEmail(currentUser.getMail(), "Alert Notification", alertMessage.toString());
+                }
+
+                // 알림창 메시지 반환
+                return alertMessage.toString();
+            }
         }
-        return false;
+        return "정상 상태입니다.";
     }
 }

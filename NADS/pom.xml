@@ -51,17 +51,17 @@
 			<artifactId>elasticsearch-rest-high-level-client</artifactId>
 			<version>7.17.0</version>  <!-- 7.x 버전에 맞추기 -->
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.springframework.data</groupId>
-		    <artifactId>spring-data-elasticsearch</artifactId>
-		    <version>5.3.3</version> <!-- 또는 프로젝트에 맞는 최신 버전 -->
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-elasticsearch</artifactId>
+			<version>5.3.3</version> <!-- 또는 프로젝트에 맞는 최신 버전 -->
 		</dependency>
-		
+
 		<dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-    		<version>3.3.4</version> <!-- 현재 프로젝트 버전에 맞는 버전 사용 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+			<version>3.3.4</version> <!-- 현재 프로젝트 버전에 맞는 버전 사용 -->
 		</dependency>
 
 
@@ -126,6 +126,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.vonage</groupId>
+			<artifactId>client</artifactId>
+			<version>7.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+
 
 	</dependencies>
 
@@ -135,9 +146,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-				
+
 					<mainClass>com.project.NadsApplication</mainClass>
-				
+
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
