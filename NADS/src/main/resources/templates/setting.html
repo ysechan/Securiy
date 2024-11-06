@@ -269,6 +269,26 @@
 			function closeNotification() {
 				document.getElementById('notification').style.display = 'none';
 			}
+			
+			// 주기적으로 API를 호출하여 txRate와 traffic 비교
+		    setInterval(async function() {
+		        try {
+		            const response = await fetch('/api/alerts/check-traffic');
+		            const isAlert = await response.json();
+
+		            // 조건에 맞는 경우 알림 표시
+		            if (isAlert) {
+		                document.getElementById('notification').style.display = 'block';
+		            }
+		        } catch (error) {
+		            console.error('Error checking traffic alert:', error);
+		        }
+		    }, 5000); // 5초마다 확인 (필요에 따라 조정 가능)
+
+		    function closeNotification() {
+		        document.getElementById('notification').style.display = 'none';
+		    }
+			
 		</script>
 </body>
 

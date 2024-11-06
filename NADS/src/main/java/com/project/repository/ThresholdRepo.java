@@ -8,4 +8,6 @@ import com.project.Entity.ThresholdEntity;
 @Repository
 public interface ThresholdRepo extends ElasticsearchRepository<ThresholdEntity, String>, ThresholdRepoCustom {
 
+	ThresholdEntity findTopByOrderByTimeDesc();
+
 }
