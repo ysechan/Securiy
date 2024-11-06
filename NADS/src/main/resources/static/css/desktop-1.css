@@ -507,38 +507,6 @@
   width: 18px;
 }
 
-.desktop-1 .english {
-  align-items: center;
-  display: flex;
-  margin-left: 25px;
-  margin-top: 1.0px;
-  min-width: 125px;
-}
-
-.desktop-1 .flag {
-  height: 27px;
-  width: 40px;
-}
-
-.desktop-1 .language {
-  color: #646464;
-  font-family: var(--font-family-nunito_sans-semibold);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: normal;
-  margin-left: 16px;
-  margin-top: 2.0px;
-  min-height: 19px;
-  min-width: 48px;
-}
-
-.desktop-1 .drop-down {
-  height: 5px;
-  margin-bottom: 3.0px;
-  margin-left: 11px;
-  width: 8px;
-}
 
 .desktop-1 .profile {
   align-items: center;
