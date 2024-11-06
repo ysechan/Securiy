@@ -2,38 +2,75 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
-    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
-    <meta name="viewport" content="width=1440, maximum-scale=1.0" />
-    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
-    <meta name="og:type" content="website" />
-    <meta name="twitter:card" content="photo" />
-    <link rel="stylesheet" type="text/css" href="css/desktop-1.css" />
-    <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
-    <link rel="stylesheet" type="text/css" href="css/globals.css" />
-    
-    <link rel="stylesheet" type="text/css" href="css/desktop.css" />
+<meta charset="utf-8" />
+<!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+<!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+<meta name="viewport" content="width=1440, maximum-scale=1.0" />
+<link rel="shortcut icon" type="image/png"
+	href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+<meta name="og:type" content="website" />
+<meta name="twitter:card" content="photo" />
+<link rel="stylesheet" type="text/css" href="css/desktop-1.css" />
+<link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+<link rel="stylesheet" type="text/css" href="css/globals.css" />
 
+<link rel="stylesheet" type="text/css" href="css/desktop.css" />
+<style>
+.notification-container {
+	position: fixed;
+	top: 10%;
+	right: 2%;
+	width: 300px;
+	z-index: 1000;
+	background: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	padding: 15px;
+	display: none;
+}
 
+.notification-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
+.notification-title {
+	font-weight: bold;
+	font-size: 16px;
+	color: #e74c3c;
+}
+
+.notification-close {
+	cursor: pointer;
+	background: none;
+	border: none;
+	font-size: 18px;
+}
+
+.notification-body {
+	margin-top: 10px;
+	font-size: 14px;
+	color: #333;
+}
+</style>
 
 </head>
 
 <body style="margin: 0; background: #f5f6fa">
-    <input type="hidden" id="anPageName" name="page" value="desktop-1" />
-    <div class="container-center-horizontal">
-        <div class="desktop-1 screen">
-            <div class="overlap-group16">
-                <div class="overlap-group15">
-                    <div class="overlap-group10">
+	<input type="hidden" id="anPageName" name="page" value="desktop-1" />
+	<div class="container-center-horizontal">
+		<div class="desktop-1 screen">
+			<div class="overlap-group16">
+				<div class="overlap-group15">
+					<div class="overlap-group10">
 
-                        <div class="navigation-sidebar-1">
-                            <div class="overlap-group-1">
+						<div class="navigation-sidebar-1">
+							<div class="overlap-group-1">
 
-                                <!-- 사이드바 시작 -->
+								<!-- 사이드바 시작 -->
 
-                                <a href="/main">
+								<a href="/main">
 									<div class="navigation-sidebar-item-light2">
 										<div
 											class="products-1 products-8 nunitosans-semi-bold-shark-14px">Home</div>
@@ -72,136 +109,167 @@
 											class="products-6 products-8 nunitosans-semi-bold-shark-14px">Setting</div>
 									</div>
 								</a>
-                                <!-- 클래스 수정 끝 -->
+								<!-- 클래스 수정 끝 -->
 
-                            </div>
+							</div>
 
-                            <!-- 사이드바 끝 -->
+							<!-- 사이드바 끝 -->
 
-                            <img class="divider-1 divider-7" src="img/divider.svg" alt="Divider" />
-                            <img class="divider-2 divider-7" src="img/divider.svg" alt="Divider" />
-                            <img class="group-1000000873" src="img/group-1000000873@2x.png" alt="Group 1000000873" />
-                        </div>
+							<img class="divider-1 divider-7" src="img/divider.svg"
+								alt="Divider" /> <img class="divider-2 divider-7"
+								src="img/divider.svg" alt="Divider" /> <img
+								class="group-1000000873" src="img/group-1000000873@2x.png"
+								alt="Group 1000000873" />
+						</div>
 
-                        <div class="navigation-top-bar-light">
-                            <div class="overlap-group2">
-                                <div class="icon">
-                                    <img class="path-1" src="img/base-1@2x.png" alt="Path" />
-                                </div>
-                               
-                                <div class="overlap-group3">
-                                    <div class="overlap-group-3">
-                                        <div class="icon-1">
-                                            <img class="combined-shape" src="img/combined-shape.svg"
-                                                alt="Combined Shape" />
-                                            <div class="rectangle-23"></div>
-                                        </div>
-                                        <img class="oval" src="img/oval-1.svg" alt="Oval" />
-                                        <div class="number">6</div>
-                                    </div>
-                                    <img class="oval-1" src="img/oval.svg" alt="Oval" />
-                                </div>
-                                <div class="english">
-                                    <img class="flag" src="img/English.png" alt="Flag" />
-                                    <div class="language">English</div>
-                                    <img class="drop-down" src="img/drop-down@2x.png" alt="Drop Down" />
-                                </div>
-                                <div class="profile">
-                                    <img class="man-438081_960_720" src="img/man-438081-960-720@2x.png"
-                                        alt="man-438081_960_720" />
-                                    <div class="flex-col">
-                                        <div class="jone-aly">Moni Roy</div>
-                                        <div class="admin">Admin</div>
-                                    </div>
-                                    <img class="more" src="img/more@2x.png" alt="More" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex-col-1 flex-col-3">
-                        <div class="overlap-group-container">
-                            
-                        </div>
-                        
-                        <div class="product-card">
-                            
-                                <div class="box99">
-                                    
-                                    <!-- 메인 -->
+						<div class="navigation-top-bar-light">
+							<div class="overlap-group2">
+								<div class="icon">
+									<img class="path-1" src="img/base-1@2x.png" alt="Path" />
+								</div>
 
-                                    <div class="overlap-group3">
-                                      <div class="cont99">
-                                        <h1 class="title valign-text-middle inter-bold-black-25px">Setting</h1>
-                                        <p class="if-you-are-already-a valign-text-middle inter-normal-regent-gray-15px">
-                                          If you are already a member you can login with your email address and IP Adress
-                                        </p>
-                                        <div class="place valign-text-middle inter-medium-nevada-16px">name</div>
-                                        <input type="text" class="rectangle99" placeholder="Enter your name" />
-                                        <div class="e-mail-adress valign-text-middle inter-medium-nevada-16px">E-mail Adress</div>
-                                        <input type="email" class="rectangle99" placeholder="Enter your email address" />
-                                        <div class="phone-number valign-text-middle inter-medium-nevada-16px">Phone number</div>
-                                        <input type="tel" class="rectangle99" placeholder="Enter your phone number" />
-                                        <div class="ip-adress valign-text-middle inter-bold-blue-16px">IP Adress</div>
-                                        <input type="text" class="rectangle99" placeholder="Enter your IP address" />
-                                        <div class="flex-row">
+								<div class="overlap-group3">
+									<div class="overlap-group-3">
+										<div class="icon-1" onclick="toggleNotification()">
+											<img class="combined-shape" src="img/combined-shape.svg"
+												alt="Combined Shape" />
+											<div class="rectangle-23"></div>
+										</div>
+										<img class="oval" src="img/oval-1.svg" alt="Oval" /> <img
+											class="oval" src="img/oval-1.svg" alt="Oval" />
+										<div class="number"> </div>
+									</div>
+									<img class="oval-1" src="img/oval.svg" alt="Oval" />
+								</div>
+								<div class="english">
+									<img class="flag" src="img/English.png" alt="Flag" />
+									<div class="language">English</div>
+									<img class="drop-down" src="img/drop-down@2x.png"
+										alt="Drop Down" />
+								</div>
+								<div class="profile">
+									<img class="man-438081_960_720"
+										src="img/man-438081-960-720@2x.png" alt="man-438081_960_720" />
+									<div class="flex-col">
+										<div class="jone-aly">Moni Roy</div>
+										<div class="admin">Admin</div>
+									</div>
+									<img class="more" src="img/more@2x.png" alt="More" />
+								</div>
+							</div>
+						</div>
+					</div>
 
- 
+					<div class="flex-col-1 flex-col-3">
+						<div class="overlap-group-container"></div>
 
-                                        <!-- Remember Me 체크박스 -->
-                                        <div class="checkbox-container" style="margin-top: 20px; display: flex; align-items: center;">
-                                            <input type="checkbox" id="rememberMe" style="display: none;" />
-                                            <div id="checkboxImage" class="checkbox-custom" onclick="toggleCheckbox()"
-                                                style="width: 20px; height: 20px; background: url('img/square-checkbox-empty.svg') no-repeat center/cover; cursor: pointer;">
-                                            </div>
-                                            <label for="rememberMe" class="remember-me valign-text-middle inter-medium-nevada-16px"
-                                                style="margin-left: 10px; cursor: pointer;">Remember me</label>
-                                        </div>
+						<div class="product-card">
+
+							<div class="box99">
+
+								<!-- 메인 -->
+
+								<div class="overlap-group3">
+									<div class="cont99">
+										<h1 class="title valign-text-middle inter-bold-black-25px">Setting</h1>
+										<p
+											class="if-you-are-already-a valign-text-middle inter-normal-regent-gray-15px">
+											If you are already a member you can login with your email
+											address and IP Adress</p>
+										<div class="place valign-text-middle inter-medium-nevada-16px">name</div>
+										<input type="text" class="rectangle99"
+											placeholder="Enter your name" />
+										<div
+											class="e-mail-adress valign-text-middle inter-medium-nevada-16px">E-mail
+											Adress</div>
+										<input type="email" class="rectangle99"
+											placeholder="Enter your email address" />
+										<div
+											class="phone-number valign-text-middle inter-medium-nevada-16px">Phone
+											number</div>
+										<input type="tel" class="rectangle99"
+											placeholder="Enter your phone number" />
+										<div class="ip-adress valign-text-middle inter-bold-blue-16px">IP
+											Adress</div>
+										<input type="text" class="rectangle99"
+											placeholder="Enter your IP address" />
+										<div class="flex-row">
 
 
-                             
 
-                                    
-
-                                </div>
-                            
-                                <div class="overlap-group100">
-                                    <div class="continue valign-text-middle inter-medium-white-16px">Continue</div>
-                                  </div>
-                                 </div>
-                                </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function toggleCheckbox() {
-            const checkbox = document.getElementById('rememberMe');
-            const checkboxImage = document.getElementById('checkboxImage');
-
-            // 체크박스 상태 변경
-            checkbox.checked = !checkbox.checked;
-
-            // 상태에 따라 이미지 업데이트
-            if (checkbox.checked) {
-                checkboxImage.style.backgroundImage = "url('img/square-checkbox-solid.svg')";
-            } else {
-                checkboxImage.style.backgroundImage = "url('img/square-checkbox-empty.svg')";
-            }
-        }
-    </script>
-    
-    
-    
+											<!-- Remember Me 체크박스 -->
+											<div class="checkbox-container"
+												style="margin-top: 20px; display: flex; align-items: center;">
+												<input type="checkbox" id="rememberMe"
+													style="display: none;" />
+												<div id="checkboxImage" class="checkbox-custom"
+													onclick="toggleCheckbox()"
+													style="width: 20px; height: 20px; background: url('img/square-checkbox-empty.svg') no-repeat center/cover; cursor: pointer;">
+												</div>
+												<label for="rememberMe"
+													class="remember-me valign-text-middle inter-medium-nevada-16px"
+													style="margin-left: 10px; cursor: pointer;">Remember
+													me</label>
+											</div>
 
 
 
 
+
+
+										</div>
+
+										<div class="overlap-group100">
+											<div
+												class="continue valign-text-middle inter-medium-white-16px">Continue</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="notification" class="notification-container">
+			<div class="notification-header">
+				<span class="notification-title">Warning: High Traffic
+					Detected</span>
+				<button class="notification-close" onclick="closeNotification()">&times;</button>
+			</div>
+			<div class="notification-body">
+				- Traffic increased significantly.<br> - Immediate action
+				required.
+			</div>
+		</div>
+
+
+		<script>
+			function toggleCheckbox() {
+				const checkbox = document.getElementById('rememberMe');
+				const checkboxImage = document.getElementById('checkboxImage');
+
+				// 체크박스 상태 변경
+				checkbox.checked = !checkbox.checked;
+
+				// 상태에 따라 이미지 업데이트
+				if (checkbox.checked) {
+					checkboxImage.style.backgroundImage = "url('img/square-checkbox-solid.svg')";
+				} else {
+					checkboxImage.style.backgroundImage = "url('img/square-checkbox-empty.svg')";
+				}
+			}
+
+			function toggleNotification() {
+				document.getElementById('notification').style.display = 'block';
+			}
+
+			function closeNotification() {
+				document.getElementById('notification').style.display = 'none';
+			}
+		</script>
 </body>
 
 </html>

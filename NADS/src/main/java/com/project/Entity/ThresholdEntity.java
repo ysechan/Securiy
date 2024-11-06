@@ -28,3 +28,4 @@ public class ThresholdEntity {
 	@Field(name = "session_count", type = FieldType.Integer)
 	private Integer session;
 }
+ 
