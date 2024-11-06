@@ -897,6 +897,18 @@
   
 }
 
+.desktop-1 .box-4-1 {
+  height: 1050px;
+  top: 31px;
+  width: 1141px;
+  background-color: var(--white);
+  border-radius: 14px;
+  box-shadow: 6px 6px 54px #0000000d;
+  left: 0;
+  position: absolute;
+  
+}
+
 .desktop-1 .details {
   align-items: flex-start;
   display: flex;
