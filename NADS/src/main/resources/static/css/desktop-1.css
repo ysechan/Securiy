@@ -600,13 +600,13 @@
   display: flex;
   gap: 25px;
   margin-left: 0.81px;
-  min-width: 1142px;
+  min-width: 1500px;
 }
 
 .desktop-1 .overlap-group1 {
   height: 157px;
   position: relative;
-  width: 267px;
+  width: 1150px;
 }
 
 .desktop-1 .box {
@@ -1302,13 +1302,7 @@
 }
 
 
-
-
 /* =========클래스 수정=============== */
-
-
-
-
 
 
 .desktop-1 .products-8 {

@@ -183,73 +183,9 @@
 					<div class="flex-col-1 flex-col-3">
 						<div class="overlap-group-container">
 							<div class="overlap-group1">
-								<div class="box"></div>
-								<img class="divider-3 divider-7" src="img/divider-5.svg"
-									alt="Divider" />
-								<div class="title-10 nunitosans-bold-blueberry-16px">+ 55%</div>
-								<div class="hide-bg"></div>
-								<h1 class="title-11 nunitosans-bold-shark-32px">500</h1>
-								<div class="search-2 nunitosans-regular-normal-shark-10px">Traffic</div>
-								<div class="search-3 nunitosans-regular-normal-shark-8px">than
-									last week</div>
-								<div class="element-icon-ui-element">
-									<div class="overlap-group">
-										<img class="shape" src="img/shape-3.svg" alt="Shape" /> <img
-											class="path" src="img/path-4.svg" alt="Path" />
-									</div>
-								</div>
-							</div>
-							<div class="overlap-group1">
-								<div class="box-1 box-5"></div>
-								<img class="divider-4 divider-7" src="img/divider-2.svg"
-									alt="Divider" />
-								<div class="title-12 nunitosans-bold-blueberry-16px">+ 55%</div>
-								<div class="hide-bg-1 hide-bg-4"></div>
-								<div class="title-13 nunitosans-bold-shark-32px">300</div>
-								<div class="search-4 nunitosans-regular-normal-shark-10px">Session</div>
-								<div class="search-5 nunitosans-regular-normal-shark-8px">than
-									last week</div>
-								<div class="element-icon-ui-element-1 element-icon-ui-element-4">
-									<div class="overlap-group">
-										<img class="shape" src="img/shape.svg" alt="Shape" /> <img
-											class="path" src="img/path-1.svg" alt="Path" />
-									</div>
-								</div>
-							</div>
-							<div class="overlap-group11">
-								<div class="box-2 box-5"></div>
-								<img class="divider-5 divider-7" src="img/divider-3.svg"
-									alt="Divider" />
-								<div class="title-14 nunitosans-bold-blueberry-16px">+ 55%</div>
-								<div class="hide-bg-2 hide-bg-4"></div>
-								<div class="title-15 nunitosans-bold-shark-32px">500</div>
-								<div class="search-6 nunitosans-regular-normal-shark-10px">Cpu</div>
-								<div class="search-7 nunitosans-regular-normal-shark-8px">than
-									last week</div>
-								<div class="element-icon-ui-element-2 element-icon-ui-element-4">
-									<div class="overlap-group">
-										<img class="shape" src="img/shape-1.svg" alt="Shape" /> <img
-											class="path" src="img/path-2.svg" alt="Path" />
-									</div>
-								</div>
-							</div>
-							<div class="overlap-group13">
-								<div class="box-3 box-5"></div>
-								<img class="divider-6 divider-7" src="img/divider-4.svg"
-									alt="Divider" />
-								<div class="title-16 nunitosans-bold-blueberry-16px">+ 55%</div>
-								<div class="hide-bg-3 hide-bg-4"></div>
-								<div class="title-17 nunitosans-bold-shark-32px">500</div>
-								<div class="search-8 nunitosans-regular-normal-shark-10px">Memories</div>
-
-								<div class="search-9 nunitosans-regular-normal-shark-8px">than
-									last week</div>
-								<div class="element-icon-ui-element-3 element-icon-ui-element-4">
-									<div class="overlap-group">
-										<img class="shape" src="img/shape-2.svg" alt="Shape" /> <img
-											class="path" src="img/path-3.svg" alt="Path" />
-									</div>
-								</div>
+								<iframe
+									src="http://223.130.139.47:5601/app/dashboards#/view/b73f71b0-9be1-11ef-aa42-b793711d88be?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1d%2Fd%2Cto%3Anow))&hide-filter-bar=true"
+									height="230" width="100%"></iframe>
 							</div>
 						</div>
 						<div class="product-card">
@@ -295,7 +231,7 @@
 											<button id="tempStop">일시정지</button>
 											<button id="play">재생</button>
 										</div>
-										
+
 										<!-- ============추후에 세션 그래프로 바꿀 예정================== -->
 										<!-- 연주가 추가한 트래픽 그래프 -->
 
@@ -565,8 +501,8 @@
    </script>
 
 		<!-- ================================================================================ -->
-		
-		
+
+
 		<!-- ============================여기는 언젠가 session 그래프 영역========================= -->
 		<script>
    // Entity 데이터 불러오기
@@ -877,8 +813,8 @@
          dropdown.style.display = 'none'; // 드롭다운 닫기
       }
    </script>
-   
-   <script>
+
+		<script>
     // 주기적으로 API를 호출하여 txRate와 traffic 비교
     setInterval(async function() {
         try {
@@ -898,7 +834,7 @@
         document.getElementById('notification').style.display = 'none';
     }
 </script>
-   
+
 
 		<script>
     // 10초마다 iFrame을 재생성하여 강제 새로고침
