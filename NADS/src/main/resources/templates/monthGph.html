@@ -19,6 +19,44 @@ iframe {
 .container {
 	text-align: center;
 }
+
+.notification-container {
+	position: fixed;
+	top: 10%;
+	right: 2%;
+	width: 300px;
+	z-index: 1000;
+	background: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	padding: 15px;
+	display: none;
+}
+
+.notification-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.notification-title {
+	font-weight: bold;
+	font-size: 16px;
+	color: #e74c3c;
+}
+
+.notification-close {
+	cursor: pointer;
+	background: none;
+	border: none;
+	font-size: 18px;
+}
+
+.notification-body {
+	margin-top: 10px;
+	font-size: 14px;
+	color: #333;
+}
 </style>
 </head>
 
@@ -95,13 +133,14 @@ iframe {
 								</div>
 								<div class="overlap-group3">
 									<div class="overlap-group-3">
-										<div class="icon-1">
+										<div class="icon-1" onclick="toggleNotification()">
 											<img class="combined-shape" src="img/combined-shape.svg"
 												alt="Combined Shape" />
 											<div class="rectangle-23"></div>
 										</div>
 										<img class="oval" src="img/oval-1.svg" alt="Oval" />
 										<div class="number">6</div>
+
 									</div>
 									<img class="oval-1" src="img/oval.svg" alt="Oval" />
 								</div>
@@ -153,6 +192,49 @@ iframe {
 			</div>
 		</div>
 	</div>
+	<div id="notification" class="notification-container">
+		<div class="notification-header">
+			<span class="notification-title">Warning: High Traffic
+				Detected</span>
+			<button class="notification-close" onclick="closeNotification()">&times;</button>
+		</div>
+		<div class="notification-body">
+			- Traffic increased significantly.<br> - Immediate action
+			required.
+		</div>
+	</div>
+
 </body>
+<script>
+    function toggleNotification() {
+        document.getElementById('notification').style.display = 'block';
+    }
+
+    function closeNotification() {
+        document.getElementById('notification').style.display = 'none';
+    }
+    
+  
+    // 주기적으로 API를 호출하여 txRate와 traffic 비교
+    setInterval(async function() {
+        try {
+            const response = await fetch('/api/alerts/check-traffic');
+            const isAlert = await response.json();
+
+            // 조건에 맞는 경우 알림 표시
+            if (isAlert) {
+                document.getElementById('notification').style.display = 'block';
+            }
+        } catch (error) {
+            console.error('Error checking traffic alert:', error);
+        }
+    }, 5000); // 5초마다 확인 (필요에 따라 조정 가능)
+
+    function closeNotification() {
+        document.getElementById('notification').style.display = 'none';
+    }
+
+
+</script>
 
 </html>
