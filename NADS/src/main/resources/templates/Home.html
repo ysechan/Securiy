@@ -6,7 +6,7 @@
 <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
 <meta name="viewport" content="width=1440, maximum-scale=1.0" />
 <link rel="shortcut icon" type="image/png"
-   href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+	href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
 <meta name="og:type" content="website" />
 <meta name="twitter:card" content="photo" />
 <link rel="stylesheet" type="text/css" href="css/desktop-1.css" />
@@ -14,328 +14,331 @@
 <link rel="stylesheet" type="text/css" href="css/globals.css" />
 <link rel="stylesheet" type="text/css" href="css/Home.css" />
 <style>
-  .notification-container {
-    position: fixed;
-    top: 10%;
-    right: 2%;
-    width: 300px;
-    z-index: 1000;
-    background: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 15px;
-    display: none;
-  }
+.notification-container {
+	position: fixed;
+	top: 10%;
+	right: 2%;
+	width: 300px;
+	z-index: 1000;
+	background: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	padding: 15px;
+	display: none;
+}
 
-  .notification-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.notification-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
-  .notification-title {
-    font-weight: bold;
-    font-size: 16px;
-    color: #e74c3c;
-  }
+.notification-title {
+	font-weight: bold;
+	font-size: 16px;
+	color: #e74c3c;
+}
 
-  .notification-close {
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-size: 18px;
-  }
+.notification-close {
+	cursor: pointer;
+	background: none;
+	border: none;
+	font-size: 18px;
+}
 
-  .notification-body {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
-  }
+.notification-body {
+	margin-top: 10px;
+	font-size: 14px;
+	color: #333;
+}
 </style>
 </head>
 <body style="margin: 0; background: #f5f6fa">
-   <input type="hidden" id="anPageName" name="page" value="desktop-1" />
-   <div class="container-center-horizontal">
-      <div class="desktop-1 screen">
-         <div class="overlap-group16">
-            <div class="overlap-group15">
-               <div class="overlap-group10">
+	<input type="hidden" id="anPageName" name="page" value="desktop-1" />
+	<div class="container-center-horizontal">
+		<div class="desktop-1 screen">
+			<div class="overlap-group16">
+				<div class="overlap-group15">
+					<div class="overlap-group10">
 
 
-                  <div class="navigation-sidebar-1">
-                     <div class="overlap-group-1">
+						<div class="navigation-sidebar-1">
+							<div class="overlap-group-1">
 
 
-                        <!-- 사이드바 시작 -->
+								<!-- 사이드바 시작 -->
 
 
-                        <a href="/main">
-                           <div class="navigation-sidebar-item-light2">
-                              <div
-                                 class="products-1 products-8 nunitosans-semi-bold-shark-14px">Home</div>
-                           </div>
-                        </a> <a href="/traffic">
-                           <div class="navigation-sidebar-item-light3">
-                              <div
-                                 class="products-2 products-8 nunitosans-semi-bold-shark-14px">Traffic</div>
-                           </div>
-                        </a> <a href="/monthGph">
-                           <div class="navigation-sidebar-item-light4">
-                              <div
-                                 class="products-3 products-8 nunitosans-semi-bold-shark-14px">Session</div>
-                           </div>
-                        </a> <a href="/weekGph">
-                           <div class="navigation-sidebar-item-light5">
-                              <div
-                                 class="products-4 products-8 nunitosans-semi-bold-shark-14px">Cpu</div>
-                           </div>
-                        </a> <a href="/countryGph">
-                           <div class="navigation-sidebar-item-light6">
-                              <div
-                                 class="products-5 products-8 nunitosans-semi-bold-shark-14px">Memories</div>
-                           </div>
-                        </a> <img class="divider" src="img/divider.svg" alt="Divider" />
-                        <div class="pages">PAGES</div>
+								<a href="/main">
+									<div class="navigation-sidebar-item-light2">
+										<div
+											class="products-1 products-8 nunitosans-semi-bold-shark-14px">Home</div>
+									</div>
+								</a> <a href="/traffic">
+									<div class="navigation-sidebar-item-light3">
+										<div
+											class="products-2 products-8 nunitosans-semi-bold-shark-14px">Traffic</div>
+									</div>
+								</a> <a href="/monthGph">
+									<div class="navigation-sidebar-item-light4">
+										<div
+											class="products-3 products-8 nunitosans-semi-bold-shark-14px">Session</div>
+									</div>
+								</a> <a href="/weekGph">
+									<div class="navigation-sidebar-item-light5">
+										<div
+											class="products-4 products-8 nunitosans-semi-bold-shark-14px">Cpu</div>
+									</div>
+								</a> <a href="/countryGph">
+									<div class="navigation-sidebar-item-light6">
+										<div
+											class="products-5 products-8 nunitosans-semi-bold-shark-14px">Memories</div>
+									</div>
+								</a> <img class="divider" src="img/divider.svg" alt="Divider" />
+								<div class="pages">PAGES</div>
 
 
 
-                        <!-- 클래스 수정 -->
-                        <a href="/setting">
-                           <div
-                              class="navigation-sidebar-item-light-1 navigation-sidebar-item-light-3">
+								<!-- 클래스 수정 -->
+								<a href="/setting">
+									<div
+										class="navigation-sidebar-item-light-1 navigation-sidebar-item-light-3">
 
-                              <div
-                                 class="products-6 products-8 nunitosans-semi-bold-shark-14px">Setting</div>
-                           </div>
-                        </a>
-                        <!-- 클래스 수정 -->
+										<div
+											class="products-6 products-8 nunitosans-semi-bold-shark-14px">Setting</div>
+									</div>
+								</a>
+								<!-- 클래스 수정 -->
 
-                     </div>
+							</div>
 
-                     <!-- 사이드바 끝 -->
+							<!-- 사이드바 끝 -->
 
-                     <img class="divider-1 divider-7" src="img/divider.svg"
-                        alt="Divider" /> <img class="divider-2 divider-7"
-                        src="img/divider.svg" alt="Divider" /> <img
-                        class="group-1000000873" src="img/group-1000000873@2x.png"
-                        alt="Group 1000000873" />
-                  </div>
-                  <div class="navigation-top-bar-light">
-                     <div class="overlap-group2">
-                        <div class="icon">
+							<img class="divider-1 divider-7" src="img/divider.svg"
+								alt="Divider" /> <img class="divider-2 divider-7"
+								src="img/divider.svg" alt="Divider" /> <img
+								class="group-1000000873" src="img/group-1000000873@2x.png"
+								alt="Group 1000000873" />
+						</div>
+						<div class="navigation-top-bar-light">
+							<div class="overlap-group2">
+								<div class="icon">
 
-                           <img class="path-1" src="img/base-1@2x.png" alt="Path" />
-                        </div>
+									<img class="path-1" src="img/base-1@2x.png" alt="Path" />
+								</div>
 
-                        <div class="overlap-group3">
-                           <div class="overlap-group-3">
+								<div class="overlap-group3">
+									<div class="overlap-group-3">
 
-                              <div class="icon-1" onclick="toggleNotification()">
+										<div class="icon-1" onclick="toggleNotification()">
 
-                                 <img class="combined-shape" src="img/combined-shape.svg"
-                                    alt="Combined Shape" />
-                                 <div class="rectangle-23"></div>
-                              </div>
-                              <img class="oval" src="img/oval-1.svg" alt="Oval" />
-                              <div class="number">6</div>
-                           </div>
-                           <img class="oval-1" src="img/oval.svg" alt="Oval" />
-                        </div>
+											<img class="combined-shape" src="img/combined-shape.svg"
+												alt="Combined Shape" />
+											<div class="rectangle-23"></div>
+										</div>
+										<img class="oval" src="img/oval-1.svg" alt="Oval" />
+										<div class="number">6</div>
+									</div>
+									<img class="oval-1" src="img/oval.svg" alt="Oval" />
+								</div>
 
-                        <!-- 여기부터 드롭박스 -->
-                        <div class="english" onclick="toggleDropdown()">
-                           <div class="flag-container">
-                              <img class="flag" id="languageFlag" src="img/English.png"
-                                 alt="Flag">
-                              <!-- 기본 이미지 경로 변경 -->
-                              <div class="language">English</div>
-                              <img class="drop-down" src="img/drop-down@2x.png"
-                                 alt="Drop Down">
-                           </div>
-                        </div>
-                        <div class="dropdown-menu" id="dropdownMenu">
-                           <div class="menu-item" onclick="selectLanguage('Korea')"
-                              id="koreaMenuItem">
-                              <img class="flag" src="img/korea.png" alt="Korea">
-                              <div class="language">Korea</div>
-                           </div>
-                           <div class="menu-item" onclick="selectLanguage('English')"
-                              id="englishMenuItem" style="display: none;">
-                              <img class="flag" src="img/English.png" alt="English">
-                              <!-- English 이미지 경로 -->
-                              <div class="language">English</div>
-                           </div>
-                        </div>
+								<!-- 여기부터 드롭박스 -->
+								<div class="english" onclick="toggleDropdown()">
+									<div class="flag-container">
+										<img class="flag" id="languageFlag" src="img/English.png"
+											alt="Flag">
+										<!-- 기본 이미지 경로 변경 -->
+										<div class="language">English</div>
+										<img class="drop-down" src="img/drop-down@2x.png"
+											alt="Drop Down">
+									</div>
+								</div>
+								<div class="dropdown-menu" id="dropdownMenu">
+									<div class="menu-item" onclick="selectLanguage('Korea')"
+										id="koreaMenuItem">
+										<img class="flag" src="img/korea.png" alt="Korea">
+										<div class="language">Korea</div>
+									</div>
+									<div class="menu-item" onclick="selectLanguage('English')"
+										id="englishMenuItem" style="display: none;">
+										<img class="flag" src="img/English.png" alt="English">
+										<!-- English 이미지 경로 -->
+										<div class="language">English</div>
+									</div>
+								</div>
 
-                        <!-- 드롭박스 끝 -->
-                        <div class="profile">
-                           <img class="man-438081_960_720"
-                              src="img/man-438081-960-720@2x.png" alt="man-438081_960_720" />
-                           <div class="flex-col">
-                              <div class="jone-aly">Moni Roy</div>
-                              <div class="admin">Admin</div>
-                           </div>
-                           <img class="more" src="img/more@2x.png" alt="More" />
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="flex-col-1 flex-col-3">
-                  <div class="overlap-group-container">
-                     <div class="overlap-group1">
-                        <div class="box"></div>
-                        <img class="divider-3 divider-7" src="img/divider-5.svg"
-                           alt="Divider" />
-                        <div class="title-10 nunitosans-bold-blueberry-16px">+ 55%</div>
-                        <div class="hide-bg"></div>
-                        <h1 class="title-11 nunitosans-bold-shark-32px">500</h1>
-                        <div class="search-2 nunitosans-regular-normal-shark-10px">Traffic</div>
-                        <div class="search-3 nunitosans-regular-normal-shark-8px">than
-                           last week</div>
-                        <div class="element-icon-ui-element">
-                           <div class="overlap-group">
-                              <img class="shape" src="img/shape-3.svg" alt="Shape" /> <img
-                                 class="path" src="img/path-4.svg" alt="Path" />
-                           </div>
-                        </div>
-                     </div>
-                     <div class="overlap-group1">
-                        <div class="box-1 box-5"></div>
-                        <img class="divider-4 divider-7" src="img/divider-2.svg"
-                           alt="Divider" />
-                        <div class="title-12 nunitosans-bold-blueberry-16px">+ 55%</div>
-                        <div class="hide-bg-1 hide-bg-4"></div>
-                        <div class="title-13 nunitosans-bold-shark-32px">300</div>
-                        <div class="search-4 nunitosans-regular-normal-shark-10px">Session</div>
-                        <div class="search-5 nunitosans-regular-normal-shark-8px">than
-                           last week</div>
-                        <div class="element-icon-ui-element-1 element-icon-ui-element-4">
-                           <div class="overlap-group">
-                              <img class="shape" src="img/shape.svg" alt="Shape" /> <img
-                                 class="path" src="img/path-1.svg" alt="Path" />
-                           </div>
-                        </div>
-                     </div>
-                     <div class="overlap-group11">
-                        <div class="box-2 box-5"></div>
-                        <img class="divider-5 divider-7" src="img/divider-3.svg"
-                           alt="Divider" />
-                        <div class="title-14 nunitosans-bold-blueberry-16px">+ 55%</div>
-                        <div class="hide-bg-2 hide-bg-4"></div>
-                        <div class="title-15 nunitosans-bold-shark-32px">500</div>
-                        <div class="search-6 nunitosans-regular-normal-shark-10px">Cpu</div>
-                        <div class="search-7 nunitosans-regular-normal-shark-8px">than
-                           last week</div>
-                        <div class="element-icon-ui-element-2 element-icon-ui-element-4">
-                           <div class="overlap-group">
-                              <img class="shape" src="img/shape-1.svg" alt="Shape" /> <img
-                                 class="path" src="img/path-2.svg" alt="Path" />
-                           </div>
-                        </div>
-                     </div>
-                     <div class="overlap-group13">
-                        <div class="box-3 box-5"></div>
-                        <img class="divider-6 divider-7" src="img/divider-4.svg"
-                           alt="Divider" />
-                        <div class="title-16 nunitosans-bold-blueberry-16px">+ 55%</div>
-                        <div class="hide-bg-3 hide-bg-4"></div>
-                        <div class="title-17 nunitosans-bold-shark-32px">500</div>
-                        <div class="search-8 nunitosans-regular-normal-shark-10px">Memories</div>
+								<!-- 드롭박스 끝 -->
+								<div class="profile">
+									<img class="man-438081_960_720"
+										src="img/man-438081-960-720@2x.png" alt="man-438081_960_720" />
+									<div class="flex-col">
+										<div class="jone-aly">Moni Roy</div>
+										<div class="admin">Admin</div>
+									</div>
+									<img class="more" src="img/more@2x.png" alt="More" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="flex-col-1 flex-col-3">
+						<div class="overlap-group-container">
+							<div class="overlap-group1">
+								<div class="box"></div>
+								<img class="divider-3 divider-7" src="img/divider-5.svg"
+									alt="Divider" />
+								<div class="title-10 nunitosans-bold-blueberry-16px">+ 55%</div>
+								<div class="hide-bg"></div>
+								<h1 class="title-11 nunitosans-bold-shark-32px">500</h1>
+								<div class="search-2 nunitosans-regular-normal-shark-10px">Traffic</div>
+								<div class="search-3 nunitosans-regular-normal-shark-8px">than
+									last week</div>
+								<div class="element-icon-ui-element">
+									<div class="overlap-group">
+										<img class="shape" src="img/shape-3.svg" alt="Shape" /> <img
+											class="path" src="img/path-4.svg" alt="Path" />
+									</div>
+								</div>
+							</div>
+							<div class="overlap-group1">
+								<div class="box-1 box-5"></div>
+								<img class="divider-4 divider-7" src="img/divider-2.svg"
+									alt="Divider" />
+								<div class="title-12 nunitosans-bold-blueberry-16px">+ 55%</div>
+								<div class="hide-bg-1 hide-bg-4"></div>
+								<div class="title-13 nunitosans-bold-shark-32px">300</div>
+								<div class="search-4 nunitosans-regular-normal-shark-10px">Session</div>
+								<div class="search-5 nunitosans-regular-normal-shark-8px">than
+									last week</div>
+								<div class="element-icon-ui-element-1 element-icon-ui-element-4">
+									<div class="overlap-group">
+										<img class="shape" src="img/shape.svg" alt="Shape" /> <img
+											class="path" src="img/path-1.svg" alt="Path" />
+									</div>
+								</div>
+							</div>
+							<div class="overlap-group11">
+								<div class="box-2 box-5"></div>
+								<img class="divider-5 divider-7" src="img/divider-3.svg"
+									alt="Divider" />
+								<div class="title-14 nunitosans-bold-blueberry-16px">+ 55%</div>
+								<div class="hide-bg-2 hide-bg-4"></div>
+								<div class="title-15 nunitosans-bold-shark-32px">500</div>
+								<div class="search-6 nunitosans-regular-normal-shark-10px">Cpu</div>
+								<div class="search-7 nunitosans-regular-normal-shark-8px">than
+									last week</div>
+								<div class="element-icon-ui-element-2 element-icon-ui-element-4">
+									<div class="overlap-group">
+										<img class="shape" src="img/shape-1.svg" alt="Shape" /> <img
+											class="path" src="img/path-2.svg" alt="Path" />
+									</div>
+								</div>
+							</div>
+							<div class="overlap-group13">
+								<div class="box-3 box-5"></div>
+								<img class="divider-6 divider-7" src="img/divider-4.svg"
+									alt="Divider" />
+								<div class="title-16 nunitosans-bold-blueberry-16px">+ 55%</div>
+								<div class="hide-bg-3 hide-bg-4"></div>
+								<div class="title-17 nunitosans-bold-shark-32px">500</div>
+								<div class="search-8 nunitosans-regular-normal-shark-10px">Memories</div>
 
-                        <div class="search-9 nunitosans-regular-normal-shark-8px">than
-                           last week</div>
-                        <div class="element-icon-ui-element-3 element-icon-ui-element-4">
-                           <div class="overlap-group">
-                              <img class="shape" src="img/shape-2.svg" alt="Shape" /> <img
-                                 class="path" src="img/path-3.svg" alt="Path" />
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="product-card">
-                     <div class="overlap-group5">
-                        <div class="box-4 box-5"></div>
+								<div class="search-9 nunitosans-regular-normal-shark-8px">than
+									last week</div>
+								<div class="element-icon-ui-element-3 element-icon-ui-element-4">
+									<div class="overlap-group">
+										<img class="shape" src="img/shape-2.svg" alt="Shape" /> <img
+											class="path" src="img/path-3.svg" alt="Path" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="product-card">
+							<div class="overlap-group5">
+								<div class="box-4 box-5"></div>
 
-                        <div class="details">
-                           <div class="title-18 nunitosans-bold-shark-18px">시간대별 수치</div>
-                           <div class="title-19 nunitosans-bold-shark-18px">트래픽 증감
-                              실시간 그래프</div>
-                           <div class="title-20 nunitosans-bold-blueberry-16px">Last&nbsp;&nbsp;Campaign
-                              Performance</div>
-                           <div class="overlap-group-4">
-                              <div class="rectangle88"></div>
-                              <!-- <div class="add-to-cart">자세히 보기</div> -->
-                           </div>
-                        </div>
-                        <!-- 수정한 부분 임 -->
-                        <div class="overlap-group5">
-                           <div class="box-4 box-5">
-                              <!-- 연주가 추가한 트래픽 그래프 -->
-                              <!-- 날짜 및 시간대 설정 -->
-                               <div align="center" id="choiceDetail">
-                                 <form action="/api/elastic/all" id="choiceDateForm">
-                                    <label for="choiceDate">시작</label>
-                                    <input type="datetime-local" id="choiceDate" name="choiceDate">
-                                    <label for="choiceDateEnd">종료 </label>
-                                    <input type="datetime-local" id="choiceDateEnd" name="choiceDateEnd">
-                                    <button type="submit">조회</button>
-                                 </form>
-                              </div>
+								<div class="details">
+									<div class="title-18 nunitosans-bold-shark-18px">시간대별 수치</div>
+									<div class="title-19 nunitosans-bold-shark-18px">트래픽 증감
+										실시간 그래프</div>
+									<div class="title-20 nunitosans-bold-blueberry-16px">Last&nbsp;&nbsp;Campaign
+										Performance</div>
+									<div class="overlap-group-4">
+										<div class="rectangle88"></div>
+										<!-- <div class="add-to-cart">자세히 보기</div> -->
+									</div>
+								</div>
+								<!-- 수정한 부분 임 -->
+								<div class="overlap-group5">
+									<div class="box-4 box-5">
+										<!-- 연주가 추가한 트래픽 그래프 -->
+										<!-- 날짜 및 시간대 설정 -->
+										<div align="center" id="choiceDetail">
+											<form action="/api/elastic/all" id="choiceDateForm">
+												<label for="choiceDate">시작</label> <input
+													type="datetime-local" id="choiceDate" name="choiceDate">
+												<label for="choiceDateEnd">종료 </label> <input
+													type="datetime-local" id="choiceDateEnd"
+													name="choiceDateEnd">
+												<button type="submit">조회</button>
+											</form>
+										</div>
 
-                              <!-- 일시정지, 재생 버튼 -->
-                              <div align="right" id="playOrstop">
-                              
-                              <div>
-                                 <!-- 그래프 날짜 -->
-                                 <div id="selectedDate" align="left"></div>
-                                 <canvas id="lineChart" height="400" width="1098"></canvas>
-                           	 </div>   
-                           	                                       
-                              <button id="tempStop">일시정지</button>
-                              <button id="play">재생</button>
-                             </div>
-              
+										<!-- 일시정지, 재생 버튼 -->
+										<div align="right" id="playOrstop">
 
-                           <!-- 기존 키바나 그래프 -->
-                           <div class="iframe-container">
-                              <iframe
-                                 src="http://223.130.139.47:5601/app/dashboards#/view/a4567890-94d5-11ef-906e-4d0889b1a025?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-60m%2Fm%2Cto%3Anow))&hide-filter-bar=true"
-                                 height="800" width="1138"></iframe>
-                           </div>
-                           <!-- Insert the canvas for the bar chart above the image -->
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+											<div>
+												<!-- 그래프 날짜 -->
+												<div id="selectedDate" align="left"></div>
+												<canvas id="lineChart" height="400" width="1098"></canvas>
+											</div>
 
-  <!-- 알림 컨테이너 -->
-  <div id="notification" class="notification-container">
-    <div class="notification-header">
-      <span class="notification-title">Warning: High Traffic Detected</span>
-      <button class="notification-close" onclick="closeNotification()">&times;</button>
-    </div>
-    <div class="notification-body">
-      - Traffic increased significantly.<br>
-      - Immediate action required.
-    </div>
-  </div>
-
-   <!-- Chart.js -->
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-   <!-- jQuery CDN 설치 -->
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-   <script
-      src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@latest"></script>
+											<button id="tempStop">일시정지</button>
+											<button id="play">재생</button>
+										</div>
 
 
-   <!-- ================================================================================ -->
-   <script>
+										<!-- 기존 키바나 그래프 -->
+										<div class="iframe-container">
+											<iframe
+												src="http://223.130.139.47:5601/app/dashboards#/view/c1ea3c70-9a66-11ef-aa42-b793711d88be?embed=true&_g=(filters%3A!()%2Cquery%3A(language%3Akuery%2Cquery%3A'')%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))&hide-filter-bar=true"
+												height="800" width="1138"></iframe>
+
+										</div>
+										<!-- Insert the canvas for the bar chart above the image -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 알림 컨테이너 -->
+		<div id="notification" class="notification-container">
+			<div class="notification-header">
+				<span class="notification-title">Warning: High Traffic
+					Detected</span>
+				<button class="notification-close" onclick="closeNotification()">&times;</button>
+			</div>
+			<div class="notification-body">
+				- Traffic increased significantly.<br> - Immediate action
+				required.
+			</div>
+		</div>
+
+		<!-- Chart.js -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+		<!-- jQuery CDN 설치 -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@latest"></script>
+
+
+		<!-- ================================================================================ -->
+		<script>
    // Entity 데이터 불러오기
    $(document).ready(function(){
       // 전역 변수
@@ -545,9 +548,9 @@
    });
    </script>
 
-   <!-- ================================================================================ -->
+		<!-- ================================================================================ -->
 
-   <script>
+		<script>
       const ctx = document.getElementById('barChart') ? document.getElementById('barChart').getContext('2d') : null;
 
       if (ctx) {
@@ -645,7 +648,7 @@
       }
    </script>
 
-   <script>
+		<script>
     // 10초마다 iFrame을 재생성하여 강제 새로고침
     setInterval(function() {
         const iframeContainer = document.querySelector('.iframe-container');
