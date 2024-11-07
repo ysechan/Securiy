@@ -24,7 +24,7 @@ public class ThresholdController {
         List<ThresholdEntity> thrDoc;
         
         if(choiceDate != null && !choiceDate.isEmpty()) {
-        	thrDoc = thresholdService.getDatetime(choiceDate, choiceDateEnd);
+        	thrDoc = thresholdService. getDatetime(choiceDate, choiceDateEnd);
         	System.out.println("입력 받은 날짜로 조회한 threshold 데이터 : " + thrDoc);
         }else {
         	thrDoc = thresholdService.getAllDocsByPattern();

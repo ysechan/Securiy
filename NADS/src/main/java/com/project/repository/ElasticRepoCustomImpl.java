@@ -26,7 +26,7 @@ public class ElasticRepoCustomImpl implements ElasticRepoCustom {
 	// 기본값
 	@Override
     public List<ElasticEntity> findAllByIndexPattern(String indexPattern) {
-		String queryJson = "{ \"range\" : { \"time\" : { \"gte\" : \"now+9h-10m\", \"format\" : \"yyyy-MM-dd'T'HH:mm:ss.SSS\"}}}";
+		String queryJson = "{ \"range\" : { \"time\" : { \"gte\" : \"now+9h-10m\", \"lte\" : \"now+9h\", \"format\" : \"yyyy-MM-dd'T'HH:mm:ss.SSS\"}}}";
         
 		Query query = new StringQuery(queryJson);
 		query.setPageable(PageRequest.of(0, 500)); // size를 설정하여 최대 10000개 조회

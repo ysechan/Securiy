@@ -26,7 +26,7 @@ public class ElasticController {
 		List<ElasticEntity> doc;
 		
 		if(choiceDate != null && !choiceDate.isEmpty()) {
-			doc = elasticService.getDatetime(choiceDate, choiceDateEnd);
+			doc = elasticService. getDatetime(choiceDate, choiceDateEnd);
 			 System.out.println("입력 받은 날짜로 조회한 데이터 : " + doc);
 		}else {
 			doc = elasticService.getAllDocsByPattern();
