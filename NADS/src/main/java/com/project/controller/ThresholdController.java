@@ -18,7 +18,7 @@ public class ThresholdController {
 	@Autowired
 	private ThresholdService thresholdService;
 	
-	@GetMapping("/all")
+	@GetMapping("/thrAll")
 	public ResponseEntity<List<ThresholdEntity>> getAllDocsByPattern(@RequestParam(value = "choiceDate", required = false) String choiceDate,
 																	@RequestParam(value = "choiceDateEnd", required = false) String choiceDateEnd) {
         List<ThresholdEntity> thrDoc;
@@ -28,7 +28,7 @@ public class ThresholdController {
         	System.out.println("입력 받은 날짜로 조회한 threshold 데이터 : " + thrDoc);
         }else {
         	thrDoc = thresholdService.getAllDocsByPattern();
-        	System.out.println("모든 threshold 데이터 조회 : " + thrDoc);
+        	System.out.println("모든 threshold 데이터 조회 : " + thrDoc.size());
         }
         return ResponseEntity.ok(thrDoc);
     } 

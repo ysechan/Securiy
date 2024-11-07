@@ -26,7 +26,7 @@ public class ThresholdRepoCustomImpl implements ThresholdRepoCustom {
 		String queryJson = "{ \"range\" : { \"time\" : { \"gte\" : \"now-10m\", \"format\" : \"yyyy-MM-dd'T'HH:mm:ss.SSS\"}}}}";
         
 		Query query = new StringQuery(queryJson);
-		query.setPageable(PageRequest.of(0, 10000)); // size를 설정하여 최대 10000개 조회
+		query.setPageable(PageRequest.of(0, 500)); // size를 설정하여 최대 10000개 조회
 
         return elasticsearchOperations.search(
             query,
@@ -48,7 +48,7 @@ public class ThresholdRepoCustomImpl implements ThresholdRepoCustom {
 		String queryJson = String.format("{ \"range\" : { \"time\" : { \"gte\" : \"%s\", \"lte\" : \"%s\", \"format\" : \"yyyy-MM-dd'T'HH:mm:ss.SSS\"}}}}", formattedStartDate, formattedEndDate);
 		
 		Query query = new StringQuery(queryJson);
-		query.setPageable(PageRequest.of(0, 10000)); // size를 설정하여 최대 10000개 조회
+		query.setPageable(PageRequest.of(0, 500)); // size를 설정하여 최대 10000개 조회
 		
 		return elasticsearchOperations.search(
 				query,
