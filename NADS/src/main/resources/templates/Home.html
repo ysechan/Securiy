@@ -186,13 +186,20 @@
 										<!-- 일시정지, 재생 버튼 -->
 										<div align="right" id="playOrstop">
 
-											<div>
-												<!-- 그래프 날짜 -->
-												<span align="left">조회일자: </span><span id="dateValue"></span>
-												<div id="selectedDate" align="left"></div>
-												<canvas id="lineChart" height="400" width="1098"></canvas>
-											</div>
+										<div>
+										    <!-- 그래프 날짜 -->
+										    <span align="left">조회일자: </span><span id="dateValue"></span>
+										    <div id="selectedDate" align="left"></div>
+																			
+										    <!-- 텍스트 -->
+										    <div align="left">실시간 트래픽 발생량</div>
+										
+										    <!-- 차트 -->
+										    <canvas id="lineChart" height="400" width="1098"></canvas>
+										</div>
 
+
+										
 										
 
 											<button id="tempStop">일시정지</button>
@@ -205,16 +212,24 @@
 										<!-- 일시정지, 재생 버튼 -->
 										<div align="right" id="playOrstop">
 
+										<!-- 텍스트 -->
+										<div align="left">실시간 세션 발생량</div>
+
+
 											<div>
 												<!-- 그래프 날짜 -->
 												<div id="selectedDate" align="left"></div>
 												<canvas id="lineChartSession" height="400" width="1098"></canvas>
 											</div>
+											
 
+										
 											<button id="tempStop">일시정지</button>
 											<button id="play">재생</button>
 										</div>
 
+										<!-- 텍스트 -->
+										<div align="left">접속 IP별 국가통계</div>
 
 										<!-- 기존 키바나 그래프 -->
 										<div class="iframe-container">
