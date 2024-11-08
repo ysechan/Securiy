@@ -34,8 +34,21 @@
 	</div>
 
 	<script>
+		// 전역 변수
+		let lineChart;
+		let date = [];		// x축에 들어갈 날짜
+		let tfData = [];	// Traffic
+		let thData = [];	// Threshold
+		let maxYValue = 0;	// y축 최대값
+		const visibleCount = 8;	// 그래프에서 한 번에 보여줄 데이터 개수
+		let startIndex = 0;			// 그래프 시작 인덱스 0
+		let isPaused = false;
+		let count = 0;
+		let isFirstLoad = true; // 첫 로드 여부를 추적하는 변수
+		let isRealTimeMode = true; // 실시간 업데이트 모드 여부
+	
 		$(document).ready(function(){
-			// 전역 변수
+			/* // 전역 변수
 			let lineChart;
 			let date = [];		// x축에 들어갈 날짜
 			let tfData = [];	// Traffic
@@ -46,7 +59,7 @@
 			let isPaused = false;
 			let count = 0;
 			let isFirstLoad = true; // 첫 로드 여부를 추적하는 변수
-			let isRealTimeMode = true; // 실시간 업데이트 모드 여부
+			let isRealTimeMode = true; // 실시간 업데이트 모드 여부 */
 			
 			// 웹 소켓 연결 설정 : WebSocket 서버의 URL 설정
 			const socket = new WebSocket("ws://localhost:8081/data");
@@ -170,6 +183,9 @@
 									target: 1,
 									above: 'rgba(204, 61, 61, 0.4)',
 									below: 'rgba(255, 255, 255, 0)'
+									
+									
+									
 								}
 							},
 							{
@@ -267,7 +283,38 @@
 			
 		});
 		
+		
+		
+
 	</script>
+	
+	<script>
+	function checkTraffic() {
+	    // 트래픽이 임계값을 넘을 때만 count 증가
+	    if (tfData.length > 0 && thData.length > 0) {
+	        const latestTraffic = tfData[tfData.length - 1]; // tfData의 마지막 값
+	        const latestThreshold = thData[thData.length - 1]; // thData의 마지막 값
+
+	        if (latestTraffic > latestThreshold) {
+	            // 임계값을 초과하면 서버의 카운트 증가 API 호출
+	            $.ajax({
+	                url: "/api/incrementCount", // count 증가를 위한 서버의 엔드포인트
+	                type: "POST",
+	                success: function () {
+	                    console.log("Count incremented on the server.");
+	                },
+	                error: function () {
+	                    console.error("Error incrementing count on the server.");
+	                }
+	            });
+	        }
+	    }
+	}
+
+	// 트래픽 데이터를 주기적으로 확인하기 위해 1초마다 checkTraffic 함수를 호출
+	setInterval(checkTraffic, 1000);
+</script>
+	
 
 	<form action="/main" method="post" align="center">
 		<button type="submit">메인으로 돌아가기</button>

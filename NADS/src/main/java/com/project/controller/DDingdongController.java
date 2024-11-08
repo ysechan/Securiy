@@ -39,29 +39,31 @@ public class DDingdongController {
         }
     }
     
-    // '/api/getCount' 엔드포인트로 GET 요청을 처리하는 메서드
+    // '/api/getDdingdongCount' 엔드포인트로 GET 요청을 처리하는 메서드
     @GetMapping("/api/getDdingdongCount")
     public int getCount() {
         // CountApi로부터 현재 count 값을 가져옴
         int count = countApi.getCount();
+        // count 값 추적을 위해 출력
+        System.out.println("현재 count 값: " + count);
         
-        // Python 스크립트로 전달할 변수 설정
-         // 원하는 값을 할당 (임시값 "anything")
-        
-        // count가 60일 때 파이썬 스크립트를 실행
-        if (count / 60 == 0) {
+        // count가 60의 배수일 때 파이썬 스크립트를 실행
+        if (count % 60 == 0 && count != 0) {
+            System.out.println("카운트 60 돌파.");
             runPythonScrEmail(mail);
         }
         
         // 현재 count 값을 반환
         return count;
     }
+    
+    
 
     // 파이썬 스크립트를 실행하는 함수
     private void runPythonScrEmail(String mail) {
         try {
             // 실행할 Python 스크립트의 경로 설정
-            String pythonScriptPath = "path/to/your_script.py";  // Python 스크립트 경로
+            String pythonScriptPath = "python src/main/resources/static/gmailTTT.ipynb";  // Python 스크립트 경로
 
             // ProcessBuilder를 사용하여 Python 스크립트를 실행하고 인자로 ex0001을 전달
             ProcessBuilder processBuilder = new ProcessBuilder(
