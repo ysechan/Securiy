@@ -822,11 +822,11 @@
       }
    </script>
 
-		<script>
+<!-- 		<script>
     // 주기적으로 API를 호출하여 txRate와 traffic 비교
     setInterval(async function() {
         try {
-            const response = await fetch('/api/alerts/check-traffic');
+            const response = await fetch('/api/alerts/check-alerts');
             const isAlert = await response.json();
 
             // 조건에 맞는 경우 알림 표시
@@ -841,6 +841,6 @@
     function closeNotification() {
         document.getElementById('notification').style.display = 'none';
     }
-</script>
+</script> -->
 </body>
 </html>
