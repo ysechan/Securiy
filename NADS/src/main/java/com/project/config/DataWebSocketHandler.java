@@ -44,6 +44,16 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
 		// 클라이언트로부터 메시지를 받았을 때 처리 (필요한 경우 로직 추가)
+		try {
+			JsonNode dateRange = objectMapper.readTree(message.getPayload());
+	        String startDate = dateRange.has("startDate") ? dateRange.get("startDate").asText() : null;
+	        String endDate = dateRange.has("endDate") ? dateRange.get("endDate").asText() : null;
+	        
+	        // 조회 후 WebSocket 세션에 응답 전송
+	        fetchDataAndSend(startDate, endDate);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	public void sendMessage(String dataTraffic, String dataThresh) {
@@ -64,11 +74,16 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 	}
 	
 	@Scheduled(fixedRate = 5000) // 5초마다 실행
-	public void fetchDataAndSend() {
+	public void fetchDataAndSendScheduled() {
+	    // 기본 조회 시 startDate와 endDate를 null로 전달
+	    fetchDataAndSend(null, null);
+	}
+	
+	public void fetchDataAndSend(String startDate, String endDate) {
 		try {
 			// ElasticService 에서 데이터 조회
-			var searchResponseTraffic = elasticService.searchDocuments();
-			var searchResponseThresh = thresholdService.searchDocuments();
+			var searchResponseTraffic = elasticService.searchDocuments(startDate, endDate);
+			var searchResponseThresh = thresholdService.searchDocuments(startDate, endDate);
 			
 			// Aggregation 데이터 추출
 			var aggregationsTraffic = searchResponseTraffic.aggregations();

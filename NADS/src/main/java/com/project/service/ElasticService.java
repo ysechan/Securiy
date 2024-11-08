@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.project.Entity.ElasticEntity;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.Time;
 import co.elastic.clients.elasticsearch._types.aggregations.CalendarInterval;
 import co.elastic.clients.elasticsearch._types.aggregations.DateHistogramAggregation;
 import co.elastic.clients.elasticsearch._types.aggregations.SumAggregation;
@@ -55,13 +56,24 @@ public class ElasticService {
     	this.trafficClient = trafficClient;
     }
     
-    public SearchResponse<?> searchDocuments() throws IOException {
-    	Query query = Query.of(q -> q
-    			.range(r -> r
-    				.field("time")
-    				.gte(JsonData.of("now+9H-10m"))	// 시작시간
-				)
-		);
+    public SearchResponse<?> searchDocuments(String startDate, String endDate) throws IOException {
+    	Query query;
+    	if(startDate != null && endDate != null) {
+    		query = Query.of(q -> q
+        			.range(r -> r
+        				.field("time")
+        				.gte(JsonData.of(startDate))	// 시작시간
+						.lte(JsonData.of(endDate))
+    				)
+    		);
+    	}else {
+    		query = Query.of(q -> q
+        			.range(r -> r
+        				.field("time")
+        				.gte(JsonData.of("now+9H-30m"))	// 시작시간
+    				)
+    		);
+    	}
     	
     	SearchRequest searchRequest = SearchRequest.of(s -> s
     			.index("last_log-*")

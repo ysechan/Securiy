@@ -41,13 +41,33 @@
 			let tfData = [];	// Traffic
 			let thData = [];	// Threshold
 			let maxYValue = 0;	// y축 최대값
-			const visibleCount = 5;	// 그래프에서 한 번에 보여줄 데이터 개수
+			const visibleCount = 8;	// 그래프에서 한 번에 보여줄 데이터 개수
 			let startIndex = 0;			// 그래프 시작 인덱스 0
 			let isPaused = false;
 			let count = 0;
+			let isFirstLoad = true; // 첫 로드 여부를 추적하는 변수
+			let isRealTimeMode = true; // 실시간 업데이트 모드 여부
 			
 			// 웹 소켓 연결 설정 : WebSocket 서버의 URL 설정
 			const socket = new WebSocket("ws://localhost:8081/data");
+			
+			// 조회 버튼 클릭 시 선택한 날짜를 WebSocket으로 전송
+	        $('#choiceDateForm').on('submit', function(e) {
+	            e.preventDefault();
+	            const startDate = $('#choiceDate').val();
+	            const endDate = $('#choiceDateEnd').val();
+	            
+	            const dateRange = {
+	                startDate: startDate || null,
+	                endDate: endDate || null
+	            };
+	            
+	            if (startDate && endDate) {
+	                isRealTimeMode = false; // 기간 선택 모드
+	                socket.send(JSON.stringify(dateRange));
+	            }
+	            
+	        });
 			
 			socket.onopen = function(){
 				console.log("WebSocket 연결이 열렸습니다.");
@@ -61,24 +81,50 @@
 			
 				// 받은 데이터 처리
 				if(!isPaused && trafficData && thresholdData){
-					
-					trafficData.forEach((item, index) => {
-						date.push(item.key_as_string);
-						tfData.push(item.value);
-						
-						// threshold 데이터가 대응되는 동일 인덱스에 있는지 확인하여 업데이트
-		                if (index < thresholdData.length) {
-		                    thData.push(thresholdData[index].value);
-		                } else {
-		                    thData.push(null); // 데이터가 없을 경우 null로 처리
-		                }
-					});
-						
-					// visibleCount 초과 시 이전 데이터는 제거
-					if(date.length > visibleCount){
-						date.shift();
-						tfData.shift();
-						thData.shift();
+					// 기간 선택 모드일 경우 기존 데이터 지우고 새로 업데이트
+					if(!isRealTimeMode){
+						date = [];
+						tfData = [];
+						thData = [];
+						trafficData.forEach((item, index) => {
+		                    date.push(item.key_as_string);
+		                    tfData.push(item.value);
+		                    thData.push(index < thresholdData.length ? thresholdData[index].value : null);
+		                });
+						isRealTimeMode = true;
+					}else{
+						if(isFirstLoad){
+							trafficData.forEach((item, index) => {
+								date.push(item.key_as_string);
+								tfData.push(item.value);
+								
+								// threshold 데이터가 대응되는 동일 인덱스에 있는지 확인하여 업데이트
+				                if (index < thresholdData.length) {
+				                    thData.push(thresholdData[index].value);
+				                } else {
+				                    thData.push(null); // 데이터가 없을 경우 null로 처리
+				                }
+							});
+							isFirstLoad = false; // 초기 로드 완료
+						}else{
+							// 실시간 모드에서 새 데이터 추가
+							const latestTraffic = trafficData[trafficData.length - 1];
+							const latestThreshold = thresholdData[thresholdData.length - 1];
+							
+							// 실시간 데이터가 존재할 경우 추가
+							if (latestTraffic && latestTraffic.key_as_string) {
+								date.push(latestTraffic.key_as_string);
+								tfData.push(latestTraffic.value);
+								thData.push(latestThreshold ? latestThreshold.value : null);
+
+								// visibleCount 초과 시 이전 데이터 제거
+								if (date.length > visibleCount) {
+									date.shift();
+									tfData.shift();
+									thData.shift();
+								}
+							}
+						}
 					}
 				}
 					
