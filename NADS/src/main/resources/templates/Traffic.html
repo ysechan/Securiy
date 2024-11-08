@@ -43,6 +43,8 @@
 			let maxYValue = 0;	// y축 최대값
 			const visibleCount = 50;	// 그래프에서 한 번에 보여줄 데이터 개수
 			let startIndex = 0;			// 그래프 시작 인덱스 0
+			let isPaused = false;
+			let count = 0;
 			
 			// 웹 소켓 연결 설정 : WebSocket 서버의 URL 설정
 			const socket = new WebSocket("ws://localhost:8081/data");
@@ -55,15 +57,15 @@
 				const messageData = JSON.parse(event.data);
 			
 				// 받은 데이터 처리
-				if(messageData && messageData.time && messageData.txRate && messageData.traffic){
+				if(!isPaused && messageData && messageData.time && messageData.txRate && messageData.traffic){
 					
 					date.push(messageData.time);
 					console.log("date : ", date);
 					
-					tfData.push(messageData.txRate);
+					tfData.push(messageData.txRate); // Traffic
 					console.log("tfData : ", tfData);
 					
-					thData.push(messageData.traffic);
+					thData.push(messageData.traffic); // Threshold
 					console.log("thData : ", thData);
 						
 					// visibleCount 초과 시 이전 데이터는 제거
@@ -92,12 +94,22 @@
 			    maxYValue = Math.ceil((Math.max(maxTfData, maxThData) + 1000) / 1000) * 1000; // 1000 단위로 올림하여 설정
 			}
 			
+			
 			function updateChart(){
 				if(lineChart){
 					lineChart.destroy();
 				}
 				
 				const ctx = document.getElementById('lineChart').getContext('2d');
+				
+				// 트래픽이 임계값을 넘을 때마다 count 증가
+			    for (let i = 0; i < tfData.length; i++) {
+			        if (tfData[i] > thData[i]) {
+			            count += 1;  // 임계값 초과 시 count 증가
+			            console.log("count : ", count);
+			        }
+			    }
+				
 				lineChart = new Chart(ctx, {
 					type: 'line',
 					data: {
@@ -193,6 +205,22 @@
 					}
 				});
 			}
+			
+			//일시정지 버튼 클릭 시 차트 업데이트
+			document.getElementById('tempStop').addEventListener('click', function(){
+				isPaused = true;
+				updateInterval = null;
+			});
+			
+			// 재생 버튼 클릭 시 차트 업데이트
+			document.getElementById('play').addEventListener('click', function() {
+	            // 기존 인터벌이 이미 멈춰있다면 재시작
+	            if(isPaused){
+					isPaused = false;
+					console.log("그래프가 재생됩니다.");
+	            }
+	        });
+			
 		});
 		
 	</script>

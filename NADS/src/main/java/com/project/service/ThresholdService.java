@@ -28,6 +28,10 @@ public class ThresholdService {
 		return thresholdRepo.findAllByDatetime(choiceDate, choiceDateEnd);
 	}
 	
+	public ThresholdEntity getLatestTrafficByMinute() {
+		return thresholdRepo.findTopByOrderByTimeDesc();
+	}
+	
 	public String convertToJson(List<ElasticEntity> entities) {
         try {
             return objectMapper.writeValueAsString(entities);

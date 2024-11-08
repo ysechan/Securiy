@@ -15,7 +15,10 @@ import com.project.Entity.ThresholdEntity;
 import com.project.service.ElasticService;
 import com.project.service.ThresholdService;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +26,7 @@ import java.util.Set;
 @Component
 public class DataWebSocketHandler extends TextWebSocketHandler {
 	private Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<>());
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Autowired
 	private ElasticService elasticService;
@@ -35,37 +39,10 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 		sessions.add(session); // 새로운 WebSocket 세션을 저장
 	}
 
-	@Scheduled(fixedRate = 1000) // 1초마다 데이터 전송 
-	public void sendRealTimeData() {
-	// Elastic 데이터 가져오기 
-		List<ElasticEntity> elasticData = elasticService.getAllDocsByPattern(); 
-		List<ThresholdEntity> thresholdData = thresholdService.getAllDocsByPattern();
-	  
-		if (!elasticData.isEmpty() && !thresholdData.isEmpty()) { 
-			// 마지막 데이터(최신 데이터)가져오기 
-			ElasticEntity latestElastic = elasticData.get(elasticData.size() - 1);
-			ThresholdEntity latestThreshold = thresholdData.get(thresholdData.size() -1);
-	  
-			String data = "{ \"time\": \"" + latestElastic.getTime() + "\", " +
-		               "\"txRate\": " + latestElastic.getTxRate() + ", " +
-		               "\"traffic\": " + (latestThreshold != null ? latestThreshold.getTraffic() : 0) + "}";
-			System.out.println("websocket으로 정보 가져오기 : " + data);
-	  
-			// 모든 WebSocket 세션에 데이터 전송 
-			sendMessage(data); 
-		} 
-	}
-
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
 		// 클라이언트로부터 메시지를 받았을 때 처리 (필요한 경우 로직 추가)
 	}
-	
-	 private String createJsonData(ElasticEntity elasticEntity, ThresholdEntity thresholdEntity) {
-	        return "{ \"time\": \"" + elasticEntity.getTime() + "\", " +
-	               "\"txRate\": " + elasticEntity.getTxRate() + ", " +
-	               "\"traffic\": " + (thresholdEntity != null ? thresholdEntity.getTraffic() : 0) + "}";
-	    }
 
 	public void sendMessage(String data) {
 		for (WebSocketSession session : sessions) {
@@ -82,5 +59,24 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
 		sessions.remove(session); // 연결이 끊긴 세션 제거
+	}
+	
+	@Scheduled(fixedRate = 1000) // 1초마다 실행
+	public void fetchDataAndSend() {
+		try {
+			// ElasticService 에서 데이터 조회
+			var searchResponse = elasticService.searchDocuments();
+			var hits = searchResponse.hits().hits();
+			
+			// 조회 결과를 JSON으로 변환하여 WebSocket으로 전송
+			String jsonData = objectMapper.writeValueAsString(hits);
+			
+			// 잘 가져와졌나?
+			System.out.println("쿼리문 조회 결과 : " + jsonData);
+			
+			sendMessage(jsonData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
