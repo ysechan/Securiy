@@ -141,7 +141,7 @@
 									</div>
 									<img class="oval-1" src="img/oval.svg" alt="Oval" />
 								</div>
-							
+
 								<div class="profile">
 									<img class="man-438081_960_720"
 										src="img/man-438081-960-720@2x.png" alt="man-438081_960_720" />
@@ -171,77 +171,69 @@
 											class="if-you-are-already-a valign-text-middle inter-normal-regent-gray-15px">
 											If you are already a member you can login with your email
 											address and IP Adress</p>
-										<div class="place valign-text-middle inter-medium-nevada-16px">name</div>
-										<input type="text" class="rectangle99"
-											placeholder="Enter your name" />
-										<div
-											class="e-mail-adress valign-text-middle inter-medium-nevada-16px">E-mail
-											Adress</div>
-										<input type="email" class="rectangle99"
-											placeholder="Enter your email address" />
-										<div
-											class="phone-number valign-text-middle inter-medium-nevada-16px">Phone
-											number</div>
-										<input type="tel" class="rectangle99"
-											placeholder="Enter your phone number" />
-										<div class="ip-adress valign-text-middle inter-bold-blue-16px">IP
-											Adress</div>
-										<input type="text" class="rectangle99"
-											placeholder="Enter your IP address" />
-										<div class="flex-row">
-
-
-
-											<!-- Remember Me 체크박스 -->
-											<div class="checkbox-container"
-												style="margin-top: 20px; display: flex; align-items: center;">
-												<input type="checkbox" id="rememberMe"
-													style="display: none;" />
-												<div id="checkboxImage" class="checkbox-custom"
-													onclick="toggleCheckbox()"
-													style="width: 20px; height: 20px; background: url('img/square-checkbox-empty.svg') no-repeat center/cover; cursor: pointer;">
-												</div>
-												<label for="rememberMe"
-													class="remember-me valign-text-middle inter-medium-nevada-16px"
-													style="margin-left: 10px; cursor: pointer;">Remember
-													me</label>
-											</div>
-
-
-
-
-
-
-										</div>
-
-										<div class="overlap-group100">
+										<form action="/updateUserInfo" method="post">
 											<div
-												class="continue valign-text-middle inter-medium-white-16px">Continue</div>
-										</div>
+												class="place valign-text-middle inter-medium-nevada-16px">name</div>
+											<input type="text" class="rectangle99" name="name"
+												placeholder="Enter your name" />
+
+											<div
+												class="e-mail-adress valign-text-middle inter-medium-nevada-16px">E-mail
+												Address</div>
+											<input type="email" class="rectangle99" name="email"
+												placeholder="Enter your email address" />
+
+											<div
+												class="phone-number valign-text-middle inter-medium-nevada-16px">Phone
+												number</div>
+											<input type="tel" class="rectangle99" name="phone"
+												placeholder="Enter your phone number" />
+
+											<div
+												class="ip-adress valign-text-middle inter-bold-blue-16px">IP
+												Address</div>
+											<input type="text" class="rectangle99" name="ip"
+												placeholder="Enter your IP address" />
+
+											<!-- Update 버튼을 앵커 태그로 변경 -->
+											<div class="overlap-group100">
+												<a href="javascript:void(0);"
+													onclick="document.forms[0].submit();"
+													class="continue valign-text-middle inter-medium-white-16px">Update</a>
+											</div>
+										</form>
+
+
+
+
+
 									</div>
+
+									
 								</div>
-
 							</div>
-						</div>
 
+						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
-		<div id="notification" class="notification-container">
-			<div class="notification-header">
-				<span class="notification-title">Warning: High Traffic
-					Detected</span>
-				<button class="notification-close" onclick="closeNotification()">&times;</button>
-			</div>
-			<div class="notification-body">
-				- Traffic increased significantly.<br> - Immediate action
-				required.
-			</div>
+	</div>
+	<div id="notification" class="notification-container">
+		<div class="notification-header">
+			<span class="notification-title">Warning: High Traffic
+				Detected</span>
+			<button class="notification-close" onclick="closeNotification()">&times;</button>
 		</div>
+		<div class="notification-body">
+			- Traffic increased significantly.<br> - Immediate action
+			required.
+		</div>
+	</div>
 
 
-		<script>
+	<script>
 			function toggleCheckbox() {
 				const checkbox = document.getElementById('rememberMe');
 				const checkboxImage = document.getElementById('checkboxImage');
