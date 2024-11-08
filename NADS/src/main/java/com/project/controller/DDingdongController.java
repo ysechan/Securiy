@@ -32,7 +32,7 @@ public class DDingdongController {
         // userId를 사용하여 UserRepository에서 사용자 정보 조회
         UserEntity user = userReposi.findById(userId).orElse(null);
         if (user != null) {
-        	String mail = user.getMail();
+            String mail = user.getMail();
             return user.getMail(); // 사용자 이메일 정보 반환
         } else {
             return "사용자를 찾을 수 없습니다.";
@@ -57,24 +57,23 @@ public class DDingdongController {
         return count;
     }
     
-    
-
     // 파이썬 스크립트를 실행하는 함수
     private void runPythonScrEmail(String mail) {
         try {
             // 실행할 Python 스크립트의 경로 설정
-            String pythonScriptPath = "python src/main/resources/static/gmailTTT.ipynb";  // Python 스크립트 경로
+            String pythonScriptPath = "src/main/resources/static/gmailTTTxxx.py";  // Python 스크립트 경로
 
-            // ProcessBuilder를 사용하여 Python 스크립트를 실행하고 인자로 ex0001을 전달
+            // ProcessBuilder를 사용하여 Python 스크립트를 실행하고 인자로 이메일 전달
             ProcessBuilder processBuilder = new ProcessBuilder(
                     "python", pythonScriptPath, mail);
+            processBuilder.redirectErrorStream(true); // 표준 오류를 표준 출력으로 리다이렉트하여 오류 메시지를 확인할 수 있게 함
             Process process = processBuilder.start();
 
             // Python 스크립트의 출력 결과를 읽기 위해 BufferedReader 사용
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line); // Python 스크립트의 출력 결과를 콘솔에 출력
+                System.out.println("Python Output: " + line); // Python 스크립트의 출력 결과를 콘솔에 출력
             }
 
             // 프로세스 종료 코드 확인
@@ -85,4 +84,5 @@ public class DDingdongController {
             e.printStackTrace();
         }
     }
+
 }
