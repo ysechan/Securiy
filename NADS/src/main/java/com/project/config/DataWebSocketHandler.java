@@ -136,8 +136,8 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 			String jsonDataThresh = objectMapper.writeValueAsString(dataListThresh);
 			
 			// 잘 가져와졌나?
-			System.out.println("Traffic 쿼리문 조회 결과 : " + jsonDataTraffic);
-			System.out.println("Threshold 쿼리문 조회 결과 : " + jsonDataThresh);
+			// System.out.println("Traffic 쿼리문 조회 결과 : " + jsonDataTraffic);
+			// System.out.println("Threshold 쿼리문 조회 결과 : " + jsonDataThresh);
 			
 			sendMessage(jsonDataTraffic, jsonDataThresh);
 		} catch (IOException e) {
