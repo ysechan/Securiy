@@ -64,13 +64,15 @@ public class ElasticService {
         				.field("time")
         				.gte(JsonData.of(startDate))	// 시작시간
 						.lte(JsonData.of(endDate))
+						.timeZone("+09:00")
     				)
     		);
     	}else {
     		query = Query.of(q -> q
         			.range(r -> r
         				.field("time")
-        				.gte(JsonData.of("now+9H-30m"))	// 시작시간
+        				.gte(JsonData.of("now-30m"))	// 시작시간
+        				.timeZone("+09:00")
     				)
     		);
     	}
@@ -83,6 +85,7 @@ public class ElasticService {
     					.dateHistogram(DateHistogramAggregation.of(h -> h
     							.field("time")
     							.calendarInterval(CalendarInterval.Minute)
+    							.timeZone("+09:00")
 						))
     					.aggregations("total_txRate", agg -> agg
     							.sum(SumAggregation.of(sum -> sum.field("tx_rate")))
