@@ -69,7 +69,6 @@ public class ThresholdService {
         				.field("time")
         				.gte(JsonData.of(startDate))	// 시작시간
 						.lte(JsonData.of(endDate))
-						.timeZone("+09:00")
     				)
     		);
     	}else {
@@ -77,7 +76,6 @@ public class ThresholdService {
         			.range(r -> r
         				.field("time")
         				.gte(JsonData.of("now-31m"))	// 시작시간
-        				.timeZone("+09:00")
     				)
     		);
     	}
@@ -90,7 +88,6 @@ public class ThresholdService {
     					.dateHistogram(DateHistogramAggregation.of(h -> h
     							.field("time")
     							.calendarInterval(CalendarInterval.Minute)
-    							.timeZone("+09:00")
 						))
     					.aggregations("total_threshold", agg -> agg
     							.sum(SumAggregation.of(sum -> sum.field("traffic")))

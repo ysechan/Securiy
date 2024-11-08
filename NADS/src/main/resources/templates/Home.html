@@ -274,241 +274,285 @@
 
 
 		<!-- ================================================================================ -->
-		<script>
-		$(document).ready(function(){
-			// 전역 변수
-			let lineChart;
-			let date = [];		// x축에 들어갈 날짜
-			let tfData = [];	// Traffic
-			let thData = [];	// Threshold
-			let maxYValue = 0;	// y축 최대값
-			const visibleCount = 8;	// 그래프에서 한 번에 보여줄 데이터 개수
-			let startIndex = 0;			// 그래프 시작 인덱스 0
-			let isPaused = false;
-			let count = 0;
-			let isFirstLoad = true; // 첫 로드 여부를 추적하는 변수
-			let isRealTimeMode = true; // 실시간 업데이트 모드 여부
-			
-			// 웹 소켓 연결 설정 : WebSocket 서버의 URL 설정
-			const socket = new WebSocket("ws://localhost:8081/data");
-			
-			// 조회 버튼 클릭 시 선택한 날짜를 WebSocket으로 전송
-	        $('#choiceDateForm').on('submit', function(e) {
-	            e.preventDefault();
-	            const startDate = $('#choiceDate').val();
-	            const endDate = $('#choiceDateEnd').val();
+	 <script>
+	      $(document).ready(function(){
+	         // 전역 변수
+	         let lineChart;
+	         let date = [];      // x축에 들어갈 날짜
+	         let tfData = [];   // Traffic
+	         let thData = [];   // Threshold
+	         let maxYValue = 0;   // y축 최대값
+	         const visibleCount = 8;   // 그래프에서 한 번에 보여줄 데이터 개수
+	         let startIndex = 0;         // 그래프 시작 인덱스 0
+	         let isPaused = false;
+	         let count = 0;
+	         let isFirstLoad = true; // 첫 로드 여부를 추적하는 변수
+	         let isRealTimeMode = true; // 실시간 업데이트 모드 여부
+	         
+	         // 웹 소켓 연결 설정 : WebSocket 서버의 URL 설정
+	         const socket = new WebSocket("ws://localhost:8081/data");
+	         
+	         // 조회 버튼 클릭 시 선택한 날짜를 WebSocket으로 전송
+	           $('#choiceDateForm').on('submit', function(e) {
+	               e.preventDefault();
+	               const startDate = $('#choiceDate').val();
+	               const endDate = $('#choiceDateEnd').val();
+	               
+	               const dateRange = {
+	                   startDate: startDate || null,
+	                   endDate: endDate || null
+	               };
+	               
+	               if (startDate && endDate) {
+	                   isRealTimeMode = false; // 기간 선택 모드
+	                   socket.send(JSON.stringify(dateRange));
+	               }
+	               
+	           });
+	         
+	         socket.onopen = function(){
+	            console.log("WebSocket 연결이 열렸습니다.");
+	         };
+	         
+	         socket.onmessage = function(event){
+	            // 받은 메시지를 "\n" 기준으로 분리하여 dataTraffic과 dataThresh로 구분
+	              const [dataTraffic, dataThresh] = event.data.split('\n');
+	              const trafficData = JSON.parse(dataTraffic);
+	              const thresholdData = JSON.parse(dataThresh);
+	         
+	            // 받은 데이터 처리
+	            if(!isPaused && trafficData && thresholdData){
+	               // ========== 기간 선택 모드일 경우 기존 데이터 지우고 새로 업데이트
+	               if(!isRealTimeMode){
+	                  date = [];
+	                  tfData = [];
+	                  thData = [];
+	                  trafficData.forEach((item, index) => {
+	                	  	const timeString = item.key_as_string.split("T")[1];	// 날짜 데이터의 T 문자를 기준으로 두 개의 배열로 나누되, 1번째 배열값 가져오기
+							const hour = timeString.substring(0, 2); 				// 인덱싱 >> 22:53:00 중 "22"
+						    const minute = timeString.substring(3, 5); 				// 인덱싱 >> 22:53:00 중 "53"
+						    const formattedTime = `${hour}시 ${minute}분`;
+	    					date.push(formattedTime);
+	                          tfData.push(item.value);
+	                          thData.push(index < thresholdData.length ? thresholdData[index].value : null);
+	                      });
+	                  
+	               		// 첫 번째 데이터의 월/일을 #selectedDate에 표시
+		    			if (trafficData.length > 0) {
+							// 날짜 배열의 시작값
+		    				const startDateString = trafficData[0].key_as_string.split("T")[0];
+		    				const startMonth = startDateString.substring(5, 7);
+		    				const startDate = startDateString.substring(8, 10);
+		    				// 날짜 배열의 마지막값
+		    				const endDateString = trafficData[trafficData.length - 1].key_as_string.split("T")[0];
+		    				const endMonth = endDateString.substring(5, 7);
+		    				const endDate = endDateString.substring(8, 10);
+		    				if(startMonth !== endMonth || startDate !== endDate){
+		    					$('#selectedDate').text(`${startMonth}월 ${startDate}일 ~ ${endMonth}월 ${endDate}일`);
+		    				}else{
+		    					$('#selectedDate').text(`${startMonth}월 ${startDate}일`);
+		    				}
+		    				
+		    			}
+	                  isRealTimeMode = true;
+	               }else{	// ========== 기간 선택 모드가 아닌 초기 조회 데이터
+	                  if(isFirstLoad){
+	                     trafficData.forEach((item, index) => {
+							const timeString = item.key_as_string.split("T")[1];	// 날짜 데이터의 T 문자를 기준으로 두 개의 배열로 나누되, 1번째 배열값 가져오기
+							const hour = timeString.substring(0, 2); 				// 인덱싱 >> 22:53:00 중 "22"
+						    const minute = timeString.substring(3, 5); 				// 인덱싱 >> 22:53:00 중 "53"
+						    const formattedTime = `${hour}시 ${minute}분`;
+	    					date.push(formattedTime);
+	                        tfData.push(item.value);
+	                        
+	                        // threshold 데이터가 대응되는 동일 인덱스에 있는지 확인하여 업데이트
+	                            if (index < thresholdData.length) {
+	                                thData.push(thresholdData[index].value);
+	                            } else {
+	                                thData.push(null); // 데이터가 없을 경우 null로 처리
+	                            }
+	                     });
+	                     
+	                  		// 첫 번째 데이터의 월/일을 #selectedDate에 표시
+			    			if (trafficData.length > 0) {
+			    				const dateString = trafficData[0].key_as_string.split("T")[0];
+			    				const month = dateString.substring(5, 7);
+			    				const day = dateString.substring(8, 10);
+			    				console.log("day : ", day);
+			    				$('#selectedDate').text(`${month}월 ${day}일`);
+			    			}
+	                  
+	                    	 isFirstLoad = false; // 초기 로드 완료
+	                  }else{
+	                     // 실시간 모드에서 새 데이터 추가
+	                     const latestTraffic = trafficData[trafficData.length - 1];
+	                     const latestThreshold = thresholdData[thresholdData.length - 1];
+	                     
+	                     // 실시간 데이터가 존재할 경우 추가
+	                     if (latestTraffic && latestTraffic.key_as_string) {
+	                    	const timeString = latestTraffic.key_as_string.split("T")[1];	
+							const hour = timeString.substring(0, 2); 				
+						    const minute = timeString.substring(3, 5); 				
+						    const formattedTime = `${hour}시 ${minute}분`;
+	    					date.push(formattedTime);
+	                        tfData.push(latestTraffic.value);
+	                        thData.push(latestThreshold ? latestThreshold.value : null);
+	
+	                        // visibleCount 초과 시 이전 데이터 제거
+	                        if (date.length > visibleCount) {
+	                           date.shift();
+	                           tfData.shift();
+	                           thData.shift();
+	                        }
+	                     }
+	                  }
+	               }
+	            }
+	               
+	            updateMaxYValue();
 	            
-	            const dateRange = {
-	                startDate: startDate || null,
-	                endDate: endDate || null
-	            };
-	            
-	            if (startDate && endDate) {
-	                isRealTimeMode = false; // 기간 선택 모드
-	                socket.send(JSON.stringify(dateRange));
+	         };
+	         
+	         socket.onclose = function(){
+	            console.log("WebSocket 연결이 닫혔습니다.");
+	         } 
+	         
+	         
+	         // y축 최대값 업데이트 할 수 있는 함수
+	         function updateMaxYValue() {
+	        	 //maxYValue = 0;	// 그래프를 여러 번 조회할 때 최대값이 누적되지 않도록 값을 초기화
+	        	 
+			    // tfData와 thData가 비어 있을 경우 0을 기본 값으로 사용
+			    const maxTfData = tfData.length > 0 ? Math.max(...tfData) : 0;
+			    const maxThData = thData.length > 0 ? Math.max(...thData) : 0;
+			
+			    // tfData와 thData 중 더 큰 값에 1000을 더하고 1000 단위로 올림
+			    const maxCombinedValue = Math.max(maxTfData, maxThData) + 1000;
+			    maxYValue = Math.ceil(maxCombinedValue / 1000) * 1000;
+			    
+			    updateChart();
+			}
+	         
+	         
+	         function updateChart(){
+	            if(lineChart){
+	               lineChart.destroy();
 	            }
 	            
-	        });
-			
-			socket.onopen = function(){
-				console.log("WebSocket 연결이 열렸습니다.");
-			};
-			
-			socket.onmessage = function(event){
-				// 받은 메시지를 "\n" 기준으로 분리하여 dataTraffic과 dataThresh로 구분
-		        const [dataTraffic, dataThresh] = event.data.split('\n');
-		        const trafficData = JSON.parse(dataTraffic);
-		        const thresholdData = JSON.parse(dataThresh);
-			
-				// 받은 데이터 처리
-				if(!isPaused && trafficData && thresholdData){
-					// 기간 선택 모드일 경우 기존 데이터 지우고 새로 업데이트
-					if(!isRealTimeMode){
-						date = [];
-						tfData = [];
-						thData = [];
-						trafficData.forEach((item, index) => {
-		                    date.push(item.key_as_string);
-		                    tfData.push(item.value);
-		                    thData.push(index < thresholdData.length ? thresholdData[index].value : null);
-		                });
-						isRealTimeMode = true;
-					}else{
-						if(isFirstLoad){
-							trafficData.forEach((item, index) => {
-								date.push(item.key_as_string);
-								tfData.push(item.value);
-								
-								// threshold 데이터가 대응되는 동일 인덱스에 있는지 확인하여 업데이트
-				                if (index < thresholdData.length) {
-				                    thData.push(thresholdData[index].value);
-				                } else {
-				                    thData.push(null); // 데이터가 없을 경우 null로 처리
-				                }
-							});
-							isFirstLoad = false; // 초기 로드 완료
-						}else{
-							// 실시간 모드에서 새 데이터 추가
-							const latestTraffic = trafficData[trafficData.length - 1];
-							const latestThreshold = thresholdData[thresholdData.length - 1];
-							
-							// 실시간 데이터가 존재할 경우 추가
-							if (latestTraffic && latestTraffic.key_as_string) {
-								date.push(latestTraffic.key_as_string);
-								tfData.push(latestTraffic.value);
-								thData.push(latestThreshold ? latestThreshold.value : null);
+	            const ctx = document.getElementById('lineChart').getContext('2d');
+	            
+	            lineChart = new Chart(ctx, {
+	               type: 'line',
+	               data: {
+	                  labels: date.slice(startIndex, startIndex + visibleCount),
+	                  datasets: [
+	                     {
+	                        label: 'Traffic',
+	                        data: tfData.slice(startIndex, startIndex + visibleCount),
+	                        tension: 0.5,
+	                        borderColor: 'rgb(68, 113, 218)',
+	                        borderWidth: 2,
+	                        pointRadius: 0,
+	                        fill: {         // 임계값 설정 후 적용할 내용
+	                           target: 1,
+	                           above: 'rgba(204, 61, 61, 0.4)',
+	                           below: 'rgba(255, 255, 255, 0)'
+	                        }
+	                     },
+	                     {
+	                        label: 'Threshold',
+	                        data: thData.slice(startIndex, startIndex + visibleCount),
+	                        tension: 0.5,
+	                        borderColor: 'rgb(255, 51, 51)',
+	                        borderWidth: 2,
+	                        pointRadius: 0,
+	                     } 
+	                  ]
+	               },
+	               options: {
+	                  responsive: true,
+	                  scales: {
+	                     x: {
+	                        grid: {
+	                           display: false
+	                        }
+	                     },
+	                     y: {
+	                        beginAtZero: true,   // 축이 0부터 시작할지 여부
+	                        max: maxYValue
+	                     }
+	                  },
+	                  plugins: {
+	                     tooltip: {   // chart 위에 마우스를 올리면 데이터 포인트와 관련된 정보 표시
+	                        intersect: false,   // 마우스가 정확히 데이터 포인트 위에 있을 때만 표시될지 여부
+	                                       // 기본값 : true, false면 포인트 가까이만 있어도 tooltip 표시
+	                        displayColors: false,   // label의 색상 상자 표시 여부
+	                        titleFont: {
+	                           size: 20,
+	                           family: 'Rethink Sans',
+	                           weight: 'bold'
+	                        },
+	                        bodyFont: {
+	                           size: 15,
+	                           family: 'Rethink Sans'
+	                        },
+	                        cornerRadius: 10,   // tooltip 둥근 모서리(기본값 : 6)
+	                        caretSize: 8,      // tooltip이 차트 요소를 가리키는 작은 삼각형
+	                        callbacks: {
+	                           title: function(tooltipItems){
+	                              return 'Details';
+	                           },
+	                           label: function(tooltipItems){
+	                              if(tooltipItems.datasetIndex === 0){
+	                                 return '• Traffic  :  '+tooltipItems.raw;
+	                              }else if(tooltipItems.datasetIndex === 1){
+	                                 return '• Threshold  :  '+tooltipItems.raw;
+	                              }
+	                           },
+	                           afterLabel: function(tooltipItems){
+	                              const afterLabelInfo = [];
+	                              const dataIndex = tooltipItems.dataIndex + startIndex;
+	                               
+	                              if(dataIndex < date.length){
+	                                 const formattedDate = date[dataIndex]; // "HH:MM:SS" 형식
+	                                  afterLabelInfo.push('• Date  :  ' + formattedDate);
+	                              }
+	                              
+	                              return afterLabelInfo;
+	                           }
+	                        }
+	                     }
+	                  },
+	                  hover : {
+	                     mode: 'index',      // 마우스를 올렸을 때 반응하는 차트 요소의 범위
+	                     intersect: false   // 마우스가 요소와 교차할 때만 호버 효과가 발생할지 여부 설정
+	                  },
+	                  animation: {
+	                     duration: 0
+	                  }
+	               }
+	            });
+	         }
+	         
+	         //일시정지 버튼 클릭 시 차트 업데이트
+	         document.getElementById('tempStop').addEventListener('click', function(){
+	            isPaused = true;
+	            updateInterval = null;
+	         });
+	         
+	         // 재생 버튼 클릭 시 차트 업데이트
+	         document.getElementById('play').addEventListener('click', function() {
+	               // 기존 인터벌이 이미 멈춰있다면 재시작
+	               if(isPaused){
+	               isPaused = false;
+	               console.log("그래프가 재생됩니다.");
+	               }
+	           });
+	         
+	      });
+	      
+	   </script>
 
-								// visibleCount 초과 시 이전 데이터 제거
-								if (date.length > visibleCount) {
-									date.shift();
-									tfData.shift();
-									thData.shift();
-								}
-							}
-						}
-					}
-				}
-					
-				updateMaxYValue();
-				
-				// 차트 업데이트
-				updateChart();
-			};
-			
-			socket.onclose = function(){
-				console.log("WebSocket 연결이 닫혔습니다.");
-			} 
-			
-			
-			// y축 최대값 업데이트 할 수 있는 함수
-			function updateMaxYValue() {
-			    const maxTfData = Math.max(...tfData); // tfData에서 현재 최대값 찾기
-			    const maxThData = Math.max(...thData); // thData에서 현재 최대값 찾기
-			    maxYValue = Math.ceil((Math.max(maxTfData, maxThData) + 1000) / 1000) * 1000; // 1000 단위로 올림하여 설정
-			}
-			
-			
-			function updateChart(){
-				if(lineChart){
-					lineChart.destroy();
-				}
-				
-				const ctx = document.getElementById('lineChart').getContext('2d');
-				
-				lineChart = new Chart(ctx, {
-					type: 'line',
-					data: {
-						labels: date.slice(startIndex, startIndex + visibleCount),
-						datasets: [
-							{
-								label: 'Traffic',
-								data: tfData.slice(startIndex, startIndex + visibleCount),
-								tension: 0.5,
-								borderColor: 'rgb(68, 113, 218)',
-								borderWidth: 2,
-								pointRadius: 0,
-								fill: {			// 임계값 설정 후 적용할 내용
-									target: 1,
-									above: 'rgba(204, 61, 61, 0.4)',
-									below: 'rgba(255, 255, 255, 0)'
-								}
-							},
-							{
-								label: 'Threshold',
-								data: thData.slice(startIndex, startIndex + visibleCount),
-								tension: 0.5,
-								borderColor: 'rgb(255, 51, 51)',
-								borderWidth: 2,
-								pointRadius: 0,
-							} 
-						]
-					},
-					options: {
-						responsive: true,
-						scales: {
-							x: {
-								grid: {
-									display: false
-								}
-							},
-							y: {
-								beginAtZero: true,	// 축이 0부터 시작할지 여부
-								max: maxYValue
-							}
-						},
-						plugins: {
-							tooltip: {	// chart 위에 마우스를 올리면 데이터 포인트와 관련된 정보 표시
-								intersect: false,	// 마우스가 정확히 데이터 포인트 위에 있을 때만 표시될지 여부
-													// 기본값 : true, false면 포인트 가까이만 있어도 tooltip 표시
-								displayColors: false,	// label의 색상 상자 표시 여부
-								titleFont: {
-									size: 20,
-									family: 'Rethink Sans',
-									weight: 'bold'
-								},
-								bodyFont: {
-									size: 15,
-									family: 'Rethink Sans'
-								},
-								cornerRadius: 10,	// tooltip 둥근 모서리(기본값 : 6)
-								caretSize: 8,		// tooltip이 차트 요소를 가리키는 작은 삼각형
-								callbacks: {
-									title: function(tooltipItems){
-										return 'Details';
-									},
-									label: function(tooltipItems){
-										if(tooltipItems.datasetIndex === 0){
-											return '• Traffic  :  '+tooltipItems.raw;
-										}else if(tooltipItems.datasetIndex === 1){
-											return '• Threshold  :  '+tooltipItems.raw;
-										}
-									},
-									afterLabel: function(tooltipItems){
-										const afterLabelInfo = [];
-										const dataIndex = tooltipItems.dataIndex + startIndex;
-									    
-										if(dataIndex < date.length){
-											const formattedDate = date[dataIndex]; // "HH:MM:SS" 형식
-											// "HH:MM:SS" 형식을 "HH시 MM분 SS초"로 변환
-										    const [hours, minutes, seconds] = formattedDate.split(':');
-										    const koreanFormattedDate = `${hours}시 ${minutes}분 ${seconds}초`;
-										    afterLabelInfo.push('• Date  :  ' + koreanFormattedDate);
-										}
-										
-										return afterLabelInfo;
-									}
-								}
-							}
-						},
-						hover : {
-							mode: 'index',		// 마우스를 올렸을 때 반응하는 차트 요소의 범위
-							intersect: false	// 마우스가 요소와 교차할 때만 호버 효과가 발생할지 여부 설정
-						},
-						animation: {
-							duration: 0
-						}
-					}
-				});
-			}
-			
-			//일시정지 버튼 클릭 시 차트 업데이트
-			document.getElementById('tempStop').addEventListener('click', function(){
-				isPaused = true;
-				updateInterval = null;
-			});
-			
-			// 재생 버튼 클릭 시 차트 업데이트
-			document.getElementById('play').addEventListener('click', function() {
-	            // 기존 인터벌이 이미 멈춰있다면 재시작
-	            if(isPaused){
-					isPaused = false;
-					console.log("그래프가 재생됩니다.");
-	            }
-	        });
-			
-		});
-		
-	</script>
 
 		<!-- ================================================================================ -->
 
