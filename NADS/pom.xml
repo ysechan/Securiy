@@ -31,6 +31,30 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+			<version>3.3.4</version>  <!--현재 프로젝트 버전에 맞는 버전 사용 -->
+		</dependency>
+		
+		<!-- websockek -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		
 		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
@@ -56,7 +80,7 @@
 		</dependency>-->
 		
 		<!-- HttpHost -->
-		<dependency>
+		<!--<dependency>
 		    <groupId>org.apache.httpcomponents</groupId>
 		    <artifactId>httpclient</artifactId>
 		    <version>4.5.13</version>
@@ -65,47 +89,20 @@
 		    <groupId>org.apache.httpcomponents</groupId>
 		    <artifactId>httpcore</artifactId>
 		    <version>4.4.14</version>
-		</dependency>
+		</dependency>-->
 		
 		<!-- 최신 elasticsearch에서는 rest high level client 사용을 권장하지 않고 대신 이걸 사용! -->
-		<dependency>
+		<!--<dependency>
 		    <groupId>co.elastic.clients</groupId>
 		    <artifactId>elasticsearch-java</artifactId>
-		    <version>7.17.0</version> <!-- Elasticsearch 버전에 맞춰 설정하세요 -->
-		</dependency>
+		    <version>7.17.0</version>  Elasticsearch 버전에 맞춰 설정하세요 
+		</dependency>-->
 
 		<!--<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-elasticsearch</artifactId>
 			<version>5.3.3</version>  또는 프로젝트에 맞는 최신 버전 
 		</dependency>-->
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-			<version>3.3.4</version>  <!--현재 프로젝트 버전에 맞는 버전 사용 -->
-		</dependency>
-
-		<!-- websockek 관련 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-		</dependency>
-
-
-
 
 		<!-- HTML 파일 사용 관련 -->
 		<dependency>

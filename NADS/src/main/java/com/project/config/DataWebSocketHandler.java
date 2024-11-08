@@ -72,6 +72,7 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 			String jsonData = objectMapper.writeValueAsString(hits);
 			
 			// 잘 가져와졌나?
+			System.out.println("Search Response: " + searchResponse);
 			System.out.println("쿼리문 조회 결과 : " + jsonData);
 			
 			sendMessage(jsonData);
