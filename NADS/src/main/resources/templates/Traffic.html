@@ -41,7 +41,7 @@
 			let tfData = [];	// Traffic
 			let thData = [];	// Threshold
 			let maxYValue = 0;	// y축 최대값
-			const visibleCount = 50;	// 그래프에서 한 번에 보여줄 데이터 개수
+			const visibleCount = 5;	// 그래프에서 한 번에 보여줄 데이터 개수
 			let startIndex = 0;			// 그래프 시작 인덱스 0
 			let isPaused = false;
 			let count = 0;
@@ -54,19 +54,25 @@
 			};
 			
 			socket.onmessage = function(event){
-				const messageData = JSON.parse(event.data);
+				// 받은 메시지를 "\n" 기준으로 분리하여 dataTraffic과 dataThresh로 구분
+		        const [dataTraffic, dataThresh] = event.data.split('\n');
+		        const trafficData = JSON.parse(dataTraffic);
+		        const thresholdData = JSON.parse(dataThresh);
 			
 				// 받은 데이터 처리
-				if(!isPaused && messageData && messageData.time && messageData.txRate && messageData.traffic){
+				if(!isPaused && trafficData && thresholdData){
 					
-					date.push(messageData.time);
-					console.log("date : ", date);
-					
-					tfData.push(messageData.txRate); // Traffic
-					console.log("tfData : ", tfData);
-					
-					thData.push(messageData.traffic); // Threshold
-					console.log("thData : ", thData);
+					trafficData.forEach((item, index) => {
+						date.push(item.key_as_string);
+						tfData.push(item.value);
+						
+						// threshold 데이터가 대응되는 동일 인덱스에 있는지 확인하여 업데이트
+		                if (index < thresholdData.length) {
+		                    thData.push(thresholdData[index].value);
+		                } else {
+		                    thData.push(null); // 데이터가 없을 경우 null로 처리
+		                }
+					});
 						
 					// visibleCount 초과 시 이전 데이터는 제거
 					if(date.length > visibleCount){
@@ -101,14 +107,6 @@
 				}
 				
 				const ctx = document.getElementById('lineChart').getContext('2d');
-				
-				// 트래픽이 임계값을 넘을 때마다 count 증가
-			    for (let i = 0; i < tfData.length; i++) {
-			        if (tfData[i] > thData[i]) {
-			            count += 1;  // 임계값 초과 시 count 증가
-			            console.log("count : ", count);
-			        }
-			    }
 				
 				lineChart = new Chart(ctx, {
 					type: 'line',

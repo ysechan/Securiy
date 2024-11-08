@@ -19,8 +19,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Component
@@ -44,11 +46,11 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 		// 클라이언트로부터 메시지를 받았을 때 처리 (필요한 경우 로직 추가)
 	}
 
-	public void sendMessage(String data) {
+	public void sendMessage(String dataTraffic, String dataThresh) {
 		for (WebSocketSession session : sessions) {
 			try {
 				if (session.isOpen()) {
-					session.sendMessage(new TextMessage(data));
+					session.sendMessage(new TextMessage(dataTraffic + "\n" + dataThresh));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -61,21 +63,68 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 		sessions.remove(session); // 연결이 끊긴 세션 제거
 	}
 	
-	@Scheduled(fixedRate = 1000) // 1초마다 실행
+	@Scheduled(fixedRate = 5000) // 5초마다 실행
 	public void fetchDataAndSend() {
 		try {
 			// ElasticService 에서 데이터 조회
-			var searchResponse = elasticService.searchDocuments();
-			var hits = searchResponse.hits().hits();
+			var searchResponseTraffic = elasticService.searchDocuments();
+			var searchResponseThresh = thresholdService.searchDocuments();
 			
+			// Aggregation 데이터 추출
+			var aggregationsTraffic = searchResponseTraffic.aggregations();
+			var aggregationsThresh = searchResponseThresh.aggregations();
+			
+			// 필요한 데이터만 추출하기 위한 리스트 생성
+	        List<Map<String, Object>> dataListTraffic = new ArrayList<>();
+	        List<Map<String, Object>> dataListThresh = new ArrayList<>();
+
+	        // "per_minute"라는 이름의 aggregation이 있는지 확인하고 처리
+	        var perMinuteAggregation = aggregationsTraffic.get("per_minute");
+	        if (perMinuteAggregation != null) {
+	            var buckets = perMinuteAggregation.dateHistogram().buckets().array();
+	            
+	            for (var bucket : buckets) {
+	                Map<String, Object> dataTraffic = new HashMap<>();
+	                dataTraffic.put("key_as_string", bucket.keyAsString());
+	                
+	                // "sum#total_txRate" 값을 가져옴
+	                var totalTxRateAgg = bucket.aggregations().get("total_txRate");
+	                if (totalTxRateAgg != null) {
+	                	dataTraffic.put("value", totalTxRateAgg.sum().value());
+	                } else {
+	                	dataTraffic.put("value", null);
+	                }
+	                dataListTraffic.add(dataTraffic);
+	            }
+	        }
+	        
+	        var perMinuteAggregationThresh = aggregationsThresh.get("per_minute");
+	        if (perMinuteAggregationThresh != null) {
+	        	var buckets = perMinuteAggregationThresh.dateHistogram().buckets().array();
+	        	
+	        	for (var bucket : buckets) {
+	        		Map<String, Object> dataThresh = new HashMap<>();
+	        		dataThresh.put("key_as_string", bucket.keyAsString());
+	        		
+	        		// "sum#total_txRate" 값을 가져옴
+	        		var totalThreshAgg = bucket.aggregations().get("total_threshold");
+	        		if (totalThreshAgg != null) {
+	        			dataThresh.put("value", totalThreshAgg.sum().value());
+	        		} else {
+	        			dataThresh.put("value", null);
+	        		}
+	        		dataListThresh.add(dataThresh);
+	        	}
+	        }
 			// 조회 결과를 JSON으로 변환하여 WebSocket으로 전송
-			String jsonData = objectMapper.writeValueAsString(hits);
+			String jsonDataTraffic = objectMapper.writeValueAsString(dataListTraffic);
+			String jsonDataThresh = objectMapper.writeValueAsString(dataListThresh);
 			
 			// 잘 가져와졌나?
-			System.out.println("Search Response: " + searchResponse);
-			System.out.println("쿼리문 조회 결과 : " + jsonData);
+			System.out.println("Traffic 쿼리문 조회 결과 : " + jsonDataTraffic);
+			System.out.println("Threshold 쿼리문 조회 결과 : " + jsonDataThresh);
 			
-			sendMessage(jsonData);
+			sendMessage(jsonDataTraffic, jsonDataThresh);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

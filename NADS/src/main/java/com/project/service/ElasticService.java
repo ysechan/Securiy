@@ -60,7 +60,6 @@ public class ElasticService {
     			.range(r -> r
     				.field("time")
     				.gte(JsonData.of("now+9H-10m"))	// 시작시간
-    				.lte(JsonData.of("now+9H"))		// 종료시간
 				)
 		);
     	
