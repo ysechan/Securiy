@@ -41,8 +41,10 @@
 			let tfData = [];	// Traffic
 			let thData = [];	// Threshold
 			let maxYValue = 0;	// y축 최대값
-			const visibleCount = 50;	// 그래프에서 한 번에 보여줄 데이터 개수
+			const visibleCount = 5;	// 그래프에서 한 번에 보여줄 데이터 개수
 			let startIndex = 0;			// 그래프 시작 인덱스 0
+			let isPaused = false;
+			let count = 0;
 			
 			// 웹 소켓 연결 설정 : WebSocket 서버의 URL 설정
 			const socket = new WebSocket("ws://localhost:8081/data");
@@ -52,19 +54,25 @@
 			};
 			
 			socket.onmessage = function(event){
-				const messageData = JSON.parse(event.data);
+				// 받은 메시지를 "\n" 기준으로 분리하여 dataTraffic과 dataThresh로 구분
+		        const [dataTraffic, dataThresh] = event.data.split('\n');
+		        const trafficData = JSON.parse(dataTraffic);
+		        const thresholdData = JSON.parse(dataThresh);
 			
 				// 받은 데이터 처리
-				if(messageData && messageData.time && messageData.txRate && messageData.traffic){
+				if(!isPaused && trafficData && thresholdData){
 					
-					date.push(messageData.time);
-					console.log("date : ", date);
-					
-					tfData.push(messageData.txRate);
-					console.log("tfData : ", tfData);
-					
-					thData.push(messageData.traffic);
-					console.log("thData : ", thData);
+					trafficData.forEach((item, index) => {
+						date.push(item.key_as_string);
+						tfData.push(item.value);
+						
+						// threshold 데이터가 대응되는 동일 인덱스에 있는지 확인하여 업데이트
+		                if (index < thresholdData.length) {
+		                    thData.push(thresholdData[index].value);
+		                } else {
+		                    thData.push(null); // 데이터가 없을 경우 null로 처리
+		                }
+					});
 						
 					// visibleCount 초과 시 이전 데이터는 제거
 					if(date.length > visibleCount){
@@ -92,12 +100,14 @@
 			    maxYValue = Math.ceil((Math.max(maxTfData, maxThData) + 1000) / 1000) * 1000; // 1000 단위로 올림하여 설정
 			}
 			
+			
 			function updateChart(){
 				if(lineChart){
 					lineChart.destroy();
 				}
 				
 				const ctx = document.getElementById('lineChart').getContext('2d');
+				
 				lineChart = new Chart(ctx, {
 					type: 'line',
 					data: {
@@ -193,6 +203,22 @@
 					}
 				});
 			}
+			
+			//일시정지 버튼 클릭 시 차트 업데이트
+			document.getElementById('tempStop').addEventListener('click', function(){
+				isPaused = true;
+				updateInterval = null;
+			});
+			
+			// 재생 버튼 클릭 시 차트 업데이트
+			document.getElementById('play').addEventListener('click', function() {
+	            // 기존 인터벌이 이미 멈춰있다면 재시작
+	            if(isPaused){
+					isPaused = false;
+					console.log("그래프가 재생됩니다.");
+	            }
+	        });
+			
 		});
 		
 	</script>
