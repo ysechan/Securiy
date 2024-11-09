@@ -1,34 +1,229 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Kibana Map</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/desktop-1.css" />
+<link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+<link rel="stylesheet" type="text/css" href="css/globals.css" />
 <style>
 /* 반응형 스타일 적용 */
 iframe {
 	width: 100%;
-	height: 80vh;
+	height: 90vh;
 	border: none;
 }
+
 /* 중앙 정렬 */
-body {
+.container {
 	text-align: center;
-	font-family: Arial, sans-serif;
 }
 
-h1 {
-	margin-top: 20px;
+.notification-container {
+	position: fixed;
+	top: 10%;
+	right: 2%;
+	width: 300px;
+	z-index: 1000;
+	background: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	padding: 15px;
+	display: none;
+}
+
+.notification-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.notification-title {
+	font-weight: bold;
+	font-size: 16px;
+	color: #e74c3c;
+}
+
+.notification-close {
+	cursor: pointer;
+	background: none;
+	border: none;
+	font-size: 18px;
+}
+
+.notification-body {
+	margin-top: 10px;
+	font-size: 14px;
+	color: #333;
 }
 </style>
 </head>
-<body>
-	<h1>Kibana 지도 보기</h1>
 
-	<!-- 첫 번째 iframe - 지도 보기 -->
-	<iframe
-		src="http://223.130.139.47:5601/app/dashboards#/view/a4567890-94d5-11ef-906e-4d0889b1a025?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-60m%2Fm%2Cto%3Anow))&hide-filter-bar=true"
-		height="600" width="800"></iframe>
+<body style="margin: 0; background: #f5f6fa">
+	<input type="hidden" id="anPageName" name="page" value="desktop-1" />
+	<div class="container-center-horizontal">
+		<div class="desktop-1 screen">
+			<div class="overlap-group16">
+				<div class="overlap-group15">
+					<div class="overlap-group10">
+
+						<div class="navigation-sidebar-1">
+							<div class="overlap-group-1">
+
+								<!-- 사이드바 시작 -->
+
+								<a href="/main">
+									<div class="navigation-sidebar-item-light2">
+										<div
+											class="products-1 products-8 nunitosans-semi-bold-shark-14px">Home</div>
+									</div>
+								</a> <a href="/map">
+									<div class="navigation-sidebar-item-light3">
+										<div
+											class="products-2 products-8 nunitosans-semi-bold-shark-14px">Traffic</div>
+									</div>
+								</a> <a href="/monthGph">
+									<div class="navigation-sidebar-item-light4">
+										<div
+											class="products-3 products-8 nunitosans-semi-bold-shark-14px">Session</div>
+									</div>
+								</a> <a href="/weekGph">
+									<div class="navigation-sidebar-item-light5">
+										<div
+											class="products-4 products-8 nunitosans-semi-bold-shark-14px">Cpu</div>
+									</div>
+								</a> <a href="/countryGph">
+									<div class="navigation-sidebar-item-light6">
+										<div
+											class="products-5 products-8 nunitosans-semi-bold-shark-14px">Memories</div>
+									</div>
+								</a> <img class="divider" src="img/divider.svg" alt="Divider" />
+								<div class="pages">PAGES</div>
+
+								<!-- 클래스 수정 -->
+								<a href="/setting">
+									<div
+										class="navigation-sidebar-item-light-1 navigation-sidebar-item-light-3">
+
+										<div
+											class="products-6 products-8 nunitosans-semi-bold-shark-14px">Setting</div>
+									</div>
+								</a>
+								<!-- 클래스 수정 끝 -->
+
+							</div>
+							<!-- 사이드바 끝 -->
+
+							<img class="divider-1 divider-7" src="img/divider.svg"
+								alt="Divider" /> <img class="divider-2 divider-7"
+								src="img/divider.svg" alt="Divider" /> <img
+								class="group-1000000873" src="img/group-1000000873@2x.png"
+								alt="Group 1000000873" />
+						</div>
+
+						<div class="navigation-top-bar-light">
+							<div class="overlap-group2">
+								<div class="icon">
+									<img class="path-1" src="img/base-1@2x.png" alt="Path" />
+								</div>
+
+
+								<div class="overlap-group3">
+									<div class="overlap-group-3">
+										<div class="icon-1" onclick="toggleNotification()">
+											<img class="combined-shape" src="img/combined-shape.svg"
+												alt="Combined Shape" />
+											<div class="rectangle-23"></div>
+										</div>
+										<img class="oval" src="img/oval-1.svg" alt="Oval" />
+										<div class="number">6</div>
+									</div>
+									<img class="oval-1" src="img/oval.svg" alt="Oval" />
+								</div>
+
+								<div class="profile">
+									<img class="man-438081_960_720"
+										src="img/man-438081-960-720@2x.png" alt="man-438081_960_720" />
+									<div class="flex-col">
+										<div class="jone-aly">Moni Roy</div>
+										<div class="admin">Admin</div>
+									</div>
+									<img class="more" src="img/more@2x.png" alt="More" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex-col-1 flex-col-3">
+						<div class="overlap-group-container"></div>
+
+						<div class="product-card">
+							<div class="overlap-group5">
+								<div class="box-4-1">
+
+									<!-- 메인 -->
+
+
+									<!-- 첫 번째 iframe - 지도 보기 -->
+									<div
+										style="background-color: #f0f0f0; padding: 15px; border-radius: 8px; text-align: left; font-size: 30px; font-weight: bold; color: #333;">
+										Traffic Information</div>
+
+									<div class="container">
+										<iframe
+											src="http://223.130.139.47:5601/app/dashboards#/view/85c276e0-9a75-11ef-aa42-b793711d88be?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1d%2Cto%3Anow))&hide-filter-bar=true"
+											scrolling="no"></iframe>
+									</div>
 
 
 
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="notification" class="notification-container">
+		<div class="notification-header">
+			<span class="notification-title">Warning: High Traffic
+				Detected</span>
+			<button class="notification-close" onclick="closeNotification()">&times;</button>
+		</div>
+		<div class="notification-body">
+			- Traffic increased significantly.<br> - Immediate action
+			required.
+		</div>
+	</div>
 </body>
+<script>
+    function toggleNotification() {
+        document.getElementById('notification').style.display = 'block';
+    }
+
+    function closeNotification() {
+        document.getElementById('notification').style.display = 'none';
+    }
+    // 주기적으로 API를 호출하여 txRate와 traffic 비교
+    setInterval(async function() {
+        try {
+            const response = await fetch('/api/alerts/check-traffic');
+            const isAlert = await response.json();
+
+            // 조건에 맞는 경우 알림 표시
+            if (isAlert) {
+                document.getElementById('notification').style.display = 'block';
+            }
+        } catch (error) {
+            console.error('Error checking traffic alert:', error);
+        }
+    }, 5000); // 5초마다 확인 (필요에 따라 조정 가능)
+
+    function closeNotification() {
+        document.getElementById('notification').style.display = 'none';
+    }
+</script>
 </html>

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TrafficController {
 
-    @GetMapping("/traffic")
-    public String showMap() {
-        return "Traffic";  // Traffic.html을 반환
-    }
+	/*
+	 * @GetMapping("/traffic") public String showMap() { return "Traffic"; //
+	 * Traffic.html을 반환 }
+	 */
 }
 
