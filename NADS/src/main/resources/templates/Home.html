@@ -559,214 +559,256 @@
 
 		<!-- ============================여기는 언젠가 session 그래프 영역========================= -->
 		<script>
-   // Entity 데이터 불러오기
-   $(document).ready(function(){
-      // 전역 변수
-      let lineChart;
-      let updateInterval;
-      let date = [];
-      let tfData = [];
-      
-      // 페이지 로드 시 기본 쿼리 실행 (choiceDate, choiceDateEnd 없이)
-      fetchData(null, null);
-      
-      // 기존 폼 제출 동작을 막고 AJAX 요청을 보냄
-      $('#choiceDateForm').submit(function(event){
-         event.preventDefault(); // 기본 폼 제출 방지
-         const choiceDate = $('#choiceDate').val(); // 선택한 날짜와 시간 값 가져오기
-         const choiceDateEnd = $('#choiceDateEnd').val(); // 선택한 날짜와 시간 값 가져오기
-         
-         // 이전 업데이트 주기 제거
-            if (updateInterval) {
-                clearInterval(updateInterval);
-                updateInterval = null;
-            }
-         
-         // 선택한 choiceDate로 데이터 가져오기
-         fetchData(choiceDate, choiceDateEnd);
-         
-      });
-         
-      function fetchData(choiceDate, choiceDateEnd){
-         let requestData = {};
-         if (choiceDate) requestData.choiceDate = choiceDate;
-          if (choiceDateEnd) requestData.choiceDateEnd = choiceDateEnd;
-         
-         $.ajax({
-            url: "/api/elastic/all",
-            type: "GET",
-            data: requestData,
-            success: function(trafficData){
-               // 시간 필드를 기준으로 오름차순 정렬
-               trafficData.sort(function(a, b){
-                  return new Date(a.time) - new Date(b.time);
-               });
-               
-               // 데이터 범위 설정 : 첫 번째와 마지막 시간 가져오기
-               const startDate = new Date(trafficData[0].time);
-               const endDate = new Date(trafficData[trafficData.length - 1].time);
-               console.log("startDate : ", startDate);
-               console.log("endDate : ", endDate);
-               
-               
-               // 가져온 elastic 데이터를 배열에 집어 넣기
-                date = [];      // 형식을 바꾼 날짜
-                tfData = [];      // 트래픽
-               
-                  console.log('tfData : ', tfData);
-               
-                trafficData.forEach(function(item){
-                  if(item.txRate != null){
-                     const originalDate = new Date(item.time);   //  originalDate를 Date 객체로 변환
-                     const formattedDate = `${originalDate.getHours()}:${originalDate.getMinutes()}:${originalDate.getSeconds()}`;
-                     date.push(formattedDate); 
-                     tfData.push(item.txRate);
-                     $('#selectedDate').text(`2024년 ${originalDate.getMonth()+1}월 ${originalDate.getDate()}일`)
-                  }
-               });
-                // y축 설정을 위한 tfData 최대값 구하기
-                const maxTfData = Math.ceil(Math.max(...tfData) / 1000) * 1000;
-                const maxYValue = maxTfData + 1000;
-                
-                if(lineChart){
-                   lineChart.destroy();
-                }
-                
-             
-             // 차트에서 한 번에 보여줄 데이터 수 설정
-             const visibleCount = 50;
-             let startIndex = 0;
-             
-             // 라인 차트 생성
-             const ctx = document.getElementById('lineChartSession').getContext('2d');
-             
-             // new Chart(ctx, {}) 와 const config = {} 의 차이
-             // 1. new Chart..는 한 번에 차트에 대한 모든 정보를 담을 때
-             // 2. const config..는 차트의 설정을 미리 config(객체)로 정의한 후 이 객체를 사용하여 차트 생성
-                lineChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                   labels: date.slice(startIndex, startIndex + visibleCount),
-                   datasets: [
-                      {
-                         label: 'Traffic',
-                         data: tfData.slice(startIndex, startIndex + visibleCount),
-                         tension: 0.5,
-                         borderColor: 'rgb(68, 113, 218)',
-                         borderWidth: 2,
-                         pointRadius: 0,
-          /*                fill: {\t* 임계값 설정 후 적용할 내용 * 
-                      target: 1,
-                      above: 'rgba(204, 61, 61, 0.4)',
-                      below: 'rgba(255, 255, 255, 0)'
-                   } */
-                     }
-                   ]
-                },
-                options: {
-                   responsive: true,
-                   scales: {
-                      x: {
-                         grid: {
-                            display: false
-                         }
-                      },
-                      y: {
-                         beginAtZero: true,   // 축이 0부터 시작할지 여부
-                         max: maxYValue
-                      }
-                   },
-                   plugins: {
-                      tooltip: {   // chart 위에 마우스를 올리면 데이터 포인트와 관련된 정보 표시
-                         intersect: false,   // 마우스가 정확히 데이터 포인트 위에 있을 때만 표시될지 여부
-                               // 기본값 : true, false면 포인트 가까이만 있어도 tooltip 표시
-                         displayColors: false,   // label의 색상 상자 표시 여부
-                         titleFont: {
-                            size: 20,
-                            family: 'Rethink Sans',
-                            weight: 'bold'
-                         },
-                         bodyFont: {
-                            size: 15,
-                            family: 'Rethink Sans'
-                         },
-                         cornerRadius: 10,   // tooltip 둥근 모서리(기본값 : 6)
-                         caretSize: 8,      // tooltip이 차트 요소를 가리키는 작은 삼각형
-                         callbacks: {
-                            title: function(tooltipItems){
-                               return 'Details';
-                            },
-                            label: function(tooltipItems){
-                               return '• Traffic  :  '+tooltipItems.raw;
-                            },
-                            afterLabel: function(tooltipItems){
-                               const afterLabelInfo = [];
-                               afterLabelInfo.push('• Date  :  '+tooltipItems.label);
-                               
-                               // memory, cpu 정보 넣기
-                               const dataIndex = tooltipItems.dataIndex + startIndex;
-                               
-                               console.log("dataIndex: ", dataIndex)
-                               
-                               return afterLabelInfo;
-                            }
-                         }
-                      }
-                   },
-                   hover : {
-                      mode: 'index',      // 마우스를 올렸을 때 반응하는 차트 요소의 범위
-                      intersect: false   // 마우스가 요소와 교차할 때만 호버 효과가 발생할지 여부 설정
-                   },
-                   animation: {
-                      duration: 0
-                   }
-                }
-             });
-            
-            function updateChart(){
-               startIndex += 1;
-               
-               // 데이터의 끝에 도달하면 처음으로 돌아가도록 설정
-                if (startIndex + visibleCount > date.length) {
-                    startIndex = 0;
-                }
-               
-               // 새로운 범위의 데이터로 차트 업데이트
-               lineChart.data.labels = date.slice(startIndex, startIndex+visibleCount);
-               lineChart.data.datasets[0].data = tfData.slice(startIndex, startIndex+visibleCount);
-               
-               // 새로운 범위로 차트 갱신
-               lineChart.update();
-            }
-            
-            // 0.8초마다 차트 자동으로 갱신하기
-            // setInterval(updateChart, 800);
-            
-            // 업데이트 주기 설정
-            updateInterval = setInterval(updateChart, 1000);
-            
-            // 일시정지 버튼 클릭 시 차트 업데이트
-            document.getElementById('tempStop').addEventListener('click', function(){
-               clearInterval(updateInterval);
-               updateInterval = null;
-            });
-            
-            // 재생 버튼 클릭 시 차트 업데이트
-            document.getElementById('play').addEventListener('click', function() {
-                // 기존 인터벌이 이미 멈춰있다면 재시작
-                if (!updateInterval) {
-                    updateInterval = setInterval(updateChart, 1000);
-                }
-            });
-            
-            },   
-            error: function(){
-               console.log("데이터 불러오기 실패")
-            }
-         });
-      }
-   });
-   </script>
+	      $(document).ready(function(){
+	         // 전역 변수
+	         let lineChart;
+	         let date = [];      // x축에 들어갈 날짜
+	         let scData = [];   // Traffic
+	         let sthData = [];   // Threshold
+	         let maxYValue = 0;   // y축 최대값
+	         const visibleCount = 8;   // 그래프에서 한 번에 보여줄 데이터 개수
+	         let startIndex = 0;         // 그래프 시작 인덱스 0
+	         let isPaused = false;
+	         let count = 0;
+	         let isFirstLoad = true; // 첫 로드 여부를 추적하는 변수
+	         let isRealTimeMode = true; // 실시간 업데이트 모드 여부
+	         
+	         // 웹 소켓 연결 설정 : WebSocket 서버의 URL 설정
+	         const socket = new WebSocket("ws://localhost:8081/data");
+	         
+	         // 조회 버튼 클릭 시 선택한 날짜를 WebSocket으로 전송
+	           $('#choiceDateForm').on('submit', function(e) {
+	               e.preventDefault();
+	               const startDate = $('#choiceDate').val();
+	               const endDate = $('#choiceDateEnd').val();
+	               
+	               const dateRange = {
+	                   startDate: startDate || null,
+	                   endDate: endDate || null
+	               };
+	               
+	               if (startDate && endDate) {
+	                   isRealTimeMode = false; // 기간 선택 모드
+	                   socket.send(JSON.stringify(dateRange));
+	               }
+	               
+	           });
+	         
+	         socket.onopen = function(){
+	            console.log("WebSocket 연결이 열렸습니다.");
+	         };
+	         
+	         socket.onmessage = function(event){
+	            // 받은 메시지를 "\n" 기준으로 분리하여 dataTraffic과 dataThresh로 구분
+	              const [dataSession, dataSessionThresh] = event.data.split('\n');
+	              const sessionData = JSON.parse(dataSession);
+	              const sessionThreshData = JSON.parse(dataSessionThresh);
+	         
+	            // 받은 데이터 처리
+	            if(!isPaused && sessionData && sessionThreshData){
+	               // ========== 기간 선택 모드일 경우 기존 데이터 지우고 새로 업데이트
+	               if(!isRealTimeMode){
+	                  date = [];
+	                  scData = [];
+	                  sthData = [];
+	                  sessionData.forEach((item, index) => {
+	                	  	const timeString = item.key_as_string.split("T")[1];	// 날짜 데이터의 T 문자를 기준으로 두 개의 배열로 나누되, 1번째 배열값 가져오기
+							const hour = timeString.substring(0, 2); 				// 인덱싱 >> 22:53:00 중 "22"
+						    const minute = timeString.substring(3, 5); 				// 인덱싱 >> 22:53:00 중 "53"
+						    const formattedTime = `${hour}시 ${minute}분`;
+	    					date.push(formattedTime);
+	                          scData.push(item.value);
+	                          sthData.push(index < sessionThreshData.length ? sessionThreshData[index].value : null);
+	                      });
+	                  isRealTimeMode = true;
+	               }else{	// ========== 기간 선택 모드가 아닌 초기 조회 데이터
+	                  if(isFirstLoad){
+	                     sessionData.forEach((item, index) => {
+							const timeString = item.key_as_string.split("T")[1];	// 날짜 데이터의 T 문자를 기준으로 두 개의 배열로 나누되, 1번째 배열값 가져오기
+							const hour = timeString.substring(0, 2); 				// 인덱싱 >> 22:53:00 중 "22"
+						    const minute = timeString.substring(3, 5); 				// 인덱싱 >> 22:53:00 중 "53"
+						    const formattedTime = `${hour}시 ${minute}분`;
+	    					date.push(formattedTime);
+	                        scData.push(item.value);
+	                        
+	                        // threshold 데이터가 대응되는 동일 인덱스에 있는지 확인하여 업데이트
+	                            if (index < sessionThreshData.length) {
+	                                sthData.push(sessionThreshData[index].value);
+	                            } else {
+	                                sthData.push(null); // 데이터가 없을 경우 null로 처리
+	                            }
+	                     });
+	                  
+	                    	 isFirstLoad = false; // 초기 로드 완료
+	                  }else{
+	                     // 실시간 모드에서 새 데이터 추가
+	                     const latestSession = sessionData[sessionData.length - 1];
+	                     const latestSessionThresh = sessionThreshData[sessionThreshData.length - 1];
+	                     
+	                     // 실시간 데이터가 존재할 경우 추가
+	                     if (latestSession && latestSession.key_as_string) {
+	                    	const timeString = latestSession.key_as_string.split("T")[1];	
+							const hour = timeString.substring(0, 2); 				
+						    const minute = timeString.substring(3, 5); 				
+						    const formattedTime = `${hour}시 ${minute}분`;
+	    					date.push(formattedTime);
+	                        scData.push(latestSession.value);
+	                        sthData.push(latestSessionThresh ? latestSessionThresh.value : null);
+	
+	                        // visibleCount 초과 시 이전 데이터 제거
+	                        if (date.length > visibleCount) {
+	                           date.shift();
+	                           scData.shift();
+	                           sthData.shift();
+	                        }
+	                     }
+	                  }
+	               }
+	            }
+	               
+	            updateMaxYValue();
+	            
+	         };
+	         
+	         socket.onclose = function(){
+	            console.log("WebSocket 연결이 닫혔습니다.");
+	         } 
+	         
+	         
+	         // y축 최대값 업데이트 할 수 있는 함수
+	         function updateMaxYValue() {
+	        	 //maxYValue = 0;	// 그래프를 여러 번 조회할 때 최대값이 누적되지 않도록 값을 초기화
+	        	 
+			    // tfData와 thData가 비어 있을 경우 0을 기본 값으로 사용
+			    const maxScData = scData.length > 0 ? Math.max(...scData) : 0;
+			    const maxSthData = sthData.length > 0 ? Math.max(...sthData) : 0;
+			
+			    // tfData와 thData 중 더 큰 값에 1000을 더하고 1000 단위로 올림
+			    const maxCombinedValue = Math.max(maxScData, maxSthData) + 1000;
+			    maxYValue = Math.ceil(maxCombinedValue / 1000) * 1000;
+			    
+			    updateChart();
+			}
+	         
+	         
+	         function updateChart(){
+	            if(lineChart){
+	               lineChart.destroy();
+	            }
+	            
+	            const ctx = document.getElementById('lineChartSession').getContext('2d');
+	            
+	            lineChart = new Chart(ctx, {
+	               type: 'line',
+	               data: {
+	                  labels: date.slice(startIndex, startIndex + visibleCount),
+	                  datasets: [
+	                     {
+	                        label: 'Session',
+	                        data: scData.slice(startIndex, startIndex + visibleCount),
+	                        tension: 0.5,
+	                        borderColor: 'rgb(0, 204, 0)',
+	                        borderWidth: 2,
+	                        pointRadius: 0,
+	                        fill: {         // 임계값 설정 후 적용할 내용
+	                           target: 1,
+	                           above: 'rgba(204, 61, 61, 0.4)',
+	                           below: 'rgba(255, 255, 255, 0)'
+	                        }
+	                     },
+	                     {
+	                        label: 'Threshold',
+	                        data: sthData.slice(startIndex, startIndex + visibleCount),
+	                        tension: 0.5,
+	                        borderColor: 'rgb(255, 51, 51)',
+	                        borderWidth: 2,
+	                        pointRadius: 0,
+	                     } 
+	                  ]
+	               },
+	               options: {
+	                  responsive: true,
+	                  scales: {
+	                     x: {
+	                        grid: {
+	                           display: false
+	                        }
+	                     },
+	                     y: {
+	                        beginAtZero: true,   // 축이 0부터 시작할지 여부
+	                        max: maxYValue
+	                     }
+	                  },
+	                  plugins: {
+	                     tooltip: {   // chart 위에 마우스를 올리면 데이터 포인트와 관련된 정보 표시
+	                        intersect: false,   // 마우스가 정확히 데이터 포인트 위에 있을 때만 표시될지 여부
+	                                       // 기본값 : true, false면 포인트 가까이만 있어도 tooltip 표시
+	                        displayColors: false,   // label의 색상 상자 표시 여부
+	                        titleFont: {
+	                           size: 20,
+	                           family: 'Rethink Sans',
+	                           weight: 'bold'
+	                        },
+	                        bodyFont: {
+	                           size: 15,
+	                           family: 'Rethink Sans'
+	                        },
+	                        cornerRadius: 10,   // tooltip 둥근 모서리(기본값 : 6)
+	                        caretSize: 8,      // tooltip이 차트 요소를 가리키는 작은 삼각형
+	                        callbacks: {
+	                           title: function(tooltipItems){
+	                              return 'Details';
+	                           },
+	                           label: function(tooltipItems){
+	                              if(tooltipItems.datasetIndex === 0){
+	                                 return '• Session  :  '+tooltipItems.raw;
+	                              }else if(tooltipItems.datasetIndex === 1){
+	                                 return '• Threshold  :  '+tooltipItems.raw;
+	                              }
+	                           },
+	                           afterLabel: function(tooltipItems){
+	                              const afterLabelInfo = [];
+	                              const dataIndex = tooltipItems.dataIndex + startIndex;
+	                               
+	                              if(dataIndex < date.length){
+	                                 const formattedDate = date[dataIndex]; // "HH:MM:SS" 형식
+	                                  afterLabelInfo.push('• Date  :  ' + formattedDate);
+	                              }
+	                              
+	                              return afterLabelInfo;
+	                           }
+	                        }
+	                     }
+	                  },
+	                  hover : {
+	                     mode: 'index',      // 마우스를 올렸을 때 반응하는 차트 요소의 범위
+	                     intersect: false   // 마우스가 요소와 교차할 때만 호버 효과가 발생할지 여부 설정
+	                  },
+	                  animation: {
+	                     duration: 0
+	                  }
+	               }
+	            });
+	         }
+	         
+	         //일시정지 버튼 클릭 시 차트 업데이트
+	         document.getElementById('tempStop').addEventListener('click', function(){
+	            isPaused = true;
+	            updateInterval = null;
+	         });
+	         
+	         // 재생 버튼 클릭 시 차트 업데이트
+	         document.getElementById('play').addEventListener('click', function() {
+	               // 기존 인터벌이 이미 멈춰있다면 재시작
+	               if(isPaused){
+	               isPaused = false;
+	               console.log("그래프가 재생됩니다.");
+	               }
+	           });
+	         
+	      });
+	      
+	   </script>
 
 		<!-- ================================================================================ -->
 

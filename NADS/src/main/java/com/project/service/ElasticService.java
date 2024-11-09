@@ -39,6 +39,7 @@ public class ElasticService {
     // Web Socket 사용할 때 필요한 내용
     private final ObjectMapper objectMapper = new ObjectMapper();
     
+    /*
     public String convertToJson(List<ElasticEntity> entities) {
         try {
             return objectMapper.writeValueAsString(entities);
@@ -47,6 +48,7 @@ public class ElasticService {
             return "[]";
         }
     }
+    */
     
     // Json 쿼리문 사용하여 데이터 조회하기
     // : 조회시간(현재) 10분 전부터 현재까지 1분 단위의 데이터 조회
