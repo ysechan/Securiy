@@ -11,6 +11,7 @@ import com.project.Entity.ElasticEntity;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.Time;
+import co.elastic.clients.elasticsearch._types.aggregations.AverageAggregation;
 import co.elastic.clients.elasticsearch._types.aggregations.CalendarInterval;
 import co.elastic.clients.elasticsearch._types.aggregations.DateHistogramAggregation;
 import co.elastic.clients.elasticsearch._types.aggregations.SumAggregation;
@@ -84,8 +85,8 @@ public class ElasticService {
     							.field("time")
     							.calendarInterval(CalendarInterval.Minute)
 						))
-    					.aggregations("total_txRate", agg -> agg
-    							.sum(SumAggregation.of(sum -> sum.field("tx_rate")))
+    					.aggregations("average_txRate", agg -> agg
+    							.avg(AverageAggregation.of(avg -> avg.field("tx_rate")))
 						)
 				)
 		);

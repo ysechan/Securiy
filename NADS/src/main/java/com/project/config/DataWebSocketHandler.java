@@ -103,9 +103,9 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 	                dataTraffic.put("key_as_string", bucket.keyAsString());
 	                
 	                // "sum#total_txRate" 값을 가져옴
-	                var totalTxRateAgg = bucket.aggregations().get("total_txRate");
+	                var totalTxRateAgg = bucket.aggregations().get("average_txRate");
 	                if (totalTxRateAgg != null) {
-	                	dataTraffic.put("value", totalTxRateAgg.sum().value());
+	                	dataTraffic.put("value", totalTxRateAgg.avg().value());
 	                } else {
 	                	dataTraffic.put("value", null);
 	                }
