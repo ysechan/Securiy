@@ -10,14 +10,21 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    @Override
+	@Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(dataWebSocketHandler(), "/data")
-                .setAllowedOrigins("*"); // 모든 도메인에서 접근 허용
+        registry.addHandler(trafficDataWebSocketHandler(), "/traffic")
+                .setAllowedOrigins("*"); // 트래픽 엔드포인트
+        registry.addHandler(sessionDataWebSocketHandler(), "/session")
+                .setAllowedOrigins("*"); // 세션 엔드포인트
     }
 
     @Bean
-    public DataWebSocketHandler dataWebSocketHandler() {
-        return new DataWebSocketHandler();
+    public TrafficDataWebSocketHandler trafficDataWebSocketHandler() {
+        return new TrafficDataWebSocketHandler();
+    }
+
+    @Bean
+    public SessionDataWebSocketHandler sessionDataWebSocketHandler() {
+        return new SessionDataWebSocketHandler();
     }
 }

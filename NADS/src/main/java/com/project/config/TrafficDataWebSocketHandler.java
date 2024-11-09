@@ -14,6 +14,7 @@ import com.project.Entity.ElasticEntity;
 import com.project.Entity.ThresholdEntity;
 import com.project.service.ElasticService;
 import com.project.service.SessionService;
+import com.project.service.SessionThreshService;
 import com.project.service.ThresholdService;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-public class DataWebSocketHandler extends TextWebSocketHandler {
+public class TrafficDataWebSocketHandler extends TextWebSocketHandler {
 	private Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<>());
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -36,10 +37,6 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 
 	@Autowired
 	private ThresholdService thresholdService;
-	
-	@Autowired
-	private SessionService sessionService;
-	
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) {
@@ -82,7 +79,6 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 	public void fetchDataAndSendScheduled() {
 	    // 기본 조회 시 startDate와 endDate를 null로 전달
 	    fetchDataAndSend(null, null);
-	    fetchDataAndSendSession(null, null);
 	}
 	
 	// Traffic 과 그 Threshold값 가져오기
@@ -152,71 +148,4 @@ public class DataWebSocketHandler extends TextWebSocketHandler {
 		}
 	}
 	
-	// ========== Session 과 그 Threshold값 가져오기
-	public void fetchDataAndSendSession(String startDate, String endDate) {
-		try {
-			// SessionService,  에서 데이터 조회
-			var searchResponseSession = sessionService.searchDocuments(startDate, endDate);
-			var searchResponseThresh = thresholdService.searchDocuments(startDate, endDate);
-			
-			// Aggregation 데이터 추출
-			var aggregationsSession = searchResponseSession.aggregations();
-			var aggregationsThresh = searchResponseThresh.aggregations();
-			
-			// 필요한 데이터만 추출하기 위한 리스트 생성
-	        List<Map<String, Object>> dataListSession = new ArrayList<>();
-	        List<Map<String, Object>> dataListThresh = new ArrayList<>();
-
-	        // "per_minute"라는 이름의 aggregation이 있는지 확인하고 처리
-	        var perMinuteAggregationSession = aggregationsSession.get("per_minute");
-	        if (perMinuteAggregationSession != null) {
-	            var buckets = perMinuteAggregationSession.dateHistogram().buckets().array();
-	            
-	            for (var bucket : buckets) {
-	                Map<String, Object> dataSession = new HashMap<>();
-	                dataSession.put("key_as_string", bucket.keyAsString());
-	                
-	                // "avg#session_count" 값을 가져옴
-	                var avgSessionAgg = bucket.aggregations().get("average_session");
-	                if (avgSessionAgg != null) {
-	                	dataSession.put("value", avgSessionAgg.avg().value());
-	                } else {
-	                	dataSession.put("value", null);
-	                }
-	                dataListSession.add(dataSession);
-	            }
-	        }
-	        
-	        // Threshold 
-	        var perMinuteAggregationThresh = aggregationsThresh.get("per_minute");
-	        if (perMinuteAggregationThresh != null) {
-	        	var buckets = perMinuteAggregationThresh.dateHistogram().buckets().array();
-	        	
-	        	for (var bucket : buckets) {
-	        		Map<String, Object> dataThresh = new HashMap<>();
-	        		dataThresh.put("key_as_string", bucket.keyAsString());
-	        		
-	        		// "sum#total_txRate" 값을 가져옴
-	        		var totalThreshAgg = bucket.aggregations().get("total_threshold");
-	        		if (totalThreshAgg != null) {
-	        			dataThresh.put("value", totalThreshAgg.sum().value());
-	        		} else {
-	        			dataThresh.put("value", null);
-	        		}
-	        		dataListThresh.add(dataThresh);
-	        	}
-	        }
-			// 조회 결과를 JSON으로 변환하여 WebSocket으로 전송
-			String jsonDataSession = objectMapper.writeValueAsString(dataListSession);
-			String jsonDataThresh = objectMapper.writeValueAsString(dataListThresh);
-			
-			// 잘 가져와졌나?
-			// System.out.println("Session 쿼리문 조회 결과 : " + jsonDataSession);
-			// System.out.println("Threshold 쿼리문 조회 결과 : " + jsonDataThresh);
-			
-			sendMessage(jsonDataSession, jsonDataThresh);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }

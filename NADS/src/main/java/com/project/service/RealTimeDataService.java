@@ -1,6 +1,6 @@
 package com.project.service;
 
-import com.project.config.DataWebSocketHandler;
+import com.project.config.TrafficDataWebSocketHandler;
 import com.project.Entity.ElasticEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

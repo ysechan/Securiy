@@ -45,6 +45,7 @@ public class ThresholdService {
 
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	
+	/*
 	public String convertToJson(List<ElasticEntity> entities) {
         try {
             return objectMapper.writeValueAsString(entities);
@@ -53,6 +54,7 @@ public class ThresholdService {
             return "[]";
         }
     }
+    */
 	
 	private final ElasticsearchClient thresholdClient;
 	
@@ -75,7 +77,7 @@ public class ThresholdService {
     		query = Query.of(q -> q
         			.range(r -> r
         				.field("time")
-        				.gte(JsonData.of("now-31m"))	// 시작시간
+        				.gte(JsonData.of("now+9h-31m"))	// 시작시간
     				)
     		);
     	}
