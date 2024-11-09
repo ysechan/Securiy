@@ -14,6 +14,17 @@
 <link rel="stylesheet" type="text/css" href="css/globals.css" />
 <link rel="stylesheet" type="text/css" href="css/Home.css" />
 <style>
+
+#subtext {
+            font-size: 20px; /* 글자 크기 조정 */
+            font-family: Arial, sans-serif; /* 원하는 폰트로 변경 */
+            font-weight: bold; /* 옵션: 글자 굵기 조정 */
+            color: #333333; /* 옵션: 글자 색상 조정 */
+        }
+        
+        
+        
+
 .notification-container {
 	position: fixed;
 	top: 10%;
@@ -186,13 +197,13 @@
 										<!-- 일시정지, 재생 버튼 -->
 										<div align="right" id="playOrstop">
 
-										<div>
+										<div id="subtext" >
 										    <!-- 그래프 날짜 -->
 										    <span align="left">조회일자: </span><span id="dateValue"></span>
 										    <div id="selectedDate" align="left"></div>
 																			
 										    <!-- 텍스트 -->
-										    <div id="subtext" align="left">실시간 트래픽 발생량</div>
+										    <div align="left">실시간 트래픽 발생량</div>
 										
 										    <!-- 차트 -->
 										    <canvas id="lineChart" height="400" width="1098"></canvas>
