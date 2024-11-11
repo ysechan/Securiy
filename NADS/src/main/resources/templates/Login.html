@@ -119,29 +119,44 @@
     </div>
     
     <script>
-   		function loginConfirm(){
-			var userId = document.getElementById("id").value;
-			var password = document.getElementById("password").value;
-			
-			$.ajax({
-				url : 'loginConfirm',
-				type : 'GET',
-				data : {
-					id : userId,
-					password : password
-				},
-				success : function(response){
-					if(response === 'success'){
-						return;
-					}else{
-						alert('아이디 또는 비밀번호를 확인하시기 바랍니다.')
-					}
-				},
-				error : function(){
-					alert('오류 발생!')
-				}
-			});
-   		}
+    function loginConfirm() {
+        var userId = document.getElementById("id").value;
+        var password = document.getElementById("password").value;
+
+        $.ajax({
+            url: 'loginConfirm',
+            type: 'GET',
+            data: {
+                id: userId,
+                password: password
+            },
+            success: function(response) {
+                if (response === 'success') {
+                    // 로그인 성공 후 사용자의 이메일 가져오기
+                    $.ajax({
+                        url: '/api/getUserEmail',
+                        type: 'GET',
+                        data: {
+                            id: userId
+                        },
+                        success: function(emailResponse) {
+                            console.log("사용자의 이메일: " + emailResponse);
+                        },
+                        error: function() {
+                            console.error("이메일 정보를 가져오는 중 오류 발생!");
+                        }
+                    });
+                    return;
+                } else {
+                    alert('아이디 또는 비밀번호를 확인하시기 바랍니다.');
+                }
+            },
+            error: function() {
+                alert('오류 발생!');
+            }
+        });
+    }
+
     	</script>
     
   </body>
