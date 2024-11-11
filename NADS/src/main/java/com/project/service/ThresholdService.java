@@ -1,6 +1,9 @@
 package com.project.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +69,19 @@ public class ThresholdService {
 	public SearchResponse<?> searchDocuments(String startDate, String endDate) throws IOException {
 		Query query;
     	if(startDate != null && endDate != null) {
+    		
+    		// 시작 및 종료 시간을 KST로 변환
+    		LocalDateTime startDateTime = LocalDateTime.parse(startDate); // startDate는 "yyyy-MM-ddTHH:mm:ss" 형식이어야 합니다.
+    		ZonedDateTime startDateKST = startDateTime.atZone(ZoneOffset.ofHours(9)); // UTC+9로 변환
+
+    		LocalDateTime endDateTime = LocalDateTime.parse(endDate);
+    		ZonedDateTime endDateKST = endDateTime.atZone(ZoneOffset.ofHours(9));
+
     		query = Query.of(q -> q
         			.range(r -> r
         				.field("time")
-        				.gte(JsonData.of(startDate))	// 시작시간
-						.lte(JsonData.of(endDate))
+        				.gte(JsonData.of(startDateKST.toString()))	// 시작시간
+						.lte(JsonData.of(endDateKST.toString()))
     				)
     		);
     	}else {
