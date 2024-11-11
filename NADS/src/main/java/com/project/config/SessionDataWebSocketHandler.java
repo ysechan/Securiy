@@ -59,11 +59,11 @@ public class SessionDataWebSocketHandler extends TextWebSocketHandler {
 	    }
 	}
 
-	public void sendMessage(String dataTraffic, String dataThresh) {
+	public void sendMessage(String dataSession, String dataSessionThresh) {
 		for (WebSocketSession session : sessions) {
 			try {
 				if (session.isOpen()) {
-					session.sendMessage(new TextMessage(dataTraffic + "\n" + dataThresh));
+					session.sendMessage(new TextMessage(dataSession + "\n" + dataSessionThresh));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.project.Entity.ElasticEntity;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.ElasticsearchException;
 import co.elastic.clients.elasticsearch._types.Time;
 import co.elastic.clients.elasticsearch._types.aggregations.AverageAggregation;
 import co.elastic.clients.elasticsearch._types.aggregations.CalendarInterval;
@@ -60,40 +61,40 @@ public class ElasticService {
     }
     
     public SearchResponse<?> searchDocuments(String startDate, String endDate) throws IOException {
-    	Query query;
-    	if(startDate != null && endDate != null) {
-    		query = Query.of(q -> q
-        			.range(r -> r
-        				.field("time")
-        				.gte(JsonData.of(startDate))	// 시작시간
-						.lte(JsonData.of(endDate))
+    		Query query;
+        	if(startDate != null && endDate != null) {
+        		query = Query.of(q -> q
+            			.range(r -> r
+            				.field("time")
+            				.gte(JsonData.of(startDate))	// 시작시간
+    						.lte(JsonData.of(endDate))
+        				)
+        		);
+        	}else {
+        		query = Query.of(q -> q
+            			.range(r -> r
+            				.field("time")
+            				.gte(JsonData.of("now+9h-30m"))	// 시작시간
+        				)
+        		);
+        	}
+        	
+        	SearchRequest searchRequest = SearchRequest.of(s -> s
+        			.index("last_log-*")
+        			.size(0)
+        			.query(query)
+        			.aggregations("per_minute", a -> a
+        					.dateHistogram(DateHistogramAggregation.of(h -> h
+        							.field("time")
+        							.calendarInterval(CalendarInterval.Minute)
+    						))
+        					.aggregations("average_txRate", agg -> agg
+        							.avg(AverageAggregation.of(avg -> avg.field("tx_rate")))
+    						)
     				)
     		);
-    	}else {
-    		query = Query.of(q -> q
-        			.range(r -> r
-        				.field("time")
-        				.gte(JsonData.of("now+9h-30m"))	// 시작시간
-    				)
-    		);
-    	}
-    	
-    	SearchRequest searchRequest = SearchRequest.of(s -> s
-    			.index("last_log-*")
-    			.size(0)
-    			.query(query)
-    			.aggregations("per_minute", a -> a
-    					.dateHistogram(DateHistogramAggregation.of(h -> h
-    							.field("time")
-    							.calendarInterval(CalendarInterval.Minute)
-						))
-    					.aggregations("average_txRate", agg -> agg
-    							.avg(AverageAggregation.of(avg -> avg.field("tx_rate")))
-						)
-				)
-		);
-    	
-    	return trafficClient.search(searchRequest, Object.class);
+        	
+        	return  trafficClient.search(searchRequest, Object.class);
     }
 
 }
