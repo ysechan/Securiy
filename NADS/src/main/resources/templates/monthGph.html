@@ -146,7 +146,8 @@ iframe {
 									<img class="man-438081_960_720"
 										src="img/man-438081-960-720@2x.png" alt="man-438081_960_720" />
 									<div class="flex-col">
-										<div class="jone-aly" th:text="${session.userName}">Moni Roy</div>
+										<div class="jone-aly" th:text="${session.userName}">Moni
+											Roy</div>
 										<div class="admin">Admin</div>
 									</div>
 									<img class="more" src="img/more@2x.png" alt="More" />
@@ -169,9 +170,7 @@ iframe {
 
 									<div
 										style="background-color: #f0f0f0; padding: 15px; border-radius: 8px; text-align: left; font-size: 30px; font-weight: bold; color: #333;">
-									    Session Information
-										
-									</div>
+										Session Information</div>
 
 
 									<div class="container">
@@ -191,49 +190,9 @@ iframe {
 			</div>
 		</div>
 	</div>
-	<div id="notification" class="notification-container">
-		<div class="notification-header">
-			<span class="notification-title">Warning: High Traffic
-				Detected</span>
-			<button class="notification-close" onclick="closeNotification()">&times;</button>
-		</div>
-		<div class="notification-body">
-			- Traffic increased significantly.<br> - Immediate action
-			required.
-		</div>
-	</div>
+
 
 </body>
-<script>
-    function toggleNotification() {
-        document.getElementById('notification').style.display = 'block';
-    }
 
-    function closeNotification() {
-        document.getElementById('notification').style.display = 'none';
-    }
-    
-  
-    // 주기적으로 API를 호출하여 txRate와 traffic 비교
-    setInterval(async function() {
-        try {
-            const response = await fetch('/api/alerts/check-traffic');
-            const isAlert = await response.json();
-
-            // 조건에 맞는 경우 알림 표시
-            if (isAlert) {
-                document.getElementById('notification').style.display = 'block';
-            }
-        } catch (error) {
-            console.error('Error checking traffic alert:', error);
-        }
-    }, 5000); // 5초마다 확인 (필요에 따라 조정 가능)
-
-    function closeNotification() {
-        document.getElementById('notification').style.display = 'none';
-    }
-
-
-</script>
 
 </html>
