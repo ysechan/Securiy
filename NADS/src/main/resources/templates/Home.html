@@ -419,9 +419,10 @@
                         // 실시간 데이터가 존재할 경우 추가
                         if (latestTraffic && latestTraffic.key_as_string) {
                           const timeString = latestTraffic.key_as_string.split("T")[1];   
-                     const hour = timeString.substring(0, 2);             
-                      const minute = timeString.substring(3, 5);             
-                      const formattedTime = `${hour}시 ${minute}분`;
+	                     const hour = timeString.substring(0, 2);             
+	                      const minute = timeString.substring(3, 5);             
+	                      const formattedTime = `${hour}시 ${minute}분`;
+	                      
                       dateTraffic.push(formattedTime);
                            tfData.push(latestTraffic.value);
                            thData.push(latestThreshold ? latestThreshold.value : null);
