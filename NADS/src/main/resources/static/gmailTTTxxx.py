@@ -1,17 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[ ]:
-
+# -*- coding: utf-8 -*-
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
 from email.mime.image import MIMEImage
-import cv2
-from matplotlib import pyplot as plt
 import sys
 import os
 
@@ -24,7 +18,7 @@ if len(sys.argv) > 1:
 smtp_server = "smtp.gmail.com"
 smtp_port = 587
 sender_email = "qmfkzkf123@gmail.com"
-receiver_email = "bow10004@naver.com"
+receiver_email = mail
 password = "ygjz unmj uefc bpah"  # 앱 비밀번호 사용
 
 # 이메일 메시지 설정
@@ -65,8 +59,3 @@ except Exception as e:
     print(f"이메일 전송에 실패했습니다: {e}")
 finally:
     server.quit()  # 서버 연결 종료
-
-# 이미지 파일 열기 (이미지 파일이 존재할 경우에만)
-if os.path.exists(image_path):
-    img = cv2.imread(image_path, cv2.IMREAD_COLOR)
-

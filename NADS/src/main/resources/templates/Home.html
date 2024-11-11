@@ -486,6 +486,7 @@
                               target: 1,
                               above: 'rgba(204, 61, 61, 0.4)',
                               below: 'rgba(255, 255, 255, 0)'
+                              
                            }
                         },
                         {
@@ -581,14 +582,26 @@
             
             
             function checkTraffic() {
-               for (let i = 0; i < tfData.length; i++) {
-                     if (tfData[i] < thData[i]) {
+                // 플래그 변수 선언
+                let isThresholdExceeded = false;
+
+                // 트래픽이 임계값을 넘을 때마다 count 증가
+                for (let i = 0; i < tfData.length; i++) {
+                    if (tfData[i] > thData[i]) {
+                        isThresholdExceeded = true;
+                        break; // 임계값 초과 시 더 이상 반복할 필요 없음
+                    }
+                }
+
+                // 임계값 초과 시 count 증가 요청
+                if (isThresholdExceeded) {
+                    // 서버의 카운트 증가 API 호출
                     $.ajax({
                         url: "/api/incrementCount", // count 증가를 위한 서버의 엔드포인트
                         type: "POST",
                         success: function () {
                             console.log("Count incremented on the server.");
-         
+
                             // count 증가 후, getDdingdongCount 호출을 위해 별도 AJAX 요청 추가
                             $.ajax({
                                 url: "/api/getDdingdongCount",
@@ -606,13 +619,13 @@
                         }
                     });
                 }
-         
-                // 인덱스를 증가시킴
             }
-               }
-         
-            // 트래픽 데이터를 주기적으로 확인하기 위해 1초마다 checkTraffic 함수를 호출
+
+            // 트래픽 데이터를 주기적으로 확인하기 위해 10초마다 checkTraffic 함수를 호출
             setInterval(checkTraffic, 1000);
+
+
+
             
             
             
