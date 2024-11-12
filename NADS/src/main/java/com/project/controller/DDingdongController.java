@@ -31,7 +31,7 @@ public class DDingdongController {
     @GetMapping("/api/getUserEmail")
     public String getUserEmail(@RequestParam String id) {
         // id를 사용하여 UserRepository에서 사용자 정보 조회
-    	UserEntity user = userReposi.findById(id).orElse(null);
+        UserEntity user = userReposi.findById(id).orElse(null);
         if (user != null) {
             this.mail = user.getMail(); // 인스턴스 변수 mail에 이메일 정보 저장
             return user.getMail(); // 사용자 이메일 정보 반환
@@ -78,10 +78,10 @@ public class DDingdongController {
     private void runPythonScrEmail(String mail) {
         try {
             // 실행할 Python 스크립트의 경로 설정
-            String pythonScriptPath = "src/main/resources/static/gmailTTTxxx.py"; // Python 스크립트 경로
+            String pythonScriptPath = "/home/ubuntu/app/static/gmailTTTxxx.py"; // 리눅스 서버의 Python 스크립트 경로
 
             // ProcessBuilder를 사용하여 Python 스크립트를 실행하고 인자로 이메일 전달
-            ProcessBuilder processBuilder = new ProcessBuilder("python", pythonScriptPath, mail);
+            ProcessBuilder processBuilder = new ProcessBuilder("/usr/bin/python3", pythonScriptPath, mail);
             processBuilder.environment().put("PYTHONIOENCODING", "utf-8"); // UTF-8 인코딩 설정 추가
             processBuilder.redirectErrorStream(true); // 표준 오류를 표준 출력으로 리다이렉트하여 오류 메시지를 확인할 수 있게 함
             Process process = processBuilder.start();
