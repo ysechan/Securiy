@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.Entity.UserEntity;
 import com.project.repository.UserRepo;
 
-
 @RestController
 public class DDingdongController {
 
@@ -81,8 +80,11 @@ public class DDingdongController {
             // 실행할 Python 스크립트의 경로 설정
             String pythonScriptPath = "/home/ubuntu/app/static/gmailTTTxxx.py"; // 리눅스 서버의 Python 스크립트 경로
 
+            // 리눅스 환경에서 Python3를 사용하여 스크립트를 실행하도록 설정
+            String[] command = {"/usr/bin/python3", pythonScriptPath, mail};
+
             // ProcessBuilder를 사용하여 Python 스크립트를 실행하고 인자로 이메일 전달
-            ProcessBuilder processBuilder = new ProcessBuilder("/usr/bin/python3", pythonScriptPath, mail);
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
             processBuilder.environment().put("PYTHONIOENCODING", "utf-8"); // UTF-8 인코딩 설정 추가
             processBuilder.redirectErrorStream(true); // 표준 오류를 표준 출력으로 리다이렉트하여 오류 메시지를 확인할 수 있게 함
             Process process = processBuilder.start();
