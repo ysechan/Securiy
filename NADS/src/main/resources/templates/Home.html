@@ -296,7 +296,9 @@
             let updateIntervalTraffic;
             
             // 웹 소켓 연결 설정 : WebSocket 서버의 URL 설정
-            const socket = new WebSocket("ws://localhost:8081/traffic");
+            const host = window.location.hostname;
+            const port = "8081";
+            const socket = new WebSocket(`ws://${host}:${port}/traffic`);
             
             // 조회 버튼 클릭 시 선택한 날짜를 WebSocket으로 전송
               $('#choiceDateForm').on('submit', function(e) {
@@ -647,7 +649,9 @@
             let updateInterval;
             
             // 웹 소켓 연결 설정 : WebSocket 서버의 URL 설정
-            const socket = new WebSocket("ws://localhost:8081/session");
+            const host = window.location.hostname;
+            const port = "8081";
+            const socket = new WebSocket(`ws://${host}:${port}/session`);
             
             // 조회 버튼 클릭 시 선택한 날짜를 WebSocket으로 전송
               $('#choiceDateForm').on('submit', function(e) {
