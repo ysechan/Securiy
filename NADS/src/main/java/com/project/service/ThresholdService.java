@@ -89,6 +89,7 @@ public class ThresholdService {
         			.range(r -> r
         				.field("time")
         				.gte(JsonData.of("now-31m"))	// 시작시간
+        				.lte(JsonData.of("now"))
     				)
     		);
     	}
