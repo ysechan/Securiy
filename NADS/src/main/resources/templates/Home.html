@@ -620,19 +620,6 @@
 
             // 트래픽 데이터를 주기적으로 확인하기 위해 10초마다 checkTraffic 함수를 호출
             setInterval(checkTraffic, 1000);
-
-
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
          });
          
@@ -723,6 +710,8 @@
                         // 실시간 모드에서 새 데이터 추가
                         const latestSession = sessionData[sessionData.length - 1];
                         const latestSessionThresh = sessionThreshData[sessionThreshData.length - 1];
+                        console.log("latestSession : ", latestSession);
+                        console.log("latestSessionThresh : ", latestSessionThresh);
                         
                         // 실시간 데이터가 존재할 경우 추가
                         if (latestSession && latestSession.key_as_string) {
