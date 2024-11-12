@@ -78,7 +78,7 @@ public class DDingdongController {
     private void runPythonScrEmail(String mail) {
         try {
             // 실행할 Python 스크립트의 경로 설정
-            String pythonScriptPath = "/home/ubuntu/app/static/gmailTTTxxx.py"; // 리눅스 서버의 Python 스크립트 경로
+        	String pythonScriptPath = "/root/gmailTTTxxx.py"; // 리눅스 서버의 Python 스크립트 경로
 
             // 리눅스 환경에서 Python3를 사용하여 스크립트를 실행하도록 설정
             String[] command = {"/usr/bin/python3", pythonScriptPath, mail};
