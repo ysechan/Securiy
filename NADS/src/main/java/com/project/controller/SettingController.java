@@ -3,6 +3,7 @@ package com.project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,4 +47,23 @@ public class SettingController {
         
         return "Home"; // setting.html로 리디렉션
     }
+    
+    
+    
+    
+    @GetMapping("/setting")
+    public String showSettingPage(HttpSession session, Model model) {
+        // 현재 로그인된 사용자 정보 가져오기
+        UserEntity currentUser = (UserEntity) session.getAttribute("loginInfo");
+
+        if (currentUser != null) {
+            // 사용자 정보를 모델에 추가
+            model.addAttribute("userEntity", currentUser);
+        } else {
+            model.addAttribute("error", "로그인 정보가 없습니다.");
+        }
+
+        return "setting"; // setting.html로 이동
+    }
+
 }

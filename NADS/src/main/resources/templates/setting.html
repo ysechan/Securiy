@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="utf-8" />
@@ -146,7 +146,8 @@
 									<img class="man-438081_960_720"
 										src="img/man-438081-960-720@2x.png" alt="man-438081_960_720" />
 									<div class="flex-col">
-										<div class="jone-aly" th:text="${session.userName}">Moni Roy</div>
+										<div class="jone-aly" th:text="${session.userName}">Moni
+											Roy</div>
 										<div class="admin">Admin</div>
 									</div>
 									<img class="more" src="img/more@2x.png" alt="More" />
@@ -175,27 +176,29 @@
 											<div
 												class="place valign-text-middle inter-medium-nevada-16px">name</div>
 											<input type="text" class="rectangle99" name="name"
-												placeholder="Enter your name" />
+												placeholder="Enter your name" th:value="${userEntity.name}" />
 
 											<div
 												class="e-mail-adress valign-text-middle inter-medium-nevada-16px">E-mail
 												Address</div>
 											<input type="email" class="rectangle99" name="email"
-												placeholder="Enter your email address" />
+												placeholder="Enter your email address"
+												th:value="${userEntity.mail}" />
 
 											<div
 												class="phone-number valign-text-middle inter-medium-nevada-16px">Phone
 												number</div>
 											<input type="tel" class="rectangle99" name="phone"
-												placeholder="Enter your phone number" />
+												placeholder="Enter your phone number"
+												th:value="${userEntity.phone}" />
 
 											<div
 												class="ip-adress valign-text-middle inter-bold-blue-16px">IP
 												Address</div>
 											<input type="text" class="rectangle99" name="ip"
-												placeholder="Enter your IP address" />
+												placeholder="Enter your IP address"
+												th:value="${userEntity.ip}" />
 
-											<!-- Update 버튼을 앵커 태그로 변경 -->
 											<div class="overlap-group100">
 												<a href="javascript:void(0);"
 													onclick="document.forms[0].submit();"
@@ -207,9 +210,12 @@
 
 
 
+
+
+
 									</div>
 
-									
+
 								</div>
 							</div>
 
@@ -234,22 +240,47 @@
 
 
 	<script>
-			function toggleCheckbox() {
-				const checkbox = document.getElementById('rememberMe');
-				const checkboxImage = document.getElementById('checkboxImage');
+		function toggleCheckbox() {
+			const checkbox = document.getElementById('rememberMe');
+			const checkboxImage = document.getElementById('checkboxImage');
 
-				// 체크박스 상태 변경
-				checkbox.checked = !checkbox.checked;
+			// 체크박스 상태 변경
+			checkbox.checked = !checkbox.checked;
 
-				// 상태에 따라 이미지 업데이트
-				if (checkbox.checked) {
-					checkboxImage.style.backgroundImage = "url('img/square-checkbox-solid.svg')";
-				} else {
-					checkboxImage.style.backgroundImage = "url('img/square-checkbox-empty.svg')";
-				}
+			// 상태에 따라 이미지 업데이트
+			if (checkbox.checked) {
+				checkboxImage.style.backgroundImage = "url('img/square-checkbox-solid.svg')";
+			} else {
+				checkboxImage.style.backgroundImage = "url('img/square-checkbox-empty.svg')";
 			}
-			
-		</script>
+		}
+	</script>
+
+	<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 서버로부터 사용자 정보를 가져오는 fetch 요청
+        fetch('/getUserInfo')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('네트워크 응답에 문제가 있습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // 데이터가 유효하다면 폼 필드에 값을 채운다.
+                if (data) {
+                    document.getElementById('nameField').value = data.name || '';
+                    document.getElementById('emailField').value = data.mail || '';
+                    document.getElementById('phoneField').value = data.phone || '';
+                    document.getElementById('ipField').value = data.ip || '';
+                }
+            })
+            .catch(error => {
+                console.error('데이터를 가져오는 동안 문제가 발생했습니다:', error);
+            });
+    });
+</script>
+
 </body>
 
 </html>

@@ -59,10 +59,10 @@ public class HomeController {
 		return "Login";
 	}
 	
-	@GetMapping("/setting")
-	public String goSetting() {
-		return "setting";
-	}
+//	@GetMapping("/setting")
+//	public String goSetting() {
+//		return "getSetting";
+//	}
 	
 	@RequestMapping("/main")
 	public String goMain(HttpSession session) {
