@@ -1,2 +1,1 @@
-# Securiy
 # SMHRD_Securiy
